@@ -1,0 +1,23 @@
+baseURL = "https://ouroboros.rocks/"
+languageCode = "en-us"
+title = "Ouroboros"
+theme = "terrassa"
+enableRobotsTXT = true
+DefaultContentLanguage = "en"
+
+[params]
+description = "Ouroboros is a decentralized packet network"
+favicon = "/images/icon.png"
+logo = "/images/icon.png"
+
+[params.contact]
+email = "ouroboros@freelists.org"
+
+[params.copy]
+copy = ""
+
+[menu]
+[[menu.main]]
+name = "Repository"
+weight = 40
+url = "/cgit"

@@ -1,0 +1,434 @@
+---
+title: "Compilation options"
+draft: false
+---
+
+<p>
+  Below is a list of the compile-time configuration options for
+  Ouroboros. These can be set using
+</p>
+<pre><code>$ cmake -D&lt;option&gt;=&lt;value&gt; ..</code></pre>
+<p>or using</p>
+<pre><code>ccmake .</code></pre>
+<p>
+  Options will only show up in ccmake if they are relevant for
+  your system configuration. The default value for each option
+  is <u>underlined</u>. Boolean values will print as ON/OFF in
+  ccmake instead of True/False.
+</p>
+<table>
+  <tr>
+    <th>Option</th>
+    <th>Description</th>
+    <th>Values</th>
+  </tr>
+  <tr>
+    <th colspan="3">Compilation options</th>
+  </tr>
+  <tr>
+    <td>CMAKE_BUILD_TYPE</td>
+    <td>
+      Set the build type for Ouroboros. Debug builds will add some
+      extra logging. The debug build can further enable the
+      address sanitizer (ASan) thread sanitizer (TSan) and leak
+      sanitizer (LSan) options.
+    </td>
+    <td>
+      <u>Release</u>, Debug, DebugASan, DebugTSan, DebugLSan
+    </td>
+  </tr>
+  <tr>
+    <td>CMAKE_INSTALL_PREFIX</td>
+    <td>
+      Set a path prefix in order to install Ouroboros in a
+      sandboxed environment. Default is a system-wide install.
+    </td>
+    <td>
+      &lt;path&gt;
+    </td>
+  </tr>
+  <tr>
+    <td>DISABLE_SWIG</td>
+    <td>
+      Disable SWIG support.
+    </td>
+    <td>
+      True, <u>False</u>
+    </td>
+  </tr>
+  <tr>
+    <th colspan="3">Library options</th>
+  <tr>
+  <tr>
+    <td>DISABLE_FUSE</td>
+    <td>
+      Disable FUSE support, removing the virtual filesystem under
+      &lt;FUSE_PREFIX&gt;.
+    </td>
+    <td>
+      True, <u>False</u>
+    </td>
+  </tr>
+  <tr>
+    <td>FUSE_PREFIX</td>
+    <td>
+      Set the path where the fuse system should be
+      mounted. Default is /tmp/ouroboros.
+    </td>
+    <td>
+      &lt;path&gt;
+    </td>
+  </tr>
+  <tr>
+    <td>DISABLE_LIBGCRYPT</td>
+    <td>
+      Disable support for using the libgcrypt library for
+      cryptographically secure random number generation and
+      hashing.
+    </td>
+    <td>
+      True, <u>False</u>
+    </td>
+  </tr>
+  <tr>
+    <td>DISABLE_OPENSSL</td>
+    <td>
+      Disable support for the libssl library for cryptographic
+      random number generation and hashing.
+    </td>
+    <td>
+      True, <u>False</u>
+    </td>
+  </tr>
+  <tr>
+    <td>DISABLE_ROBUST_MUTEXES</td>
+    <td>
+      Disable
+      <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutexattr_getrobust.html">
+	robust mutex
+      </a>
+      support. Without robust mutex support, Ouroboros may lock up
+      if processes are killed using SIGKILL.
+    </td>
+    <td>
+      True, <u>False</u>
+    </td>
+  </tr>
+  <tr>
+    <td>PTHREAD_COND_CLOCK</td>
+    <td>
+      Set the
+      <a href="http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/time.h.html">
+	clock type
+      </a>
+      to use for timeouts for pthread condition variables. Default
+      on Linux/FreeBSD: CLOCK_MONOTONIC.  Default on OS X:
+      CLOCK_REALTIME.
+    </td>
+    <td>
+      &lt;clock_id_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <th colspan="3">Shared memory system options</th>
+  <tr>
+  <tr>
+    <td>SHM_PREFIX</td>
+    <td>
+      Set a prefix for the shared memory filenames. The mandatory
+      leading
+      <a href="http://pubs.opengroup.org/onlinepubs/9699919799/functions/shm_open.html">
+	slash
+      </a>
+      is added by the build system. Default is "ouroboros".
+    </td>
+    <td>
+      &lt;size_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <td>SHM_BUFFER_SIZE</td>
+    <td>
+      Set the maximum total number of packet blocks Ouroboros
+      can buffer at any point in time. Must be a power of 2.
+    </td>
+    <td>
+      &lt;size_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <td>SHM_RDRB_BLOCK_SIZE</td>
+    <td>
+      Set the size of a packet block. Default: page size of the
+      system.
+    </td>
+    <td>
+      &lt;size_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <td>SHM_RDRB_MULTI-BLOCK</td>
+    <td>
+      Allow packets that are larger than a single packet block.
+    </td>
+    <td>
+      <u>True</u>, False
+    </td>
+  </tr>
+  <tr>
+    <td>DU_BUFF_HEADSPACE</td>
+    <td>
+      Set the amount of space to allow for the addition of
+      protocol headers when a new packet buffer is passed to the
+      system. Default: 128 bytes.
+    </td>
+    <td>
+      &lt;size_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <td>DU_BUFF_TAILSPACE</td>
+    <td>
+      Set the amount of space to allow for the addition of
+      protocol tail information (CRCs) when a new packet buffer
+      is passed to the system. Default: 32 bytes.
+    </td>
+    <td>
+      &lt;size_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <th colspan="3">IRMd options</th>
+  </tr>
+  <tr>
+    <td>SYS_MAX_FLOWS</td>
+    <td>
+      The maximum number of flows this Ouroboros system can
+      allocate. Default: 10240.
+    </td>
+    <td>
+      &lt;size_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <td>SOCKET_TIMEOUT</td>
+    <td>
+      The IRMd sends commands to IPCPs over UNIX sockets. This
+      sets the timeout for such commands in milliseconds. Some
+      commands can be set independently. Default: 1000.
+    </td>
+    <td>
+      &lt;time_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <td>BOOTSTRAP_TIMEOUT</td>
+    <td>
+      Timeout for the IRMd to wait for a response to a bootstrap
+      command from an IPCP in milliseconds. Default: 5000.
+    </td>
+    <td>
+      &lt;time_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <td>ENROLL_TIMEOUT</td>
+    <td>
+      Timeout for the IRMd to wait for a response to an enroll
+      command from an IPCP in milliseconds. Default: 60000.
+    </td>
+    <td>
+      &lt;time_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <td>CONNECT_TIMEOUT</td>
+    <td>
+      Timeout for the IRMd to wait for a response to a connect
+      command from an IPCP in milliseconds. Default: 5000.
+    </td>
+    <td>
+      &lt;time_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <td>REG_TIMEOUT</td>
+    <td>
+      Timeout for the IRMd to wait for a response to a register
+      command from an IPCP in milliseconds. Default: 3000.
+    </td>
+    <td>
+      &lt;time_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <td>QUERY_TIMEOUT</td>
+    <td>
+      Timeout for the IRMd to wait for a response to a query
+      command from an IPCP in milliseconds. Default: 3000.
+    </td>
+    <td>
+      &lt;time_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <td>IRMD_MIN_THREADS</td>
+    <td>
+      The minimum number of threads in the threadpool the IRMd
+      keeps waiting for commands. Default: 8.
+    </td>
+    <td>
+      &lt;size_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <td>IRMD_ADD_THREADS</td>
+    <td>
+      The number of threads the IRMd will create if the current
+      available threadpool is lower than
+      IRMD_MIN_THREADS. Default: 8.
+    </td>
+    <td>
+      &lt;size_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <th colspan="3">IPCP options</th>
+  </tr>
+  <tr>
+    <td>DISABLE_RAPTOR</td>
+    <td>
+      Disable support for the raptor NetFPGA implementation.
+    </td>
+    <td>
+      True, <u>False</u>
+    </td>
+  </tr>
+  <tr>
+    <td>DISABLE_BPF</td>
+    <td>
+      Disable support for the Berkeley Packet Filter device
+      interface for the Ethernet LLC layer. If no suitable
+      interface is found, the LLC layer will not be built.
+    </td>
+    <td>
+      True, <u>False</u>
+    </td>
+  </tr>
+  <tr>
+    <td>DISABLE_NETMAP</td>
+    <td>
+      Disable <a href="http://info.iet.unipi.it/~luigi/netmap/">netmap</a>
+      support for the Ethernet LLC layer. If no suitable interface
+      is found, the LLC layer will not be built.
+    </td>
+    <td>
+      True, <u>False</u>
+    </td>
+  </tr>
+  <tr>
+    <td>DISABLE_RAW_SOCKETS</td>
+    <td>
+      Disable raw sockets support for the Ethernet LLC layer. If
+      no suitable interface is found,the LLC layer will not be
+      built.
+    </td>
+    <td>
+      True, <u>False</u>
+    </td>
+  </tr>
+  <tr>
+    <td>DISABLE_DDNS</td>
+    <td>
+      Disable Dynamic Domain Name System support for the UDP
+      layer.
+    </td>
+    <td>
+      True, <u>False</u>
+    </td>
+  </tr>
+  <tr>
+    <td>IPCP_SCHED_THR_MUL</td>
+    <td>
+      The number of scheduler threads an IPCP runs per QoS
+      cube. Default is 2.
+    </td>
+    <td>
+      &lt;size_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <td>IPCP_QOS_CUBE_BE_PRIORITY</td>
+    <td>
+      Priority for the best effort qos cube scheduler
+      thread. This is mapped to a system value. Scheduler
+      threads have at least half the system max priority value.
+    </td>
+    <td>
+      <u>0</u>..99
+    </td>
+  </tr>
+  <tr>
+    <td>IPCP_QOS_CUBE_VIDEO_PRIORITY</td>
+    <td>
+      Priority for the video qos cube scheduler thread. This is
+      mapped to a system value. Scheduler threads have at least
+      half the system max priority value.
+    </td>
+    <td>
+      0..<u>90</u>..99
+    </td>
+  </tr>
+  <tr>
+    <td>IPCP_QOS_CUBE_VOICE_PRIORITY</td>
+    <td>
+      Priority for the voice qos cube scheduler thread. This is
+      mapped to a system value. Scheduler threads have at least
+      half the system max priority value.
+    </td>
+    <td>
+      0..<u>99</u>
+    </td>
+  </tr>
+  <tr>
+    <td>IPCP_FLOW_STATS</td>
+    <td>
+      Enable statistics for the data transfer component.
+    </td>
+    <td>
+      True, <u>False</u>
+    </td>
+  </tr>
+
+  <tr>
+    <td>PFT_SIZE</td>
+    <td>
+      The forwarding table in the normal IPCP uses a
+      hashtable. This sets the size of this hash table. Default: 4096.
+    </td>
+    <td>
+      &lt;size_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <td>IPCP_MIN_THREADS</td>
+    <td>
+      The minimum number of threads in the threadpool the IPCP
+      keeps waiting for commands. Default: 4.
+    </td>
+    <td>
+      &lt;size_t&gt;
+    </td>
+  </tr>
+  <tr>
+    <td>IPCP_ADD_THREADS</td>
+    <td>
+      The number of threads the IPCP will create if the current
+      available threadpool is lower than
+      IPCP_MIN_THREADS. Default:4.
+    </td>
+    <td>
+      &lt;size_t&gt;
+    </td>
+  </tr>
+</table>
