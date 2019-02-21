@@ -7,8 +7,8 @@ DefaultContentLanguage = "en"
 
 [params]
 description = "Ouroboros is a decentralized packet network"
-favicon = "/images/icon.png"
-logo = "/images/icon.png"
+favicon = "/images/ouroboros_icon.png"
+logo = "/images/ouroboros_compact_64px.png"
 
 [params.contact]
 email = "ouroboros@freelists.org"
