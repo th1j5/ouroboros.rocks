@@ -6,9 +6,7 @@ Ouroboros is a decentralized packet network for POSIX operating
 systems.
 
 Ouroboros provides a simple and minimal API for synchronous and
-asynchronous IPC. Ouroboros can use IP, Ethernet LLC, Ethernet DIX or
-Ethernet PHY (using the experimental raptor NetFPGA implementation) at
-the lowest layer.
+asynchronous Inter-Process Communication (IPC).
 
 The best place to start exploring Ouroboros is this introduction
 presented at [FOSDEM
