@@ -22,4 +22,4 @@ $ git clone https://ouroboros.rocks/git/ouroboros
 $ git clone git://ouroboros.rocks/ouroboros
 ```
 
-Or download a [snapshot](cgit/ouroboros/).
+Or download a [snapshot](/cgit/ouroboros/).
