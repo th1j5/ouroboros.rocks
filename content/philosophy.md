@@ -30,7 +30,7 @@ he always will be considered one of the greatest computer scientists
 that ever lived, his passionate message to diligently strive for
 elegance seems to be all but erased from the collective consciousness
 of engineers and computer scientists. Are we further away today from
-computing's central challenge today than we were [almost 20 years ago]
+computing's central challenge than we were [almost 20 years ago]
 (https://www.cs.utexas.edu/users/EWD/transcriptions/EWD13xx/EWD1304.html)?
 
 <center>![](https://imgs.xkcd.com/comics/move_fast_and_break_things.png)</center>
