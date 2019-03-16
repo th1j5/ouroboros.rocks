@@ -2,12 +2,12 @@
 title: "A decentralized packet network"
 ---
 
-Ouroboros is a peer-to-peer recursive architecture that follows a UNIX
+Ouroboros is a peer-to-peer transport network that follows a UNIX
 design philosphy, with minimal packet headers. The aim is to provide a
-secure and private network experience. Ouroboros provides its own name
-resolution, reliability mechanisms, routing algorithms, and congestion
-control. It can be overlayed on top of UDP and Ethernet, and IP
-applications can be tunneled over Ouroboros.
+secure and private networking experience. Ouroboros provides its own
+name resolution, reliability mechanisms, routing algorithms, and
+congestion control. It can be overlayed on top of UDP and Ethernet,
+and IP applications can be tunneled over Ouroboros.
 
 Ouroboros is [free
 software](https://www.fsf.org/about/what-is-free-software), written in
