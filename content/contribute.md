@@ -74,7 +74,7 @@ We are currently looking for
     support both libraries so that we have a fallback should major bugs
     be discovered in one of them.
 -   Customized packet serialization to remove the dependency on Google
-    Protocol Buffers. We like GPB, but it\'s not perfect. Importing
+    Protocol Buffers. We like GPB, but it's not perfect. Importing
     .proto files may give rise to multiple definitions and we found no
     way to solve that.
 -   Caching for the DHT.
