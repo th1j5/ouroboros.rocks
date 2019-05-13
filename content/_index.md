@@ -15,9 +15,10 @@ C for and its application library provides a simple, unified API for
 synchronous and asynchronous Inter-Process Communication (IPC) and
 networking.
 
-The best place to start exploring Ouroboros is this introduction
+The best places to start exploring Ouroboros is this introduction
 presented at [FOSDEM
-2018](https://www.fosdem.org/2018/schedule/event/ipc/).
+2018](https://www.fosdem.org/2018/schedule/event/ipc/), and the [PhD
+dissertation](https://biblio.ugent.be/publication/8615152) of Sander Vrijders, especially chapters 5-6.
 
 This new website is currently under construction and undergoing
 frequent updates. The documentation is still sparse, please don't
