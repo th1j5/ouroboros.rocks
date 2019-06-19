@@ -1,7 +1,7 @@
 baseURL = "https://ouroboros.rocks/"
 languageCode = "en-us"
 title = "Ouroboros"
-theme = "terrassa"
+theme = "ananke"
 enableRobotsTXT = true
 DefaultContentLanguage = "en"
 
@@ -9,6 +9,7 @@ DefaultContentLanguage = "en"
 description = "Ouroboros is a decentralized packet network"
 favicon = "/images/ouroboros_icon.png"
 logo = "/images/ouroboros_compact_64px.png"
+featured_image = "/images/ouroboros_bg3.jpg"
 
 [params.copy]
 copy = ""

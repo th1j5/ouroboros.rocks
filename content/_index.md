@@ -1,16 +1,18 @@
 ---
-title: "A decentralized packet network"
+title: "The first completely decentralized packet network"
 ---
 
-Ouroboros is a peer-to-peer transport network built on a new recursive
-network paradigm following a UNIX design philosphy. The aim is to
-provide a secure and private networking experience and simplify
-writing distributed software and networking libraries.
+Ouroboros is a __peer-to-peer transport network__ built on a new
+__recursive network paradigm__ built according to a __UNIX design
+philosphy__. The aim is to provide a __secure__ and __private__
+networking experience and __simplify writing distributed software__
+and networking libraries. It provides a __very simple API__, enabling
+__unicast__ and __multicast__ services.
 
-Ouroboros is compatible with TCP/IP and can be overlayed over UDP and
-Ethernet. IP applications can be tunneled over Ouroboros. Ouroboros
-provides its own name resolution, reliability mechanisms, routing
-algorithms, and (soon) congestion control.
+Ouroboros can be __overlayed over UDP and Ethernet__. IP applications
+can be tunneled over Ouroboros. Ouroboros provides its own name
+resolution, reliability mechanisms, routing algorithms, and congestion
+control.
 
 Ouroboros was originally started at [imec](www.imec-int.com) under its
 Future Internet research, and is [free
