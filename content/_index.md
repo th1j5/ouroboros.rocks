@@ -3,7 +3,7 @@ title: "The first completely decentralized packet network"
 ---
 
 Ouroboros is a __peer-to-peer transport network__ built on a new
-__recursive network paradigm__ built according to a __UNIX design
+__recursive network paradigm__ according to a __UNIX design
 philosphy__. The aim is to provide a __secure__ and __private__
 networking experience and __simplify writing distributed software__
 and networking libraries. It provides a __very simple API__, enabling
