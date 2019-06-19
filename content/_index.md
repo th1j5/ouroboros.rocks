@@ -16,10 +16,7 @@ control.
 
 Ouroboros was originally started at [imec](www.imec-int.com) under its
 Future Internet research, and is [free
-software](https://www.fsf.org/about/what-is-free-software). It is
-written in C for and its application library provides a simple,
-unified API for synchronous and asynchronous Inter-Process
-Communication (IPC) and networking.
+software](https://www.fsf.org/about/what-is-free-software).
 
 The best places to start exploring Ouroboros is this introduction
 presented at [FOSDEM
