@@ -14,8 +14,8 @@ can be tunneled over Ouroboros. Ouroboros provides its own name
 resolution, reliability mechanisms, routing algorithms, and congestion
 control.
 
-Ouroboros was originally started at [imec](www.imec-int.com) under its
-Future Internet research, and is [free
+Ouroboros was originally started at [imec](https://www.imec-int.com)
+under its Future Internet research, and is [free
 software](https://www.fsf.org/about/what-is-free-software).
 
 The best places to start exploring Ouroboros is this introduction
