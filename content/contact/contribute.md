@@ -1,10 +1,7 @@
 ---
 title: "Contribute"
-menu: "main"
+date:  2019-06-22
 draft: false
-menu:
-  main:
-    weight: 20
 ---
 
 General discussion and support

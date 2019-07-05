@@ -4,18 +4,103 @@ title = "Ouroboros"
 theme = "ananke"
 enableRobotsTXT = true
 DefaultContentLanguage = "en"
+#MetaDataFormat = "yaml"
 
 [params]
 description = "Ouroboros is a decentralized packet network"
 favicon = "/images/ouroboros_icon.png"
 logo = "/images/ouroboros_compact_64px.png"
 featured_image = "/images/ouroboros_bg3.jpg"
-
-[params.copy]
-copy = ""
+twitter = "https://twitter.com/ODecentralize"
+date_format = "January 2, 2006"
+copyright = "CC BY-SA"
+author = "Dimitri Staessens"
+defaultDestcription = "Ouroboros"
 
 [menu]
-[[menu.main]]
-name = "Repository"
-weight = 40
-url = "/cgit"
+
+        [[menu.main]]
+                name       = "Download"
+                weight     = 1
+                url        = "/download/"
+        # [[menu.main]]
+        #         name       = "Get Ouroboros"
+        #         parent     = "Download"
+        #         weight     = 1
+        #         url        = "/download/get/"
+        # [[menu.main]]
+        #         name       = "Install"
+        #         parent     = "Download"
+        #         weight     = 2
+        #         url        = "/download/install/"
+        # [[menu.main]]
+        #         name       = "Requirements"
+        #         parent     = "Download"
+        #         weight     = 3
+        #         url        = "/download/requirements/"
+
+        [[menu.main]]
+                name       = "Documentation"
+                weight     = 2
+                identifier = "id_docs"
+                url        = "/docs/"
+        [[menu.main]]
+                name       = "Getting started"
+                parent     = "id_docs"
+                weight     = 1
+                identifier = "id_docs_qs"
+                url        = "/docs/quickstart/"
+        [[menu.main]]
+                name       = "Tutorials"
+                parent     = "id_docs"
+                weight     = 2
+                identifier = "id_tut"
+                url        = "/docs/tutorials/"
+        [[menu.main]]
+                name       = "Development"
+                parent     = "id_docs"
+                weight     = 3
+                identifier = "id_devt"
+                url        = "/docs/development/"
+        [[menu.main]]
+                name       = "Manual"
+                parent     = "id_docs"
+                weight     = 4
+                identifier = "id_man"
+                url        = "/man/"
+
+        [[menu.main]]
+                name       = "Extra"
+                weight     = 3
+                identifier = "id_extra"
+                url        = "/extra/"
+        # [[menu.main]]
+        #         name       = "Rumba"
+        #         parent     = "id_extra"
+        #         weight     = 1
+        #         identifier = "id_extra"
+        #         url        = "/extra/rumba/"
+        # [[menu.main]]
+        #         name       = "IoQuake3"
+        #         parent     = "id_extra"
+        #         weight     = 2
+        #         identifier = "id_extra"
+        #         url        = "/extra/ioq3/"
+        # [[menu.main]]
+        #         name       = "Raptor"
+        #         parent     = "id_extra"
+        #         weight     = 3
+        #         identifier = "id_extra_raptor"
+        #         url        = "/extra/raptor/"
+
+        [[menu.main]]
+                name       = "About"
+                weight     = 4
+                identifier = "id_about"
+                url        = "/about/"
+
+        [[menu.main]]
+                name       = "Repository"
+                weight     = 100
+                identifier = "id_repo"
+                url        = "/cgit/"

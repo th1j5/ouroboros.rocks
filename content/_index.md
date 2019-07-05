@@ -1,5 +1,7 @@
 ---
-title: "The first completely decentralized packet network"
+title: "A completely decentralized packet network"
+date:  2019-06-22
+draft: false
 ---
 
 Ouroboros is a __peer-to-peer transport network__ built on a new
@@ -9,6 +11,7 @@ networking experience and __simplify writing distributed software__
 and networking libraries. It provides a __very simple API__, enabling
 __unicast__ and __multicast__ services.
 
+<!---
 Ouroboros can be __overlayed over UDP and Ethernet__. IP applications
 can be tunneled over Ouroboros. Ouroboros provides its own name
 resolution, reliability mechanisms, routing algorithms, and congestion
@@ -23,6 +26,7 @@ presented at [FOSDEM
 2018](https://www.fosdem.org/2018/schedule/event/ipc/), and the [PhD
 dissertation](https://biblio.ugent.be/publication/8615152) of Sander
 Vrijders, especially chapters 5-6.
+--->
 
 This new website is currently under construction and undergoing
 frequent updates. The documentation is still sparse, please don't

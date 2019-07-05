@@ -1,10 +1,6 @@
 ---
 title: "About"
-menu: "main"
 draft: false
-menu:
-  main:
-    weight: 30
 ---
 
 The Ouroboros project is a decentralized packet network implementation

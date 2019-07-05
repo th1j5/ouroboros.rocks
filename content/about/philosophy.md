@@ -1,6 +1,5 @@
 ---
 title: "Philosophy"
-description: ""
 date: 2019-02-28T09:52:26+01:00
 publishDate: 2019-02-28T09:52:26+01:00
 author: "Dimitri Staessens"

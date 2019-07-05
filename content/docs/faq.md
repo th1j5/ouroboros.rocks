@@ -1,5 +1,6 @@
 ---
 title: "Frequently Asked Questions (FAQ)"
+date:  2019-06-22
 draft: false
 ---
 
