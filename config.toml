@@ -6,7 +6,6 @@ enableRobotsTXT = true
 DefaultContentLanguage = "en"
 #MetaDataFormat = "yaml"
 Paginate = 6
-env = "production" #enable robots to index
 
 [params]
 description = "Ouroboros is a decentralized packet network"
@@ -20,6 +19,7 @@ author = "Dimitri Staessens"
 defaultDestcription = "Ouroboros"
 recent_posts_number = 2
 body_classes = "georgia bg-near-white"
+env = "production" #enable robots to index
 
 [menu]
 
