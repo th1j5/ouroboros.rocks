@@ -5,6 +5,8 @@ theme = "ananke"
 enableRobotsTXT = true
 DefaultContentLanguage = "en"
 #MetaDataFormat = "yaml"
+Paginate = 6
+env = "production" #enable robots to index
 
 [params]
 description = "Ouroboros is a decentralized packet network"
@@ -16,6 +18,8 @@ date_format = "January 2, 2006"
 copyright = "CC BY-SA"
 author = "Dimitri Staessens"
 defaultDestcription = "Ouroboros"
+recent_posts_number = 2
+body_classes = "georgia bg-near-white"
 
 [menu]
 
@@ -98,6 +102,13 @@ defaultDestcription = "Ouroboros"
                 weight     = 4
                 identifier = "id_about"
                 url        = "/about/"
+
+        # [[menu.main]]
+        #         name       = "News"
+        #         weight     = 5
+        #         identifier = "blog"
+        #         url        = "/blog/"
+
 
         [[menu.main]]
                 name       = "Repository"
