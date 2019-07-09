@@ -147,8 +147,8 @@ layer, and layers are mostly defined by their __scope__. The lowest
 layers span a link or the reach of some wireless technology. Higher
 layers span a LAN or the network of a corporation e.g. a subnetwork or
 an Autonomous System (AS). An even higher layer would be a global
-network. An even higher one a Virtual Private Network. An even higher
-one a tunnel, etc. Each layer being the same in terms of
+network, followed by a Virtual Private Network and on top a tunnel
+that supports the application. Each layer being the same in terms of
 functionality, but different in its choice of algorithm or
 implementation. Sometimes the function is just not implemented
 (there's no need for routing in a tunnel!), but logically it could be
