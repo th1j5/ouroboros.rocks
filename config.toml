@@ -20,6 +20,7 @@ defaultDestcription = "Ouroboros"
 recent_posts_number = 2
 body_classes = "georgia bg-near-white"
 env = "production" #enable robots to index
+#custom_css = ["css/override.css"]
 
 [menu]
 
