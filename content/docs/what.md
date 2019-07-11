@@ -7,15 +7,6 @@ date:  2019-07-06
 draft: false
 ---
 
-# Ouroboros has the objective to greatly simplify the creation and
-# management of distributed applications, through a single, unified API.
-# The API is completely agnostic of where the applications are running,
-# whether the destination application is running locally on your
-# machine, or remotely over the internet, the API calls are exactly the
-# same.
-
-# It is based on the __recursive networks__ paradigm.
-
 # The current networking paradigm
 
 <center> {{<figure
