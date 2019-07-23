@@ -79,13 +79,20 @@ IPCPs: __F3__ --> __C2__ --> __C1__ --> __F1__ --> __D2__ --> __A1__
 --> __A2__ --> __D1__ --> __B1__ --> __B2__ --> __D3__ --> __F2__ -->
 __E1__ --> __E2__ --> __F4__.
 
+<center> {{<figure class="w-200" src="/images/dependencies.jpg">}} </center>
+
 A recursive network has __dependencies__ between layers in the
-network, and between IPCPs in a __system__. To avoid problems, these
-dependencies should never contain cycles (so a layer I should not
-directly or indirectly depend on itself). The rank of a layer is
-defined as the maximum depth of the (directed acyclic) dependency graph.
+network, and between IPCPs in a __system__. These dependencies can be
+represented as a directed acyclic graph (DAG). To avoid problems,
+these dependencies should never contain cycles (so a layer I should
+not directly or indirectly depend on itself). The rank of a layer is
+defined (either locally or globally) as the maximum depth of this
+layer in the DAG.
+
+[Next: Creating layers](/docs/irmd/)
 
 ---
 Changelog:
 
-2019 07 11: Initial version.
+2019 07 11: Initial version.<br>
+2019 07 23: Added dependency graph figure
