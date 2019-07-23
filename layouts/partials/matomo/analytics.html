@@ -8,6 +8,10 @@
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
   (function() {
+    if (window.location.hostname === "localhost") {
+      console.log("Analytics not running on local dev.");
+        return;
+    }
     var u="//ouroboros.rocks/piwik/";
     _paq.push(['setTrackerUrl', u+'matomo.php']);
     _paq.push(['setSiteId', '1']);
