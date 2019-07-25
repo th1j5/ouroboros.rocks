@@ -7,9 +7,11 @@ date:  2019-07-23
 draft: false
 ---
 
-The most important structure in recursive networks are layers, that
-are built op from [elements](/docs/elements/) called Inter-Process
-Communication Processes (IPCPs).
+The most important structure in recursive networks are the layers,
+that are built op from [elements](/docs/elements/) called
+Inter-Process Communication Processes (IPCPs). (Note again that the
+layers in recursive networks are not the same as layers in the OSI
+model).
 
 <center>
 {{<figure class="fl w-90"
@@ -36,37 +38,51 @@ creating IPCPs of a given *type*. This just runs the process without
 any further configuration. At this point, that process is not part of
 any layer.
 
-<center>
-{{<figure class="c w-60"
-          src="/images/irm_ipcp_create.png">}}
-</center>
+```
+$ irm ipcp create type unicast name my_ipcp
+$ irm ipcp list
++---------+----------------------+------------+----------------------+
+|     pid |                 name |       type |                layer |
++---------+----------------------+------------+----------------------+
+|    7224 |              my_ipcp |    unicast |         Not enrolled |
++---------+----------------------+------------+----------------------+
+```
 
 The example above creates a unicast IPCP and gives that IPCP a name
 (we called it "my_ipcp"). A listing of the IPCPs in the system shows
-that the IPCP is running as process 4157, and it is not part of a
+that the IPCP is running as process 7224, and it is not part of a
 layer ("*Not enrolled*").
 
 To create a new functioning network layer, we need to configure the
 IPCP, using a primitive called __bootstrapping__. Bootstrapping sets a
-number of parameters for the layer (such as the routing algorithm to
-use) and activates the IPCP to allow it to start providing flows.  The
-Ouroboros command line allows creating an IPCP with some default
-values, that are a bit like a vanilla IPv4 network: 32-bit addresses
-and shortest-path link-state routing.
+number of configuration optionss for the layer (such as the routing
+algorithm to use) and activates the IPCP to allow it to start
+providing flows.  The Ouroboros command line allows creating an IPCP
+with some default values, that are a bit like a vanilla IPv4 network:
+32-bit addresses and shortest-path link-state routing.
 
-<center>
-{{<figure class="c w-60"
-          src="/images/irm_ipcp_bootstrap.png">}}
-</center>
+```
+$ irm ipcp bootstrap name my_ipcp layer my_layer
+$ irm ipcp list
++---------+----------------------+------------+----------------------+
+|     pid |                 name |       type |                layer |
++---------+----------------------+------------+----------------------+
+|    7224 |              my_ipcp |    unicast |             my_layer |
++---------+----------------------+------------+----------------------+
+```
 
-Now, we have a single node-network. In order to create a larger
+Now we have a single node-network. In order to create a larger
 network, we connect and configure new IPCPs using a third primitive
 called __enrollment__. When enrolling an IPCP in a network, it will
 create a flow (using a lower layer) to an existing member of the
 layer, download the bootstrapping information, and use it to configure
 itself as part of this layer.
 
-[TODO: enrollment example]
+The final primitive is the __connect__ (and __disconnect__)
+primitive. This allows to create *adjacencies* between network nodes.
+
+An example of how to create a small two-node network is given in
+[tutorial 2](/docs/tutorials/tutorial-2/)
 
 ---
 Changelog:
