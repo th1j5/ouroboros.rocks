@@ -1,10 +1,23 @@
 ---
 title: "About"
 draft: false
+date:  2019-08-02
 ---
 
 The Ouroboros project is a decentralized packet network implementation
-started by Sander Vrijders and Dimitri Staessens.
+started by Sander Vrijders and Dimitri Staessens. It stems from our
+deep interest in computer networks, trying to solve some long standing
+problems in IP networks such as achieving clean fragmentation, routing
+scalability, efficient congestion control and simple
+multicast. Instead of trying to tackle these issues in isolation, we
+subscribe to the view that the entire TCP/IP design is *fundamentally*
+broken, and a holistic approach is needed to build efficient packet
+networks.
+
+In addition, a lot of the design is inspired by Edward Snowdens
+revelations and his call to [drastically improve end-user security and
+privacy](https://www.theatlantic.com/politics/archive/2014/05/edward-snowdens-other-motive-for-leaking/370068/)
+on the internet.
 
 ### Licenses
 
@@ -25,7 +38,5 @@ Ouroboros is distributed in the hope that it will be useful, but without
 any warranty; without even the implied warranty of merchantability or
 fitness for a particular purpose.
 
-At present, Ouroboros is a research prototype. Although it is developed
-with utmost care, it may expose the host system to unknown security
-risks and attack vectors. As such, we recommend to test it in a
-contained environment.
+At present, Ouroboros should be considered an advanced research
+prototype.
