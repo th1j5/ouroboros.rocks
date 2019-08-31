@@ -3,18 +3,19 @@ title: "Tutorial 2: Adding a layer"
 draft: false
 ---
 
-In this tutorial we will add a *normal layer* on top of the local layer.
-Make sure you have a local layer running. The network will look like
-this:
+In this tutorial we will add a __unicast layer__ on top of the local
+layer.  Make sure you have a [local
+layer](/docs/tutorials/tutorial-1/) running. The network will look
+like this:
 
-![Tutorial 2 setup](/images/ouroboros_tut2_overview.png)
+![Tutorial 2 setup](/images/tut-2-1.jpg)
 
-Let's start adding the normal layer. We will first bootstrap a normal
-IPCP, with name "normal_1" into the "normal_layer" (using default
-options). In terminal 2, type:
+Let's start adding the unicast layer. We will first bootstrap a
+unicast IPCP, with name "U1" into the layer "U" (using
+default options). In terminal 2, type:
 
 ```
-$ irm ipcp bootstrap type normal name normal_1 layer normal_layer
+$ irm ipcp bootstrap type unicast name U1 layer U
 ```
 
 The IRMd and IPCP will report the bootstrap:
