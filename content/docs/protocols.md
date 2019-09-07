@@ -1,5 +1,5 @@
 ---
-title: "Packet network protocols"
+title: "Ouroboros packet network protocols"
 author: "Dimitri Staessens"
 description: "protocols"
 date:  2019-09-06
@@ -7,79 +7,7 @@ date:  2019-09-06
 draft: false
 ---
 
-# Network protocols
-
-Packet switched networks move data between two applications using
-_network protocols_, which specify where to move the data and how to
-do it.  The Internet famously uses the Internet Protocol, IP (versions
-4 and 6, which are mutually incompatible, so in essence, there is not
-a single Internet, there are two!) as the network protocol that
-specifies how to move packets from point _A_ to point _B_.
-
-In order to move a packet from _A_ to _B_, each intermediate node _C_
-in the network will investigate the packet header and, based on the
-destination address, forward the packet onward until it reaches _B_.
-
-The IPv4 protocol is specified in
-[RFC791](https://tools.ietf.org/html/rfc791), and its _header_ is
-shown here:
-
-```
-  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |Version|  IHL  |Type of Service|          Total Length         |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |         Identification        |Flags|      Fragment Offset    |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |  Time to Live |    Protocol   |         Header Checksum       |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                       Source Address                          |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                    Destination Address                        |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                    Options                    |    Padding    |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-```
-
-The IPv6 protocol is specified in
-[RFC2460](https://tools.ietf.org/html/rfc2460), and its header format
-is:
-
-```
-  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |Version| Traffic Class |           Flow Label                  |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |         Payload Length        |  Next Header  |   Hop Limit   |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                                                               |
- +                                                               +
- |                                                               |
- +                         Source Address                        +
- |                                                               |
- +                                                               +
- |                                                               |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                                                               |
- +                                                               +
- |                                                               |
- +                      Destination Address                      +
- |                                                               |
- +                                                               +
- |                                                               |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-```
-
-For a detailed description of what all the fields in this protocol
-mean, we gladly refer you to the RFCs or the wikipedia pages (
-[IPv4](https://en.wikipedia.org/wiki/IPv4) and
-[IPv6](https://en.wikipedia.org/wiki/IPv6)).
-
-The most interesting fact about the jump from IPv4 to IPv6 is that the
-protocol got noticeably _simpler_.
+# Network protocol
 
 As Ouroboros tries to preserve privacy as much as possible, it has an
 *absolutely minimal network protocol*:
@@ -133,39 +61,11 @@ The 5 fields in the Ouroboros network protocol are:
   similar to an ephemeral port. However, in Ouroboros there is no
   hardcoded or standardized mapping of an EID to an application.
 
-# Transport protocols
+# Transport protocol
 
 Packet switched networks use transport protocols on top of their
 [network protocols](/docs/network_protocols) in order to deal with
-lost or corrupted packets. IP has the Transport Control Protocol (TCP)
-that takes care of things when IP packets get lost. TCP also does some
-other neat things, like making sure that a client does not send faster
-than a server can process (_flow control_); and making sure that the
-network doesn't get overwhelmed by its users (_congestion control_).
-
-The TCP protocol is specified in
-[RFC793](https://tools.ietf.org/html/rfc793), and its _header_ is
-shown here:
-
-```
-  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |          Source Port          |       Destination Port        |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                        Sequence Number                        |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                    Acknowledgment Number                      |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |  Data |           |U|A|P|R|S|F|                               |
- | Offset| Reserved  |R|C|S|S|Y|I|            Window             |
- |       |           |G|K|H|T|N|N|                               |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |           Checksum            |         Urgent Pointer        |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                    Options                    |    Padding    |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-```
+lost or corrupted packets.
 
 The Ouroboros Transport protocol (called the _Flow and Retransmission
 Control Protocol_, FRCP) has only 4 fields:
