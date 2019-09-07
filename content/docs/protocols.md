@@ -64,8 +64,7 @@ The 5 fields in the Ouroboros network protocol are:
 # Transport protocol
 
 Packet switched networks use transport protocols on top of their
-[network protocols](/docs/network_protocols) in order to deal with
-lost or corrupted packets.
+network protocol in order to deal with lost or corrupted packets.
 
 The Ouroboros Transport protocol (called the _Flow and Retransmission
 Control Protocol_, FRCP) has only 4 fields:
