@@ -1,118 +1,144 @@
-baseURL = "https://ouroboros.rocks/"
-languageCode = "en-us"
+baseURL = "/"
 title = "Ouroboros"
-theme = "ananke"
+
 enableRobotsTXT = true
-DefaultContentLanguage = "en"
-#MetaDataFormat = "yaml"
-Paginate = 6
+
+# Hugo allows theme composition (and inheritance).
+# The precedence is from left to right.
+theme = ["docsy"]
+
+# Will give values to .Lastmod etc.
+enableGitInfo = true
+
+# Language settings
+contentDir = "content/en"
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+# Useful when translating.
+enableMissingTranslationPlaceholders = true
+
+disableKinds = ["taxonomy", "taxonomyTerm"]
+
+# Highlighting config
+pygmentsCodeFences = true
+pygmentsUseClasses = false
+# Use the new Chroma Go highlighter in Hugo.
+pygmentsUseClassic = false
+#pygmentsOptions = "linenos=table"
+# See https://help.farbox.com/pygments.html
+pygmentsStyle = "tango"
+
+# Configure how URLs look like per section.
+[permalinks]
+blog = "/:section/:year/:month/:day/:slug/"
+
+## Configuration for BlackFriday markdown parser: https://github.com/russross/blackfriday
+[blackfriday]
+plainIDAnchors = true
+hrefTargetBlank = true
+angledQuotes = false
+latexDashes = true
+
+# Image processing configuration.
+[imaging]
+resampleFilter = "CatmullRom"
+quality = 100
+anchor = "smart"
+
+[services]
+#[services.googleAnalytics]
+# Comment out the next line to disable GA tracking.
+# Also disables the feature described in [params.ui.feedback].
+# id = "UA-00000000-0"
+
+# Language configuration
+
+[languages]
+[languages.en]
+title = "Ouroboros"
+description = "A Decentralized Packet Network"
+languageName ="English"
+weight = 1
+
+
+# Everything below this are Site Params
 
 [params]
-description = "Ouroboros is a decentralized packet network"
-favicon = "/images/ouroboros_icon.png"
-logo = "/images/ouroboros_compact_64px.png"
-featured_image = "/images/ouroboros_bg3.jpg"
-twitter = "https://twitter.com/ODecentralize"
-date_format = "January 2, 2006"
-copyright = "CC BY-SA"
-author = "Dimitri Staessens"
-defaultDestcription = "Ouroboros"
-recent_posts_number = 2
-body_classes = "georgia bg-near-white"
-env = "production" #enable robots to index
-#custom_css = ["css/override.css"]
+copyright = "Ouroboros"
+favicon = "/ouroboros_icon.png"
 
-[menu]
+#privacy_policy = "https://policies.google.com/privacy"
 
-        [[menu.main]]
-                name       = "Download"
-                weight     = 1
-                url        = "/download/"
-        # [[menu.main]]
-        #         name       = "Get Ouroboros"
-        #         parent     = "Download"
-        #         weight     = 1
-        #         url        = "/download/get/"
-        # [[menu.main]]
-        #         name       = "Install"
-        #         parent     = "Download"
-        #         weight     = 2
-        #         url        = "/download/install/"
-        # [[menu.main]]
-        #         name       = "Requirements"
-        #         parent     = "Download"
-        #         weight     = 3
-        #         url        = "/download/requirements/"
+# First one is picked as the Twitter card image if not set on page.
+# images = ["images/project-illustration.png"]
 
-        [[menu.main]]
-                name       = "Documentation"
-                weight     = 2
-                identifier = "id_docs"
-                url        = "/docs/"
-        [[menu.main]]
-                name       = "Getting started"
-                parent     = "id_docs"
-                weight     = 1
-                identifier = "id_docs_qs"
-                url        = "/docs/quickstart/"
-        [[menu.main]]
-                name       = "Tutorials"
-                parent     = "id_docs"
-                weight     = 2
-                identifier = "id_tut"
-                url        = "/docs/tutorials/"
-        [[menu.main]]
-                name       = "Development"
-                parent     = "id_docs"
-                weight     = 3
-                identifier = "id_devt"
-                url        = "/docs/development/"
-        [[menu.main]]
-                name       = "Manual"
-                parent     = "id_docs"
-                weight     = 4
-                identifier = "id_man"
-                url        = "/man/"
+# Menu title if your navbar has a versions selector to access old versions of your site.
+# This menu appears only if you have at least one [params.versions] set.
+#version_menu = "Releases"
 
-        [[menu.main]]
-                name       = "Extra"
-                weight     = 3
-                identifier = "id_extra"
-                url        = "/extra/"
-        # [[menu.main]]
-        #         name       = "Rumba"
-        #         parent     = "id_extra"
-        #         weight     = 1
-        #         identifier = "id_extra"
-        #         url        = "/extra/rumba/"
-        # [[menu.main]]
-        #         name       = "IoQuake3"
-        #         parent     = "id_extra"
-        #         weight     = 2
-        #         identifier = "id_extra"
-        #         url        = "/extra/ioq3/"
-        # [[menu.main]]
-        #         name       = "Raptor"
-        #         parent     = "id_extra"
-        #         weight     = 3
-        #         identifier = "id_extra_raptor"
-        #         url        = "/extra/raptor/"
+# Repository configuration (URLs for in-page links to opening issues and suggesting changes)
+#github_repo = "https://github.com/google/docsy-example"
+# An optional link to a related project repo. For example, the sibling repository where your product code lives.
+#github_project_repo = "https://github.com/google/docsy"
 
-        [[menu.main]]
-                name       = "About"
-                weight     = 4
-                identifier = "id_about"
-                url        = "/about/"
+# Specify a value here if your content directory is not in your repo's root directory
+# github_subdir = ""
 
-        # [[menu.main]]
-        #         name       = "News"
-        #         weight     = 5
-        #         identifier = "blog"
-        #         url        = "/blog/"
+# Google Custom Search Engine ID. Remove or comment out to disable search.
+#gcs_engine_id = "011737558837375720776:fsdu1nryfng"
 
+# User interface configuration
+[params.ui]
+# Enable to show the side bar menu in its compact state.
+sidebar_menu_compact = false
+#  Set to true to disable breadcrumb navigation.
+breadcrumb_disable = false
+#  Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
+sidebar_search_disable = false
+#  Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top nav bar
+navbar_logo = true
+# Set to true to disable the About link in the site footer
+footer_about_disable = true
 
-        [[menu.main]]
-                name       = "Repository"
-                weight     = 100
-                identifier = "id_repo"
-                url        = "/cgit/"
+# Adds a H2 section titled "Feedback" to the bottom of each doc. The responses are sent to Google Analytics as events.
+# This feature depends on [services.googleAnalytics] and will be disabled if "services.googleAnalytics.id" is not set.
+# If you want this feature, but occasionally need to remove the "Feedback" section from a single page,
+# add "hide_feedback: true" to the page's front matter.
+#[params.ui.feedback]
+#enable = true
+# The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
+#yes = 'Glad to hear it! Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
+#no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
+
+[params.links]
+# End user relevant links. These will show up on left side of footer and in the community page if you have one.
+#[[params.links.user]]
+#       name = "Ouroboros mailing list"
+#       url = ""
+#       icon = "fa fa-envelope"
+#        desc = "Ouroboros discussion and patch list"
+[[params.links.user]]
+        name ="Twitter"
+        url = "https://twitter.com/ODecentralize"
+        icon = "fab fa-twitter"
+        desc = "Follow us on Twitter to get the latest news!"
+[[params.links.developer]]
+        name = "Repository"
+        url = "https://ouroboros.rocks/cgit"
+        icon = "fab fa-git"
+        desc = "Browse the repository"
+[[params.links.developer]]
+        name = "IRC"
+        url = "https://webchat.freenode.net/?channels=#ouroboros"
+        icon = "fas fa-hashtag"
+        desc = "Chat with the developers"
+[[params.links.developer]]
+        name = "Bugzilla"
+        url = "/bugzilla"
+        icon = "fas fa-bug"
+        desc = "Send a bug report"
+[[params.links.developer]]
+        name = "Developer mailing list"
+        url = "https://www.freelists.org/list/ouroboros"
+        icon = "fa fa-envelope"
+        desc = "Discuss development issues and send patches"
