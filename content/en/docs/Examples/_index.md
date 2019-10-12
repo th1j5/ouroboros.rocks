@@ -5,7 +5,7 @@ linkTitle: "Examples"
 weight: 50
 date: 2017-01-05
 description: >
-  This is a collections of examples what can be done with ouroboros.
+  This is a collection of examples of what can be done with Ouroboros.
 ---
 
 {{% pageinfo %}}

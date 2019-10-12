@@ -14,7 +14,7 @@ _be_ branch). This tutorial shows how to create an *encrypted IP
 tunnel* using the Ouroboros VPN (ovpn) tool, which exposes _tun_
 interfaces to inject Internet Protocol traffic into an Ouroboros flow.
 
-We'll first illustrate what's going on over an ethernet loopback
+We'll first illustrate what's going on over an Ethernet loopback
 adapter and then show how to create an encrypted tunnel between two
 machines connected over an IP network.
 
@@ -63,7 +63,7 @@ $ sudo ovpn --ip 127.0.0.3 --mask 255.255.255.0
 ```
 
 From another terminal, we can start an ovpn client to connect to the
-server (which listens to the name _my\_vpn_) and pass the --crypt
+server (which listens to the name _my\_vpn_) and pass the \-\-crypt
 option to encrypt the tunnel:
 
 ```bash
@@ -104,7 +104,7 @@ $ sudo tcpdump -i tun1
 $ sudo tcpdump -i lo
 ```
 
-and from another terminal, send some pings into the other endpoint:
+From another terminal, send some pings into the other endpoint:
 
 ```bash
 $ ping 10.10.10.1 -i tun0
@@ -122,7 +122,7 @@ listening on tun1, link-type RAW (Raw IP), capture size 262144 bytes
 13:35:22.247871 IP heteropoda > 10.10.10.1: ICMP echo request, id 3011, seq 3, length 64
 ```
 
-while the tcpdump on the loopback shows the AES encrypted traffic that
+While the tcpdump on the loopback shows the AES encrypted traffic that
 is actually sent on the flow:
 
 ```bash
@@ -208,9 +208,3 @@ And on the client:
 ```bash
 $ sudo ovpn -n my_vpn -i 127.0.0.8 -m 255.255.255.0 --crypt
 ```
-
----
-
-Changelog:
-
-2018-08-31: Initial version.

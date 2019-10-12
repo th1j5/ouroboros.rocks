@@ -83,8 +83,3 @@ primitive. This allows to create *adjacencies* between network nodes.
 
 An example of how to create a small two-node network is given in
 [tutorial 2](/docs/tutorials/tutorial-2/)
-
----
-Changelog:
-
-2019-07-23: Initial version

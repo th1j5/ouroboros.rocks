@@ -88,9 +88,3 @@ these dependencies should never contain cycles (so a layer I should
 not directly or indirectly depend on itself). The rank of a layer is
 defined (either locally or globally) as the maximum depth of this
 layer in the DAG.
-
----
-Changelog:
-
-2019 07 11: Initial version.<br>
-2019 07 23: Added dependency graph figure

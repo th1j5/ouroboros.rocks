@@ -38,14 +38,14 @@ $ cmake -D<option>=<value> ..
 ```
 
 Alternatively, after running cmake and before installation, run
-[ccmake](https://cmake.org/cmake/help/v3.0/manual/ccmake.1.html) to
+[ccmake](https://cmake.org/cmake/help/latest/manual/ccmake.1.html) to
 configure Ouroboros:
 
 ```bash
 $ ccmake .
 ```
 
-A list of all options can be found [here](/compopt).
+A list of all options can be found [here](/docs/reference/compopt).
 
 ### Remove Ouroboros
 

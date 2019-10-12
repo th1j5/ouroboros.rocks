@@ -120,11 +120,3 @@ which is a timer-based protocol that is a bit simpler in operation
 than the equivalent functionalities in TCP. In contrast with TCP/IP,
 Ouroboros does congestion control purely in the network protocol, and
 fragmentation and flow control purely in the transport protocol.
-
-
-
-
---- Changelog:
-
-2019 09 05: Initial version.<br>
-2019 09 06: Added section on transport protocol.

@@ -68,7 +68,7 @@ The full code for an example is the
 application in the tools directory.
 
 To compile your C program from the command line, you have to link
--lourobos-dev. For instance, in the Ouroboros repository, you can do
+-louroboros-dev. For instance, in the Ouroboros repository, you can do
 
 ```bash
 cd src/tools/oecho

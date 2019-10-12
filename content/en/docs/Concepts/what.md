@@ -100,7 +100,7 @@ __metric__ (distance function).
 
 __Network discovery__: Ethernet switches learn where the endpoints are
 through MAC learning, remembering the incoming interface when it sees
-a new SRC address; IP routers learn the network by exchanging
+a new soure address; IP routers learn the network by exchanging
 informational packets about adjacency in a process called *routing*;
 and a VPN proxy server relays packets as the central hub of a network
 connected as a star between the VPN clients and the local area
@@ -138,9 +138,3 @@ functionality, but different in its choice of algorithm or
 implementation. Sometimes the function is just not implemented
 (there's no need for routing in a tunnel!), but logically it could be
 there.
-
-
----
-Changelog:
-
-2019 07 09: Initial version.
