@@ -59,9 +59,8 @@ We're very open to constructive suggestions on how to further improve
 the prototype and the documentation, in particular this website. We
 know it's hard to understand in places. No matter how simple we made
 the architecture, it's still a lot to explain, and writing efficient
-and easy-to-understant documentation is a tough trade. So don't
-hesitate to contact us with any questions you may have. Above all,
-stay curious!
+documentation is a tough trade. So don't hesitate to contact us with
+any questions you may have. Above all, stay curious!
 
 ```
 ... for the challenge of simplification is so fascinating that, if
