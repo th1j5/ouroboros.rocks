@@ -67,7 +67,7 @@ $ unzip -j openarena-0.8.8.zip 'openarena-0.8.8/baseoa/*' -d
 ```
 
 Make sure you have a local Ouroboros layer running in your system (see
-[this](/tutorial-1/).
+[this tutorial](/tutorial-1/)).
 
 To test the game, start a server (replace <arch> with the correct
 architecture extension for your machine, eg x86_64):

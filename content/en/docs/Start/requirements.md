@@ -47,8 +47,9 @@ $ apt-get install git protobuf-c-compiler cmake
 $ apt-get install libgcrypt20-dev libssl-dev libfuse-dev dnsutils swig cmake-curses-gui
 ```
 
-On some distributions you need to install the protobuf C library
-explicitly:
+If during the build process cmake complains that the Protobuf C
+compiler is required but not found, and you installed the
+protobuf-c-compiler package, you will also need this:
 
 ```bash
 $ apt-get install libprotobuf-c-dev
