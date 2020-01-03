@@ -8,7 +8,7 @@ draft: false
 ---
 
 To check if everything is installed correctly, you can now jump into
-the [/docs/Tutorials](tutorials) section, or you can try to ping this
+the [Tutorials](../../tutorials/) section, or you can try to ping this
 webhost over ouroboros using the name _ouroboros.rocks.oping_
 
 Our webserver is of course on an IP network, and ouroboros does not
@@ -19,7 +19,7 @@ some IP configuration: to tell the ouroboros UDP system that the
 process "ouroboros.rocks.oping" is running on our webserver by adding
 the line
 
-```bash
+```
 51.38.114.133      1bf2cb4fb361f67a59907ef7d2dc5290
 ```
 
