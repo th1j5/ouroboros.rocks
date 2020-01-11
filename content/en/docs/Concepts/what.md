@@ -1,74 +1,12 @@
 ---
-title: "What is a recursive network?"
+title: "Recursive networks"
 author: "Dimitri Staessens"
 
-date:  2019-07-06
-weight: 1
+date:  2020-01-11
+weight: 2
 description: >
-     Introduction to recursive networks.
+   The recursive network paradigm
 ---
-
-# The current networking paradigm
-{{<figure width="40%" src="/docs/concepts/aschenbrenner.png">}}
-
-Every computer science class that deals with networks explains the
-[7-layer OSI model](https://www.bmc.com/blogs/osi-model-7-layers/).
-Open Systems Interconnect (OSI) defines 7 layers, each providing an
-abstraction for a certain *function* that a network application may
-need.
-
-From top to bottom, the layers provide (roughly) the following
-functions:
-
-The __application layer__ implements the details of the application
-protocol (such as HTTP), which specifies the operations and data that
-the application understands (requesting a web page).
-
-The __presentation layer__ provides independence of data representation,
-and may also perform encryption.
-
-The __session layer__ sets up and manages sessions (think of a session
-as a conversation or dialogue) between the applications.
-
-The __transport layer__ handles individual chunks of data (think of them
-as words in the conversation), and can ensure that there is end-to-end
-reliability (no words or phrases get lost).
-
-The __network layer__ forwards the packets across the network, it
-provides such things as addressing and congestion control.
-
-The __datalink layer__ encodes data into bits and moves them between
-hosts. It handles errors in the physical layer. It has two sub-layers:
-Media access control layer (MAC), which says when hosts can transmit
-on the medium, and logical link control (LLC) that deals with error
-handling and control of transmission rates.
-
-Finally, the __physical layer__ is responsible for translating the
-bits into a signal (e.g. laser pulses in a fibre) that is carried
-between endpoints.
-
-This functional layering provides a logical order for the steps that
-data passes through between applications. Indeed, every existing
-(packet) network goes through these steps in roughly this order
-(however, some may be skipped). There can be some small variations on
-where the functions are implemented. For instance, TCP does congestion
-control, but is a Layer 4 protocol.
-
-However, when looking at current networking solutions, things are not
-as simple as these 7 layers seem to indicate. Just consider this
-realistic scenario for a software developer working remotely. Usually
-it goes something like this: You connect to the company __Virtual
-Private Network__ (VPN), setup an SSH __tunnel__ over the development
-server to your virtual machine and then SSH into that virtual machine.
-
-The use of VPNs and various tunneling technologies draw a picture
-where the __functions__ of Layers 2, 3, and 4, and often layers 5 and
-6 (encryption) are __repeated__ a number of times in the actual
-functional path that data follows through the network stack.
-
-Enter __*recursive networks*__.
-
-# The recursive network paradigm
 
 The functional repetition in the network stack is discussed in
 detail in the book __*"Patterns in Network Architecture: A Return to
