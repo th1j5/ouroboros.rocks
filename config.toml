@@ -128,6 +128,11 @@ footer_about_disable = true
         icon = "fab fa-git"
         desc = "Browse the repository"
 [[params.links.developer]]
+        name = "Slack"
+        url  = "https://odecentralize.slack.com"
+        icon = "fab fa-slack"
+        desc = "Chat with other project developers"
+[[params.links.developer]]
         name = "IRC"
         url = "https://webchat.freenode.net/?channels=#ouroboros"
         icon = "fas fa-hashtag"
