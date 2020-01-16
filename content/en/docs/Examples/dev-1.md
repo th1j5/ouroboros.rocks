@@ -28,7 +28,7 @@ flow_alloc() call is a blocking call that allocates a flow to *dst*.
 Both calls return an non-negative integer number describing a "flow
 descriptor", which is very similar to a file descriptor. On error, they
 will return a negative error code. (See the [man
-page](/man/man3/flow_alloc.html) for all details). If the *timeo*
+page](/man/man3/flow_alloc.3.html) for all details). If the *timeo*
 parameter supplied is NULL, the calls will block indefinitely, otherwise
 flow_alloc() will return -ETIMEDOUT when the time interval provided by
 *timeo* expires. We are working on implementing non-blocking versions if
