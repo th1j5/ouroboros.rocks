@@ -115,7 +115,7 @@ Control Protocol_, FRCP) has only 4 fields:
 # Operation
 
 The operation of the transport protocol is based on the [Delta-t
-protocol]((https://www.osti.gov/biblio/5542785-delta-protocol-specification-working-draft)),
+protocol](https://www.osti.gov/biblio/5542785-delta-protocol-specification-working-draft),
 which is a timer-based protocol that is a bit simpler in operation
 than the equivalent functionalities in TCP. In contrast with TCP/IP,
 Ouroboros does congestion control purely in the network protocol, and
