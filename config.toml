@@ -129,9 +129,9 @@ footer_about_disable = true
         desc = "Browse the repository"
 [[params.links.developer]]
         name = "Slack"
-        url  = "https://odecentralize.slack.com"
+        url  = "https://join.slack.com/t/odecentralize/shared_invite/enQtODk1NDg4OTc0MTc4LWEzZjkzNDhhMGMxMjU2NWNlZTVjMjVjNzY1ZDY3ZDdmZjg5NjVlMjg0NjRkYTMzNDMwMzVkNzMzZjI1Y2ZlMjQ"
         icon = "fab fa-slack"
-        desc = "Chat with other project developers"
+        desc = "Join our slack workspace"
 [[params.links.developer]]
         name = "IRC"
         url = "https://webchat.freenode.net/?channels=#ouroboros"
