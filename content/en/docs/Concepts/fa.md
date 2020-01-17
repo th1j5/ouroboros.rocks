@@ -198,24 +198,16 @@ The translation of the header is an O(1) lookup on the send side, and
 a nop on the receiver side (since FD == EID and it's passed in the
 packet).
 
-[^1]: This concept is also present in RINA, but there are
-differences. This only applies to Ouroboros.
+[^1]: This concept is also present in RINA, but there are differences. This only applies to Ouroboros.
 
-[^2]: This is a recursive network, adjancencies in layer N are
-implemented as flows in layer N - 1.
+[^2]: This is a recursive network, adjancencies in layer N are implemented as flows in layer N - 1.
 
-[^3]: If there is one DT, it is what is usually considered a "flat"
-address. More complex addressing schemes are accomplished by having
-more of these DT components inside one IPCP. But this would lead us
-too far.
+[^3]: If there is one DT, it is what is usually considered a "flat" address. More complex addressing schemes are accomplished by having more of these DT components inside one IPCP. But this would lead us too far.
 
 [^4]: I will explain QoS in a different post.
 
-[^5]: In full:
-d19778d2e34a1e3ddfc04b48c94152cced725d741756b131543616d20f250f31.
+[^5]: In full: d19778d2e34a1e3ddfc04b48c94152cced725d741756b131543616d20f250f31.
 
-[^6]: Note that the _flow\_alloc()_ call __1__ is currently
-blocking. Asynchronous allocation implementation is on the TODO list.
+[^6]: Note that the _flow\_alloc()_ call __1__ is currently blocking. Asynchronous allocation implementation is on the TODO list.
 
-[^7]: All this mapping of fd's is done by the library that is used by
-all Ouroboros programs.
+[^7]: All this mapping of fd's is done by the library that is used by all Ouroboros programs.
