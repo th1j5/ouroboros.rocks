@@ -26,6 +26,9 @@ the line
 to your /etc/hosts file (it's the IP address of our server and the MD5
 hash of _ouroboros.rocks.oping_).
 
+You will also need to forward UDP port 3435 on your NAT firewall if
+you are behind a NAT. Else this will not work.
+
 Here are the steps to ping our server over ouroboros:
 
 Run the IRMd:
