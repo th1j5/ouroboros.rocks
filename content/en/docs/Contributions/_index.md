@@ -46,7 +46,7 @@ ptr = malloc(sizeof(*ptr) * len);
 
 - When checking for invalid pointers use
 
-```
+```C
 if (ptr == NULL)
 ```
 instead of
