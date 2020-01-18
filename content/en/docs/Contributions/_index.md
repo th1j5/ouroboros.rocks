@@ -28,22 +28,31 @@ following exceptions:
 - Soft tabs are to be used instead of hard tabs
 - A space is to be inserted between a pointer and its object name upon
   declaration or in function signatures. Example:
+
    ```C
    int * a;
    ```
+
 instead of
+
    ```C
    int *a;
    ```
+
 - Don't explicitly cast malloc, but do
+
    ```C
    ptr = malloc(sizeof(*ptr) * len);
    ```
+
 - When checking for invalid pointers use
+
    ```C
    if (ptr == NULL)
    ```
+
 instead of
+
    ```C
    if (!ptr)
    ```
