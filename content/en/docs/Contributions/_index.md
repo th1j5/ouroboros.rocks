@@ -1,6 +1,7 @@
 ---
 title: "Contribution Guidelines"
 linkTitle: "Contribution Guidelines"
+date:  2020-01-18
 weight: 110
 description: >
   How to contribute to Ouroboros.
