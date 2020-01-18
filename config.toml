@@ -128,6 +128,16 @@ footer_about_disable = true
         icon = "fab fa-git"
         desc = "Browse the repository"
 [[params.links.developer]]
+        name = "GitHub mirror"
+        url = "https://github.com/dstaesse/ouroboros"
+        icon = "fab fa-github"
+        desc = "Mirror of the repository. May not be fully up-to-date."
+[[params.links.developer]]
+        name = "Bitbucket mirror"
+        url = "https://bitbucket.org/dstaesse/ouroboros"
+        icon = "fab fa-bitbucket"
+        desc = "Mirror of the repository. May not be fully up-to-date."
+[[params.links.developer]]
         name = "Slack"
         url  = "https://join.slack.com/t/odecentralize/shared_invite/enQtODk1NDg4OTc0MTc4LWEzZjkzNDhhMGMxMjU2NWNlZTVjMjVjNzY1ZDY3ZDdmZjg5NjVlMjg0NjRkYTMzNDMwMzVkNzMzZjI1Y2ZlMjQ"
         icon = "fab fa-slack"
