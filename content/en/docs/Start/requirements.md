@@ -25,8 +25,7 @@ installed in addition to a C compiler ([*gcc*](https://gcc.gnu.org/) or
 Optionally, you can also install
 [*libgcrypt*](https://gnupg.org/software/libgcrypt/index.html),
 [*libssl*](https://www.openssl.org/),
-[*fuse*](https://github.com/libfuse), *dnsutils* and
-[*swig*](http://swig.org/).
+[*fuse*](https://github.com/libfuse), and *dnsutils*.
 
 On GNU/Linux you will need either libgcrypt (≥ 1.7.0) or libssl if your
 [*glibc*](https://www.gnu.org/software/libc/) is older than version
@@ -44,7 +43,7 @@ Ouroboros.
 
 ```bash
 $ apt-get install git protobuf-c-compiler cmake
-$ apt-get install libgcrypt20-dev libssl-dev libfuse-dev dnsutils swig cmake-curses-gui
+$ apt-get install libgcrypt20-dev libssl-dev libfuse-dev dnsutils cmake-curses-gui
 ```
 
 If during the build process cmake complains that the Protobuf C
@@ -59,19 +58,19 @@ $ apt-get install libprotobuf-c-dev
 
 ```bash
 $ pacman -S git protobuf-c cmake
-$ pacman -S libgcrypt openssl fuse dnsutils swig
+$ pacman -S libgcrypt openssl fuse dnsutils
 ```
 
 **FreeBSD 11:**
 
 ```bash
 $ pkg install git protobuf-c cmake
-$ pkg install libgcrypt openssl fusefs-libs bind-tools swig
+$ pkg install libgcrypt openssl fusefs-libs bind-tools
 ```
 
 **Mac OS X Sierra / High Sierra:**
 
 ```bash
 $ brew install git protobuf-c cmake
-$ brew install libgcrypt openssl swig
+$ brew install libgcrypt openssl
 ```
