@@ -37,3 +37,8 @@ The Ouroboros daemons can be thought of as **software routers** that
  and they forward packets among each other. The daemons also implement
  a Distributed Hash Table, so the network has its own internal
  name-to-address resolution.
+
+The best place to start understanding a bit what this does and how it
+differs from other packet networks is to have a quick look at the
+[flow allocation](/docs/concepts/fa/) and [data
+path](/docs/concepts/datapath/) sections.
