@@ -33,12 +33,15 @@ application library, such as **reliability** (packet ordering,
 retransmission logic etc) and transport **encryption**.
 
 The Ouroboros daemons can be thought of as **software routers** that
- can be connected to each other. Each one has an address,
- and they forward packets among each other. The daemons also implement
- a Distributed Hash Table, so the network has its own internal
- name-to-address resolution.
+can be connected to each other. Each one has an address, and they
+forward packets among each other. The daemons also implement a
+Distributed Hash Table, so the network has its own internal
+name-to-address resolution.
 
-The best place to start understanding a bit what this does and how it
-differs from other packet networks is to have a quick look at the
-[flow allocation](/docs/concepts/fa/) and [data
+The best place to start understanding a bit what Ouroboros aims to do
+and how it differs from other packet networks is to first watch this
+presentation at [FOSDEM 2018](https://archive.fosdem.org/2018/schedule/event/ipc/), and have a
+quick read of the [flow allocation](/docs/concepts/fa/) and [data
 path](/docs/concepts/datapath/) sections.
+
+{{< youtube 6fH23l45984 >}}
