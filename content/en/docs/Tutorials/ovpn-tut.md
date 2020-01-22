@@ -25,10 +25,10 @@ and 127.0.0.8 /24, as shown in the diagram above.
 
 To run this tutorial, make sure that
 [openssl](https://www.openssl.org) is installed on your machine(s) and
-get the latest version of Ouroboros from the _be_ branch.
+get the latest version of Ouroboros.
 
 ```bash
-$ git clone --branch be https://ouroboros.rocks/git/ouroboros
+$ git clone https://ouroboros.rocks/git/ouroboros
 $ cd ouroboros
 $ mkdir build && cd build
 $ cmake ..
@@ -107,10 +107,12 @@ $ sudo tcpdump -i lo
 From another terminal, send some pings into the other endpoint:
 
 ```bash
-$ ping 10.10.10.1 -i tun0
+$ ping 10.10.10.1 -I tun0
 ```
 
-The tcpdump on the _tun1_ interface shows the ping messages arriving:
+The pings will timeout since ICMP pings are responded to by the kernel
+(and the tun interface is userspace), but the tcpdump on the _tun1_
+interface will show the ping messages arriving:
 
 ```bash
 $ sudo tcpdump -i tun1
@@ -123,7 +125,8 @@ listening on tun1, link-type RAW (Raw IP), capture size 262144 bytes
 ```
 
 While the tcpdump on the loopback shows the AES encrypted traffic that
-is actually sent on the flow:
+is actually sent on the flow (and not visible to the legacy "network"
+below:
 
 ```bash
 $ sudo tcpdump -i lo
@@ -157,6 +160,9 @@ listening on lo, link-type EN10MB (Ethernet), capture size 262144 bytes
         0x0060:  f54c b8c8 5040 1c1b aba1 6107 39e7 604b  .L..P@....a.9.`K
         0x0070:  5fb2 73ef
 ```
+
+You can experiment with other small tools like nc (netcat) to monitor
+both requests and responses.
 
 # Encrypted tunnel between two IP hosts connected to the Internet
 
