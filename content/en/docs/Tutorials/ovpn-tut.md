@@ -110,9 +110,8 @@ From another terminal, send some pings into the other endpoint:
 $ ping 10.10.10.1 -I tun0
 ```
 
-The pings will timeout since ICMP pings are responded to by the kernel
-(and the tun interface is userspace), but the tcpdump on the _tun1_
-interface will show the ping messages arriving:
+The pings will timeout, but the tcpdump on the _tun1_ interface will
+show the ping messages arriving:
 
 ```bash
 $ sudo tcpdump -i tun1
