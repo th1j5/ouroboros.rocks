@@ -45,3 +45,5 @@ quick read of the [flow allocation](/docs/concepts/fa/) and [data
 path](/docs/concepts/datapath/) sections.
 
 {{< youtube 6fH23l45984 >}}
+
+For more depth, our article on the design of Ouroboros is accessible on [arXiv](https://arxiv.org/pdf/2001.09707.pdf).
