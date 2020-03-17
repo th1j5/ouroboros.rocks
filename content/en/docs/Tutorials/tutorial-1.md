@@ -79,7 +79,7 @@ take "oping_server". In the second terminal window, execute:
 
 ```bash
 $ irm bind proc 2337 name oping_server
-$ irm register name oping_server layer local_layer
+$ irm name register oping_server layer local_layer
 ```
 
 The IRMd and IPCPd in terminal one will now acknowledge that the name is

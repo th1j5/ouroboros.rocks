@@ -104,12 +104,12 @@ node0:
 $ irm ipcp bootstrap type normal name normal_0 layer normal_layer
 $ irm bind ipcp normal_0 name normal_0
 $ irm b i normal_0 n normal_layer
-$ irm register name normal_layer layer eth
-$ irm r n normal_0 l eth
+$ irm name register normal_layer layer eth
+$ irm n r normal_0 l eth
 node1:
 $ irm ipcp enroll name normal_1 layer normal_layer autobind
-$ irm r n normal_layer l eth
-$ irm r n normal_1 l eth
+$ irm n r normal_layer l eth
+$ irm n r normal_1 l eth
 ```
 
 The IPCPs should acknowledge the enrollment in their logs:

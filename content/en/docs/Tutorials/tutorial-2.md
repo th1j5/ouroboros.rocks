@@ -17,11 +17,11 @@ like this:
 {{<figure width="40%" src="/docs/tutorials/tut-2-1.jpg">}}
 
 Let's start adding the unicast layer. We will first bootstrap a
-unicast IPCP, with name "U1" into the layer "U" (using
-default options). In terminal 2, type:
+unicast IPCP, with name "normal_1" into the layer "normal_layer"
+(using default options). In terminal 2, type:
 
 ```bash
-$ irm ipcp bootstrap type unicast name U1 layer U
+$ irm ipcp bootstrap type unicast name normal_1 layer normal_layer
 ```
 
 The IRMd and IPCP will report the bootstrap:
@@ -53,8 +53,8 @@ in the local_layer:
 ```bash
 $ irm bind ipcp normal_1 name normal_1
 $ irm bind ipcp normal_1 name normal_layer
-$ irm register name normal_1 layer local_layer
-$ irm register name normal_layer layer local_layer
+$ irm name register normal_1 layer local_layer
+$ irm name register normal_layer layer local_layer
 ```
 
 The "irm bind ipcp" call is a shorthand for the "irm bind proc" call
@@ -284,7 +284,7 @@ name from the local layer, the client will connect over the normal
 layer:
 
 ```bash
-$ irm unregister name oping_server layer local_layer
+$ irm name unregister oping_server layer local_layer
 $ oping -n oping_server -c 5
 ```
 
