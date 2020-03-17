@@ -80,7 +80,7 @@ Bind the pid of the server to a name and register it in the local layer:
 
 ```bash
 $ irm bind proc <pid> name my.ioq3.server
-$ irm reg name my.ioq3.server layer <your_local_layer>
+$ irm name reg my.ioq3.server layer <your_local_layer>
 ```
 
 To connect, start a client (in a different terminal):
