@@ -15,7 +15,7 @@ was proposed, called the "__R__ecursive __I__nter__N__etwork
 __A__rchitecture", or [__RINA__](http://www.pouzinsociety.org).
 
 __Ouroboros__ follows the recursive principles of RINA, but deviates
-quit a bit from its internal design. There are resources on the
+quite a bit from its internal design. There are resources on the
 Internet explaining RINA, but here we will focus
 on its high level design and what is relevant for Ouroboros.
 

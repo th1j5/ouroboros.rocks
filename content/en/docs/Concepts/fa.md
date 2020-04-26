@@ -11,16 +11,17 @@ description: >
 
 Arguably the most important concept to grasp in Ouroboros is flow
 allocation.[^1] It is the process by which a pair of programs agree to
-start sending and receiving data. A flow is always unicast, thus
-between a source program and a destination program, and is always
-established from the source. Flows are provided by unicast layers, and
-the endpoints of the flows are accessible for reading and writing by
-the requesting processes using an identifier called a _flow
-descriptor_. Think of a file descriptor but just for Ouroboros flows.
-Maybe one important thing to keep in mind: in Ouroboros terminology, a
-flow does not imply ordering or reliable transfer. It just denotes the
-network resources inside a layer that are needed for forwarding
-packets from a source to a destination in a best effort way.
+start sending and receiving data, and the interface to the network. A
+flow is always unicast, thus between a source program and a
+destination program, and is always established from the source. Flows
+are provided by unicast layers, and the endpoints of the flows are
+accessible for reading and writing by the requesting processes using
+an identifier called a _flow descriptor_. Think of a file descriptor
+but just for Ouroboros flows.  Maybe one important thing to keep in
+mind: in Ouroboros terminology, a flow does not imply ordering or
+reliable transfer. It just denotes the network resources inside a
+layer that are needed for forwarding packets from a source to a
+destination in a best effort way.
 
 {{<figure width="60%" src="/docs/concepts/fa_1.jpg">}}
 
@@ -74,18 +75,21 @@ protocol.
 
 The third subcomponent in the IPCP that is relevant here -- the most
 important one -- is the Flow Allocator (FA). This component is
-responsible for implementing the requested flows, in our case between
-"client" and "server". It needs to establish some shared state between
-the two endpoints. A (bidirectional) flow is fully identified in a
-layer by a 4-tuple (A1,X,A2,Y) containing two addresses and two EIDs,
-in our example A1=720 and A2=1000).  This 4-tuple needs to be known at
-both endpoints to identify where to send the packets it receives from
-the higher-layer application (the client), and to deliver packets that
-it reads from a lower layer flow. The flow allocation protocol is
-responsible to send this information. It is a request-response
-protocol. The flow allocator is identified by the DT component as EID
-0. So, all packets in the layer with DT header __DST:0__ are delivered
-to the flow allocator inside the destintation IPCP.
+responsible for implementing and managing requested flows. It is also
+responsible for congestion control.
+
+For establishing a flow, it needs to establish some shared state
+between the two endpoints. A (bidirectional) flow is fully identified
+in a layer by a 4-tuple (A1,X,A2,Y) containing two addresses and two
+EIDs, in our example A1=720 and A2=1000).  This 4-tuple needs to be
+known at both endpoints to identify where to send the packets it
+receives from the higher-layer application (the client), and to
+deliver packets that it reads from a lower layer flow. The flow
+allocation protocol is responsible to send this information. It is a
+request-response protocol. The flow allocator is identified by the DT
+component as EID 0. So, all packets in the layer with DT header
+__DST:0__ are delivered to the flow allocator inside the destintation
+IPCP.
 
 When the source FA in IPCP 1 receives a request for a flow to
 "server", it will query its DIR for _d197782_ and receive 1000 as the
@@ -198,11 +202,11 @@ The translation of the header is an O(1) lookup on the send side, and
 a nop on the receiver side (since FD == EID and it's passed in the
 packet).
 
-[^1]: This concept is also present in RINA, but there are differences. This only applies to Ouroboros.
+[^1]: This concept is also present in RINA, but there are differences. This text only applies to Ouroboros.
 
 [^2]: This is a recursive network, adjancencies in layer N are implemented as flows in layer N - 1.
 
-[^3]: If there is one DT, it is what is usually considered a "flat" address. More complex addressing schemes are accomplished by having more of these DT components inside one IPCP. But this would lead us too far.
+[^3]: If there is one DT, it is what is usually considered a "flat" address. More complex addressing schemes are accomplished by having more of these DT components inside one IPCP. But this would lead us too far. It is described in more detail in the paper.
 
 [^4]: I will explain QoS in a different post.
 
