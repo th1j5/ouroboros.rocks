@@ -214,7 +214,11 @@ be taken that all sent packets are acknowledged or all retransmissions
 timed out (so, wait for R timer to expire). Flow deallocation will
 also trigger an ACK for the RWE from the receiver (ACKing all packets
 that can possibly be in flight, it doesn't care anymore if it receives
-more packets).
+more packets). To be safe, i.e. be sure there are no packets in the
+network anymore, the state associated with the flow (i.e. the PORT ID
+assigned by the IRMd, and by extension the EID in the DT protocol)
+should only be reused after the sender and receiver state fully timed
+out.
 
 Flow control works for both reliable and unreliable modes of FRCT. If
 flow control is enabled, the receiver will notify the sender of its
@@ -256,6 +260,32 @@ attacks or other attacks based on guessing sequence numbers. Note that
 the size of the sequence number space should be at least (2MPL + R +
 A) * T, where T is the number of sequence numbers generated in a
 certain unit of time.
+
+The requirement that the connection needs to timeout before reuse
+seems to imply that a _flow\_dealloc_() command may need to wait for
+(at most) 3MPL + R + A. This would be _really_ annoying in a
+program. The safest solution (pending implementation) that we see is
+to send the remaining waiting time to the IRMd, so the flow
+deallocation at the network side will be deferred and the EID will
+only be released when safe. The _flow\_dealloc_() call at the sender
+side can exit immediately after all packets are ack'd (or R timed
+out). TCP has a similar waiting period (TIME_WAIT), which is one of
+the reasons for the SO_REUSEADDR and SO_LINGER socket options, which
+disregard these timeouts with some risk. Ouroboros has a number of
+advantages (and at least one disadvantage) here. The first advantage
+is that EIDs are all ephemeral, so one being blocked for some time by
+the IRMd is never a problem (the connection is not tied to
+address:port, so it can't block a future connection). The second
+advantage is that the EID space should be large for security reasons
+(see above), and should be chosen at random, so reuse of an EID within
+3MPL + A + R is unlikely. The disadvantage is the waiting time on exit
+of the sending program. Since that state is in the Ouroboros
+application, the sender application has to either wait for the outcome
+of the connection (and be informed whether all data was sent
+successfully or not) or the remaining unsent/unacknowledged packets on
+_exit_() are lost. The default for TCP sockets is to linger on
+_exit_() of the program, where the socket keeps trying to finish
+packets in the sending buffer of the connection.
 
 [^1]: This was proven by Watson in [Timer-Based Mechanisms in Reliable Transport Protocol Connection Management](https://doi.org/10.1016/0376-5075(81)90031-3). TCP also has these three timers bounded.
 [^2]: Fast retransmit methods (retransmitting if a number of consecutive ACKs with the same sequence number are received) can still be useful. Underestimation of sRTT has little impact on throughput apart from possible unnecessary traffic duplication (the additional packets also update the RTT estimate). In Ouroboros, congestion avoidance is the responsability of the flow allocator.
