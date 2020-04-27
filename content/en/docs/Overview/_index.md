@@ -7,10 +7,6 @@ description: >
    A bird's eye view of Ouroboros.
 ---
 
-{{% pageinfo %}}
-Under construction.
-{{% /pageinfo %}}
-
 Ouroboros is a prototype **distributed system** for packetized network
 communications. It is a redesign _ab initio_ of the current packet
 networking model -- from the programming API ("Layer 7") almost to the
