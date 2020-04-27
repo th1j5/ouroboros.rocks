@@ -78,8 +78,9 @@ accessible on [arXiv](https://arxiv.org/pdf/2001.09707.pdf).
 The best place to start understanding a bit what Ouroboros aims to do
 and how it differs from other packet networks is to first watch this
 presentation at [FOSDEM
-2018](https://archive.fosdem.org/2018/schedule/event/ipc/), and have a
-quick read of the [flow allocation](/docs/concepts/fa/) and [data
+2018](https://archive.fosdem.org/2018/schedule/event/ipc/) (it's over
+two years old, so not entirely up-to-date anymore), and have a quick
+read of the [flow allocation](/docs/concepts/fa/) and [data
 path](/docs/concepts/datapath/) sections.
 
 {{< youtube 6fH23l45984 >}}
