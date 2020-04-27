@@ -44,23 +44,21 @@ explaining Ouroboros to someone, people immediately interrupt and
 start explaining how they can do this or that with IP. We know,
 they're right, but it's also completely besides our point.
 
-If you don't care about elegance, this prototype is not (yet) for
-you. If you're fine with the quality of engineering in the Internet,
-this prototype is not (yet) for you. But, if you're open to the idea
-that the TCP/IP network stack is a huge gummed-up mess that's in need
-for some serious redesign, do read on. If you are interested in
-computer networks in general, if you are eager to learn something new
-and exciting without the need to deploy it tomorrow to solve whatever
-problem you have right now, and if you are willing to put in the time
-and effort to understand how all of this works, by all means: ask
-away!
+But, if you're open to the idea that the TCP/IP network stack is a
+huge gummed-up mess that's in need for some serious redesign, do read
+on. If you are interested in computer networks in general, if you are
+eager to learn something new and exciting without the need to deploy
+it tomorrow, and if you are willing to put in the time and effort to
+understand how all of this works, by all means: ask away!
 
 We're very open to constructive suggestions on how to further improve
 the prototype and the documentation, in particular this website. We
 know it's hard to understand in places. No matter how simple we made
 the architecture, it's still a lot to explain, and writing efficient
 documentation is a tough trade. So don't hesitate to contact us with
-any questions you may have. Above all, stay curious!
+any questions you may have.
+
+Above all, stay curious!
 
 ```
 ... for the challenge of simplification is so fascinating that, if
