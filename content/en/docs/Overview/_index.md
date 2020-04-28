@@ -17,13 +17,6 @@ interfaces into inter-operate with common technologies: run Ouroboros
 over Ethernet or UDP, or create tunnels over Ouroboros using tap or
 tun devices.
 
-Why? Because we think there are fundamental problems with the current
-model (referred to as the 4-Layer, 5-Layer or 7-Layer model --
-depending on who you ask). This problem is self-evident: a crippling
-lack of abstraction and a complete disregard for elegance that results
-in a technology that _works_ but can at best be described as an overly
-complicated mess.
-
 From an application perspective, Ouroboros network operates as a "black
 box" with a
 [very simple interface](https://ouroboros.rocks/man/man3/flow_alloc.3.html).
