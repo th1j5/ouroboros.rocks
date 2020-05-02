@@ -147,11 +147,11 @@ footer_about_disable = true
         url  = "https://join.slack.com/t/odecentralize/shared_invite/enQtOTU2NjI5OTk3NDYzLTM2ZjkwZjAxMTcyZjI5N2Y1NGZlNWJjODA0MDU2Y2MzN2Q3MjA5ZTAwYjIyMDMzNGNhZTc1NWQwNWYyMjBhMWU"
         icon = "fab fa-slack"
         desc = "Join our slack workspace"
-[[params.links.developer]]
-        name = "IRC"
-        url = "https://webchat.freenode.net/?channels=#ouroboros"
-        icon = "fas fa-hashtag"
-        desc = "Chat with the developers"
+#[[params.links.developer]]
+#        name = "IRC"
+#        url = "https://webchat.freenode.net/?channels=#ouroboros"
+#        icon = "fas fa-hashtag"
+#        desc = "Chat with the developers"
 [[params.links.developer]]
         name = "Bugzilla"
         url = "/bugzilla"
