@@ -62,8 +62,7 @@ baseoa folder:
 
 ```bash
 $ wget http://www.openarena.ws/request.php?4 -O openarena-0.8.8.zip
-$ unzip -j openarena-0.8.8.zip 'openarena-0.8.8/baseoa/*' -d
-./baseoa
+$ unzip -j openarena-0.8.8.zip 'openarena-0.8.8/baseoa/*' -d ./baseoa
 ```
 
 Make sure you have a local Ouroboros layer running in your system (see
