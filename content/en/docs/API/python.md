@@ -247,5 +247,20 @@ if __name__ == "__main__":
     server() if args.listen is True else client()
 ```
 
+Running it is just the same as the binary program, register the name
+"oecho", bind the server to "oecho" (you can even bind both the C and
+Python programs at the same time), and allocating a flow should reach
+the server. For a local layer
+
+```bash
+$ irm i b t local n local l local
+$ irm n r oecho l local
+$ irm b prog ./oechy.py n oecho
+$ ./oecho.py -l &
+# or:
+# python oecho.py -l
+$ ./oechy.py
+```
+
 ## License
 pyOuorboros is LGPLv2.1. The examples are 3-clause BSD.
