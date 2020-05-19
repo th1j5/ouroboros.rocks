@@ -51,13 +51,14 @@ Some of the main _features_ are:
 
 * The Ouroboros end-to-end protocol performs flow control, error
   control and reliable transfer and is implemented as part of the
-  _application library_. Sequence numbers, acknowledgments, flow control
-  windows... The last thing the application does (or should do) is
-  encrypt everything before it hands it to the network layer for
-  delivery. With this functionality in the library, it's easy to force
-  encryption on _every_ flow that is created from your machine over
-  Ouroboros regardless of what the application programmer has
-  requested.
+  _application library_. Sequence numbers, acknowledgments, flow
+  control windows... The last thing the application does (or should
+  do) is encrypt everything before it hands it to the network layer
+  for delivery. With this functionality in the library, it's easy to
+  force encryption on _every_ flow that is created from your machine
+  over Ouroboros regardless of what the application programmer has
+  requested. Unlike TLS, the end-to-end header (sequence number etc)
+  is fully encrypted.
 
 * The flow allocation API works as an interface to the network. An
   Ouroboros network layer is therefore "aware" of all traffic that it
