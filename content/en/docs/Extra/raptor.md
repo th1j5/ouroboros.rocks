@@ -18,7 +18,6 @@ please contact us via the ouroboros mailing list or the IRC channel.
 You can clone the [raptor repository](/cgit/raptor/):
 
 ```bash
-$ git clone http://ouroboros.rocks/git/raptor
 $ git clone https://ouroboros.rocks/git/raptor
 $ git clone git://ouroboros.rocks/raptor
 ```

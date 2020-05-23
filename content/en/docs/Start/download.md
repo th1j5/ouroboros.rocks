@@ -17,11 +17,10 @@ which will also install all dependencies.
 
 **Source:**
 
-You can clone the [repository](/cgit/ouroboros) over http or https or
+You can clone the [repository](/cgit/ouroboros) over https or
 git:
 
 ```bash
-$ git clone http://ouroboros.rocks/git/ouroboros
 $ git clone https://ouroboros.rocks/git/ouroboros
 $ git clone git://ouroboros.rocks/ouroboros
 ```
