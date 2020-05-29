@@ -9,10 +9,10 @@ description: >
    This tutorial explains how to create an encrypted tunnel for IP traffic.
 ---
 
-We recently added 256-bit ECDHE-AES encryption to Ouroboros (in the
-_be_ branch). This tutorial shows how to create an *encrypted IP
-tunnel* using the Ouroboros VPN (ovpn) tool, which exposes _tun_
-interfaces to inject Internet Protocol traffic into an Ouroboros flow.
+We recently added 256-bit ECDHE-AES encryption to Ouroboros. This
+tutorial shows how to create an *encrypted IP tunnel* using the
+Ouroboros VPN (ovpn) tool, which exposes _tun_ interfaces to inject
+Internet Protocol traffic into an Ouroboros flow.
 
 We'll first illustrate what's going on over an Ethernet loopback
 adapter and then show how to create an encrypted tunnel between two
@@ -27,7 +27,7 @@ To run this tutorial, make sure that
 [openssl](https://www.openssl.org) is installed on your machine(s) and
 get the latest version of Ouroboros.
 
-```bash
+```console
 $ git clone https://ouroboros.rocks/git/ouroboros
 $ cd ouroboros
 $ mkdir build && cd build
@@ -37,10 +37,10 @@ $ make && sudo make install
 
 # Encrypted tunnel over the loopback interface
 
-Open a terminal window and start ouroboros (add --stdout to log to
+Open a terminal window and start ouroboros (add \-\-stdout to log to
 stdout):
 
-```bash
+```console
 $ sudo irmd --stdout
 ```
 
@@ -49,16 +49,16 @@ so we'll create a layer _my\_layer_ consisting of a single ipcp-eth-dix
 named _dix_, register the name _my\_vpn_ for the ovpn server in
 _my\_layer_, and bind the ovpn binary to that name.
 
-```bash
+```console
 $ irm ipcp bootstrap type eth-dix name dix layer my_layer dev lo
-$ irm reg name my_vpn layer my_layer
+$ irm name reg my_vpn layer my_layer
 $ irm bind program ovpn name my_vpn
 ```
 
 We can now start an ovpn server on 127.0.0.3. This tool requires
 superuser privileges as it creates a tun device.
 
-```bash
+```console
 $ sudo ovpn --ip 127.0.0.3 --mask 255.255.255.0
 ```
 
@@ -66,7 +66,7 @@ From another terminal, we can start an ovpn client to connect to the
 server (which listens to the name _my\_vpn_) and pass the \-\-crypt
 option to encrypt the tunnel:
 
-```bash
+```console
 $ sudo ovpn -n my_vpn -i 127.0.0.8 -m 255.255.255.0 --crypt
 ```
 
@@ -74,7 +74,7 @@ The ovpn tool now created two _tun_ interfaces attached to the
 endpoints of the flow, and will act as an encrypted pipe for any
 packets sent to that interface:
 
-```bash
+```console
 $ ip a
 ...
 6: tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UNKNOWN group default qlen 500
@@ -96,24 +96,24 @@ send some ping traffic into the other _tun_ interface.
 The encrypted traffic can be shown by tcpdump on the loopback interface.
 Open two more terminals:
 
-```bash
+```console
 $ sudo tcpdump -i tun1
 ```
 
-```bash
+```console
 $ sudo tcpdump -i lo
 ```
 
 From another terminal, send some pings into the other endpoint:
 
-```bash
+```console
 $ ping 10.10.10.1 -I tun0
 ```
 
 The pings will timeout, but the tcpdump on the _tun1_ interface will
 show the ping messages arriving:
 
-```bash
+```console
 $ sudo tcpdump -i tun1
 [sudo] password for dstaesse:
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
@@ -127,7 +127,7 @@ While the tcpdump on the loopback shows the AES encrypted traffic that
 is actually sent on the flow (and not visible to the legacy "network"
 below:
 
-```bash
+```console
 $ sudo tcpdump -i lo
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on lo, link-type EN10MB (Ethernet), capture size 262144 bytes
@@ -175,21 +175,21 @@ sport option.
 
 On both machines (fill in the correct IP address):
 
-```bash
+```console
 irm i b t udp n udp l my_layer ip <address>
 ```
 
 On the server machine, bind and register the ovpn tool as above:
 
-```bash
-$ irm reg name my_vpn layer my_layer
+```console
+$ irm name reg my_vpn layer my_layer
 $ irm bind program ovpn name my_vpn
 ```
 
 On the _client_ machine, add a DNS entry for the MD5 hash for "my_vpn"
 with the server IP address to /etc/hosts:
 
-```bash
+```console
 $ cat /etc/hosts
 # Static table lookup for hostnames.
 # See hosts(5) for details.
@@ -200,16 +200,16 @@ $ cat /etc/hosts
 
 ```
 
-and you should be able to create the ovpn tunnel as above.
+Now, you should be able to create the ovpn tunnel as above.
 
 On the server:
 
-```bash
+```console
 $ sudo ovpn --ip 127.0.0.3 --mask 255.255.255.0
 ```
 
 And on the client:
 
-```bash
+```console
 $ sudo ovpn -n my_vpn -i 127.0.0.8 -m 255.255.255.0 --crypt
 ```
