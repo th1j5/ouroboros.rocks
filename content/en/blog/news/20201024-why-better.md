@@ -85,9 +85,11 @@ programming experience: thousands of programmers noticing that such
 constructs often lead to bugs and lower maintainability[^3]. I would
 argue that the Internet is full of this kind of bad practices -- it
 doesn't take a huge stretch of the imagination to take the example
-above as an analogy for Network Address Translation. Only instead of
-being seen as bad practices, they are taught as indispensible
-networking technologies.
+above as an analogy for Network Address Translation (NAT). Of course,
+NAT is probably the only way to stretch the IPv4 address space beyond
+its natural limits. But in an ideal networking world (which is our
+objective), one shouldn't break end-to-end and consider addresses
+immutable.
 
 And that's why I think Ouroboros is a "good" network model. If the
 minimal necessary and sufficient conditions for networking are
@@ -114,4 +116,4 @@ better:
 
 [^1]: I came across this when thinking about the limits for the timers for retransmission. A DTN is basically two layers, one without retransmission on top of one with retransmission at very long timeouts.
 [^2]: Of all the comments from peer review, not a single one has addressed any technical issues -- let alone correctness -- of the model. Most are that I fail to justify why the reviewer should bother to read the article or make an effort to try to understand it as it doesn't fit current engineering workflows and thus has little chance of short-term deployment. Sorry, but I don't care.
-[^3]: With modern programming languages leaning more and more towards discouraing mutables alltogether.
+[^3]: With modern programming languages leaning more and more towards discouraging mutables alltogether.
