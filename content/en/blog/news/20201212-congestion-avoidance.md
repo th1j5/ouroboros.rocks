@@ -148,16 +148,16 @@ The algorithm is based on the workings of DataCenter TCP
 (DCTCP). Before I dig into the details, I will list the main
 differences, without any judgement.
 
-* The rates for additive increase and slow start are the same
-  _constant_ for all flows (but could be made configurable for each
-  network layer if needed). This is achieved by having a window that
-  is independent of the Round-Trip Time (RTT). This may make it more
-  fair, as congestion avoidance in DCTCP (and in most -- if not all --
-  TCP variants), is biased in favor of flows with smaller RTT[^1].
+* The rate for additive increase is the same _constant_ for all flows
+  (but could be made configurable for each network layer if
+  needed). This is achieved by having a window that is independent of
+  the Round-Trip Time (RTT). This may make it more fair, as congestion
+  avoidance in DCTCP (and in most -- if not all -- TCP variants), is
+  biased in favor of flows with smaller RTT[^1].
 
 * Because it is operating at the _flow_ level, it estimates the
   _actual_ bandwidth sent, including retransmissions, ACKs and what
-  not from protocols operating on the flow. DCTCP estimates bandwith
+  not from protocols operating on the flow. DCTCP estimates bandwidth
   based on which data offsets are acknowledged.
 
 * The algorithm uses 8 bits to indicate the queue depth in each
@@ -188,7 +188,7 @@ outgoing queue depth. The current minimum queue depth to trigger and
 ECN is 16 packets (implemented as a bit shift of the queue size when
 writing a packet). We perform a logical OR with the previous value of
 the packet. If the width of the ECN field would be a single bit, this
-operation would be identical.
+operation would be identical to DCTCP.
 
 At the _receiver_ side, the context maintains two state variables.
 
