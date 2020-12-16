@@ -27,10 +27,13 @@ I won't be going into too many details here, but there are two classes
 of mechanisms to inform traffic sources of congestion. One is Explicit
 Congestion Notification (ECN), where information is sent to the sender
 that its traffic is traversing a congested element. This is a solution
-that is, for instance, used by DataCenter TCP (DCTCP)[^1]. The other
-mechanism is implicit congestion detection, for instance by inferring
-congestion from packet loss (most TCP flavors) or increases in
-round-trip-time (TCP vegas).
+that is, for instance, used by
+[DataCenter TCP (DCTCP)](https://tools.ietf.org/html/rfc8257),
+and is also supported by
+[QUIC](https://www.ietf.org/archive/id/draft-ietf-quic-recovery-33.txt).
+The other mechanism is implicit congestion detection, for instance by
+inferring congestion from packet loss (most TCP flavors) or increases
+in round-trip-time (TCP vegas).
 
 Once the sender is aware that its traffic is experiencing congestion,
 it has to take action. A simple (proven) way is the AIMD algorithm
@@ -41,7 +44,7 @@ will quickly back off (Multiplicative Decrease). Usually this is
 augmented with a Slow Start (Multiplicative Increase) phase when the
 senders begins to send, to reach the maximum bandwidth more
 quickly. AIMD is used by TCP and QUIC (among others), and Ouroboros is
-no different. It's mathematically proven to work.
+no different. It's been proven to work mathematically.
 
 Now that the main ingredients are known, we can get to the
 preparation of the course.
@@ -51,8 +54,8 @@ preparation of the course.
 Congestion avoidance is in a very specific location in the Ouroboros
 architecture: at the ingest point of the network; it is the
 responsibility of the network, not the client application. In
-OSI-layer terminology, we could say it's in "Layer 3", not in "Layer
-4".
+OSI-layer terminology, we could say that in Ouroboros, it's in "Layer
+3", not in "Layer 4".
 
 Congestion has to be dealt with for each individual traffic
 source/destination pair. In TCP this is called a connection, in
@@ -78,7 +81,13 @@ allows an octet for ECN.
 
 This section glances over the API in an informal way. A reference
 manual for the actual C API will be added after 0.18 is in the master
-branch of the prototype.
+branch of the prototype. The most important thing to keep in mind is
+that the architecture dictates this API, not any particular algorithm
+for congestion that we had in mind. In fact, to be perfectly honest,
+up front I wasn't 100% sure that congestion avoidance was feasible
+without adding additional fields fields to the DT protocol, such as a
+packet counter, or sending some feedback for measuring the Round-Trip
+Time (RTT). But as the algorithm below will show, it can be done.
 
 When flows are created, some state can be stored, which we call the
 _congestion context_. For now it's not important to know what state is
@@ -129,7 +138,9 @@ That is the API for the endpoints. In each Ouroboros IPCP (think
 ```
 
 That's about as lean as as it gets. Now let's have a look at the
-algorithm that I designed and implemented as part of the prototype.
+algorithm that I designed and
+[implemented](https://ouroboros.rocks/cgit/ouroboros/tree/src/ipcpd/unicast/pol/ca-mb-ecn.c?h=be)
+as part of the prototype.
 
 # The Ouroboros multi-bit Forward ECN (MB-ECN) algorithm
 
@@ -140,9 +151,9 @@ differences, without any judgement.
 * The rates for additive increase and slow start are the same
   _constant_ for all flows (but could be made configurable for each
   network layer if needed). This is achieved by having a window that
-  is independent of RTT. This may make it more fair, as congestion
-  avoidance in DCTCP (and in most -- if not all -- TCP variants), is
-  biased in favor of flows with smaller RTT[^1].
+  is independent of the Round-Trip Time (RTT). This may make it more
+  fair, as congestion avoidance in DCTCP (and in most -- if not all --
+  TCP variants), is biased in favor of flows with smaller RTT[^1].
 
 * Because it is operating at the _flow_ level, it estimates the
   _actual_ bandwidth sent, including retransmissions, ACKs and what
@@ -243,14 +254,15 @@ window. The sender keeps track of:
   by a fixed (scaled) value when there is no congestion outside of
   Slow Start. Currently, the scaled value is 64KiB per 16.8ms.
 
-There is one caveat: what if no FLOW_UPDATE packet arrive at all?
-DCTCP (being TCP) will timeout at the RTO value, but this algorithm
-has no such mechanism at this point. The answer is that we currently
-do not monitor flow liveness from the flow allocator, but a
-Bidirectional Forwarding Detection (BFD)-like mechanism for flows
-should be added for QoS maintenance, and can serve to timeout the flow
-and reset it (meaning a full reset of the context). This is, however,
-not yet implemented.
+There is one caveat: what if no FLOW_UPDATE packets arrive at all?
+DCTCP (being TCP) will timeout at the Retransmission TimeOut (RTO)
+value (since its ECE information comes from ACK packets), but this
+algorithm has no such mechanism at this point. The answer is that we
+currently do not monitor flow liveness from the flow allocator, but a
+Keepalive or Bidirectional Forwarding Detection (BFD)-like mechanism
+for flows should be added for QoS maintenance, and can serve to
+timeout the flow and reset it (meaning a full reset of the
+context).
 
 # MB-ECN in action
 
