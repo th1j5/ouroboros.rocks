@@ -81,7 +81,9 @@ accessible to some -- so, let's have a quick look.
 The Ouroboros network protocol has
 [5 fields](/docs/concepts/protocols/#network-protocol):
 
-``` | DST | TTL | QOS | ECN | EID | ```
+```
+| DST | TTL | QOS | ECN | EID |
+```
 
 which we had to map to the Ethernet II protocol for our ipcpd-eth-dix
 implementation. The basic Ethernet II MAC (layer-2) header is pretty
