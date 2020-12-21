@@ -6,10 +6,11 @@ description: ""
 author: Dimitri Staessens
 ---
 
-In my recently did some quick tests with the new congestion avoidance
-implementation, and thought to myself that it was a shame that
-Wireshark could not identify the Ouroboros flows, as that could give
-me some nicer graphs.
+I recently did some
+[quick tests](/blog/2020/12/12/congestion-avoidance-in-ouroboros/#mb-ecn-in-action)
+with the new congestion avoidance implementation, and thought to
+myself that it was a shame that Wireshark could not identify the
+Ouroboros flows, as that could give me some nicer graphs.
 
 Just to be clear, I think generic network tools like tcpdump and
 wireshark -- however informative and nice-to-use they are -- are a
@@ -56,7 +57,7 @@ layer.
 The graph above shows the bandwidth -- as captured on the congested
 100Mbit Ethernet link --, separated for each traffic flow, from the
 same pcap capture as in my previous post. A flow can be identified by
-a <destination address, endpoint ID> pair, and since the destination
+a (destination address, endpoint ID)-pair, and since the destination
 is all the same, I could filter out the flows by simply selecting them
 based on the (64-bit) endpoint identifier.
 
