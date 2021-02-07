@@ -14,7 +14,7 @@ linkTitle = "Ouroboros"
     Download <i class="fab fa-git ml-2 "></i>
   </a>
   <p class="lead mt-5">
-    Decentralized packet networking rebuilt from the ground up
+    Packet networking rebuilt from the ground up
   </p>
   <div class="mx-auto mt-5">
     {{< blocks/link-down color="info">}}
@@ -23,13 +23,15 @@ linkTitle = "Ouroboros"
 {{< /blocks/cover >}}
 
 {{% blocks/lead color="secondary" %}} Ouroboros is a <b>peer-to-peer
-transport network prototype</b> inspired by a <b>recursive network
-paradigm</b> and implemented according to a <b>UNIX design
-philosophy</b>. The aim is to provide a <b>secure and private
-networking</b> experience and to provide a simple API for writing
-distributed software and networked application libraries. Ouroboros
-provides a very <b>compact API</b> support
-both <b>unicast</b> <b>multicast</b> communications. All protocols
-carry <b>minimal header information</b>, with easy-to-enable
-<b>encryption</b>.
+packet network prototype</b>. It unifies all packet communications
+--whether it is two programs the same machine or two programs in
+computers on different continents -- using a single abstraction, which
+we call a <b>flow</b>. The Ouroboros architecture improves security,
+privacy and efficiency through <b>simplicity</b>. It provides a very
+<b>compact API</b> for writing distributed software and networked
+application libraries, with support for
+both <b>unicast</b> <b>multicast</b> communications. Being rebuilt
+from the ground up, Ouroboros is not directly compatible with IP or
+UNIX sockets, but it is
+<b>interoperable with UDP/IP and Ethernet</b>.
 {{% /blocks/lead %}}
