@@ -334,7 +334,7 @@ big oscillations because of AIMD), when switching the flows on the
 clients on and off which is on par with DCTCP and not unexpected
 keeping in mind the similarities between the algorithms:
 
-{{<figure width="60%" src="/blog/news/20201212-congestion.png">}}
+{{<figure width="60%" src="/blog/20201212-congestion.png">}}
 
 The periodic "gaps" were not seen at the ocbr endpoint applicationand
 may have been due to tcpdump not capturing everything that those

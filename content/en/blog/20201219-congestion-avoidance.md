@@ -35,7 +35,7 @@ First, a quick refresh on the experiment layout, it's the the same
 4-node experiment as in the
 [previous post](/blog/2020/12/12/congestion-avoidance-in-ouroboros/#mb-ecn-in-action)
 
-{{<figure width="80%" src="/blog/news/20201219-exp.svg">}}
+{{<figure width="80%" src="/blog/20201219-exp.svg">}}
 
 I tried to draw the setup as best as I can in the figure above.
 
@@ -52,7 +52,7 @@ generated with our _constant bit rate_ ```ocbr``` tool trying to send
 about 80 Mbit/s of application-level throughput over the unicast
 layer.
 
-{{<figure width="80%" src="/blog/news/20201219-congestion.png">}}
+{{<figure width="80%" src="/blog/20201219-congestion.png">}}
 
 The graph above shows the bandwidth -- as captured on the congested
 100Mbit Ethernet link --, separated for each traffic flow, from the
@@ -142,7 +142,7 @@ from the "wire":
 
 ## The network protocol
 
-{{<figure width="80%" src="/blog/news/20201219-ws-0.png">}}
+{{<figure width="80%" src="/blog/20201219-ws-0.png">}}
 
 We will first have a look at packets captured around the point in time
 where the second (red) flow enters the network, about 14 seconds into
@@ -194,7 +194,7 @@ endpoint for the ```ocbr``` server.
 
 ## The flow request
 
-{{<figure width="80%" src="/blog/news/20201219-ws-1.png">}}
+{{<figure width="80%" src="/blog/20201219-ws-1.png">}}
 
 The first "red" packet that was captured is the one for the flow
 allocation request, **FLOW REQUEST**[^6]. As mentioned before, the
@@ -235,7 +235,7 @@ relevant for this message.
 
 ## The flow reply
 
-{{<figure width="80%" src="/blog/news/20201219-ws-2.png">}}
+{{<figure width="80%" src="/blog/20201219-ws-2.png">}}
 
 Now, the **FLOW REPLY** message for our request. It originates our
 machine, so you will notice that the TTL is the starting value of 60.
@@ -247,7 +247,7 @@ for this flow.
 
 ## Congestion / flow update
 
-{{<figure width="80%" src="/blog/news/20201219-ws-3.png">}}
+{{<figure width="80%" src="/blog/20201219-ws-3.png">}}
 
 Now a quick look at the congestion avoidance mechanisms. The
 information for the Additive Increase / Multiple Decrease algorithm is
@@ -256,7 +256,7 @@ active, they experience congestion since the requested bandwidth from
 the two ```ocbr``` clients (180Mbit) exceeds the 100Mbit link, and the
 figure above shows a packet marked with an ECN value of 11.
 
-{{<figure width="80%" src="/blog/news/20201219-ws-4.png">}}
+{{<figure width="80%" src="/blog/20201219-ws-4.png">}}
 
 When the packets on a flow experience congestion, the flow allocator
 at the endpoint (the one our _uni-s_ IPCP) will update the sender with
