@@ -79,10 +79,13 @@ accessible on [arXiv](https://arxiv.org/pdf/2001.09707.pdf).
 
 The best place to start understanding a bit what Ouroboros aims to do
 and how it differs from other packet networks is to first watch this
-presentation at
-[FOSDEM 2018](https://archive.fosdem.org/2018/schedule/event/ipc/)
-but note that this presentation is over three years old, and
-very outdated in terms of what has been implemented.
+presentation at [FOSDEM
+2018](https://archive.fosdem.org/2018/schedule/event/ipc/) but note
+that this presentation is over three years old, and very outdated in
+terms of what has been implemented. The prototype implementation is
+now capable of asynchronous flows handling, doing retransmission, flow
+control, congestion control...
+
 The next things to do are to have a quick read of the
 [flow allocation](/docs/concepts/fa/)
 and
