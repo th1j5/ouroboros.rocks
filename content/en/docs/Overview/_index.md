@@ -45,10 +45,34 @@ Some of the main characteristics are:
   ECN](/docs/concepts/protocols/). This immutability can be enforced
   through authentication (not yet implemented).
 
+* Ouroboros has _external_ and _dynamic_ server application
+  binding. Socket applications leave it to the application developer
+  to manage binding from within the program (typically a bind() call
+  to either a specific IP address or to all addresses (0.0.0.0),
+  leaving all configuration application (or library-) specific. When
+  shopping for network libraries, a typical questions are "can it bind
+  to multiple IP addresses?".
+
+  Ouroboros makes all this management external to the program: server
+  applications only need to call flow_accept(). The _bind()_ primitive
+  allows a program (or running process) to be bound from the command
+  line to a certain (set of) service names and when a flow request
+  arrives for that service, Ouroboros acts as a broker that hands of
+  the flow to any program that is bound to that service. Binding is
+  N-to-M: multiple programs can be bound to the same service name, and
+  programs can be bound to multiple names. This binding is also
+  _dynamic_: it can be done while the program is running, and will not
+  disrupt existing flows.
+
+  In addition, the _register()_ primitive allows external and dynamic
+  control over which network a service name is available over. Again,
+  while the service is running, and without disrupting existing flows.
+
 * The Ouroboros end-to-end protocol performs flow control, error
   control and reliable transfer and is implemented as part of the
   _application library_. This includes sequence numbering, ordering,
-  sending and handling acknowledgments, managing flow control windows, ...
+  sending and handling acknowledgments, managing flow control windows,
+  ...
 
 * Ouroboros can establish an encrypted flow in a _single RTT_ (not
   including name-to-address resolution). The flow allocation API is a
