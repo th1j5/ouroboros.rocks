@@ -50,9 +50,9 @@ Some of the main characteristics are:
   to manage binding from within the program (typically a bind() call
   to either a specific IP address or to all addresses (0.0.0.0),
   leaving all configuration application (or library-) specific. When
-  shopping for network libraries, a typical questions are "can it bind
-  to multiple IP addresses?".
-
+  shopping for network libraries, typical questions are "can it bind
+  to multiple IP addresses for high availability?", "Can I run
+  multiple servers in parallel on the same port for scaling?".
   Ouroboros makes all this management external to the program: server
   applications only need to call flow_accept(). The _bind()_ primitive
   allows a program (or running process) to be bound from the command
@@ -62,11 +62,10 @@ Some of the main characteristics are:
   N-to-M: multiple programs can be bound to the same service name, and
   programs can be bound to multiple names. This binding is also
   _dynamic_: it can be done while the program is running, and will not
-  disrupt existing flows.
-
-  In addition, the _register()_ primitive allows external and dynamic
-  control over which network a service name is available over. Again,
-  while the service is running, and without disrupting existing flows.
+  disrupt existing flows.  In addition, the _register()_ primitive
+  allows external and dynamic control over which network a service
+  name is available over. Again, while the service is running, and
+  without disrupting existing flows.
 
 * The Ouroboros end-to-end protocol performs flow control, error
   control and reliable transfer and is implemented as part of the
