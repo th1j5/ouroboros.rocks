@@ -30,7 +30,7 @@ undoubtedly somewhat inaccurate -- recollections of how it went down,
 why Ouroboros exists, and how it's different from RINA.
 
 And a quick note here: Ouroboros _the network prototype_ has no
-relation to Ouroborosm the _Proof-of-Stake protocol_ in the Cardano
+relation to Ouroboros _the Proof-of-Stake protocol_ in the Cardano
 blockchain. That some of the Cardano guys are also interested in RINA
 doesn't help to ease any confusion.
 
@@ -806,7 +806,7 @@ fragmentation in IP and only retransmit the bytes in that fragment.
 But the code was again speaking otherwise. It was basically telling
 us: TCP was independent of IP. But fragmentation should be in TCP, and
 IP should specify its maximum packet size. Anything else would result
-in an untolerable mess.  So that's how we split the _Flow and
+in an intolerable mess.  So that's how we split the _Flow and
 Retransmission Control Protocol_ (FRCP) and the _Data Transfer
 Protocol_ (DTP) in Ouroboros. The second nail in RINA's coffin.
 
