@@ -30,7 +30,7 @@ undoubtedly somewhat inaccurate -- recollections of how it went down,
 why Ouroboros exists, and how it's different from RINA.
 
 And a quick note here: Ouroboros _the network prototype_ has no
-relation to the Ouroboros Proof-of-Stake protocol in the Cardano
+relation to Ouroborosm the _Proof-of-Stake protocol_ in the Cardano
 blockchain. That some of the Cardano guys are also interested in RINA
 doesn't help to ease any confusion.
 
@@ -38,8 +38,8 @@ doesn't help to ease any confusion.
 
 I first came into contact with RINA somewhere in 2012, while working
 as a senior researcher in the field of telecommunication networks at
-what was then known as IBBT (I'll save you the abbreviation), would
-soon be known as iMinds, and is now integrated into
+what was then known as IBBT (I'll save you the abbreviation). IBBT
+would soon be known as iMinds, and is now integrated into
 [IMEC](https://www.imec-int.com).  A new research project was going to
 start and our research group was looking for someone to be responsible
 for the IBBT contributions. That project, called
@@ -60,8 +60,8 @@ which we later usually referred to as _PNA_.  It was also the time
 when I was finishing my PhD thesis, so my PostDoc track was going to
 be for a substantial part on computer network architecture and RINA.
 Unifying
-[Inter-Process Communication](https://en.wikipedia.org/wiki/Inter-process_communication) (IPC)
-and networking. How exciting was that!
+[Inter-Process Communication](https://en.wikipedia.org/wiki/Inter-process_communication)
+(IPC) and networking. How exciting was that!
 
 IRATI -- Investigating RINA as an Alternative to TCP/IP -- was
 something different from the usual research projects, involving not
@@ -282,7 +282,7 @@ In any case, the project had no choice but to push on with
 development, and, despite all difficulties, somewhere mid 2014 IRATI
 had most basic functionalities in place to bring the software in a
 limited way into PRISTINE so it could start development of the
-_PRISTINE software developement kit (SDK)__ (which was developed by
+_PRISTINE software developement kit (SDK)_ (which was developed by
 people also in IRATI).
 
 Mostly to please the reviewers, we tried to get some standardization
@@ -513,16 +513,17 @@ situation.
 We laid the first stone on Ouroboros on Friday February 12th, 2016. At
 that point in time Ouroboros was still planned as a RINA
 implementation, so we started from the beginning: an empty git
-repository, renewed enthousiasm, fresh _specs_ -- still warm from the
-printer and smelling of toner -- in our hands, and Sanders initial
-software design and APIs in colored marker on the whiteboard. Days
-were long -- we still had work to do on PRISTINE, mind you -- and
-evenings were short. I could now imagine the frustration of the i2cat
-people, who a couple of years prior were probably also spending their
-evenings and nights enthousiastically coding on IRATI while, for us,
-IRATI was still a (very interesting) job rather than a passion. We
-would feel no such frustrations as we knew from the onset that the
-development of Ouroboros was going to be a two-man job.
+repository under our cursor, renewed enthousiasm in our minds, fresh
+_specs_ -- still warm from the printer and smelling of toner -- in our
+hands, and Sanders initial software design and APIs in colored marker
+on the whiteboard. Days were long -- we still had work to do on
+PRISTINE, mind you -- and evenings were short. I could now imagine the
+frustration of the i2cat people, who a couple of years prior were
+probably also spending their evenings and nights enthousiastically
+coding on IRATI while, for us, IRATI was still a (very interesting)
+job rather than a passion. We would feel no such frustrations as we
+knew from the onset that the development of Ouroboros was going to be
+a two-man job.
 
 While we were spending half our days gathering and compiling results
 from our _LFA_ experiments for PRISTINE, which -- fortunately or
@@ -576,7 +577,7 @@ sockets and all their options. That's what the bind() and register()
 calls in Ouroboros do for Ouroboros applications: you bind some
 program to that name _from the command line_, you register the name in
 the layer (equivalent of creating the socket) _from the command line_
-, and all the (server) program has to do is call _flow_accept()_ and
+, and all the (server) program has to do is call _flow\_accept()_ and
 it will receive incoming flows.  It is this change in the RINA API
 that inspired us to name our first very first public presentation
 about Ourobors, at FOSDEM 2018,
@@ -629,17 +630,18 @@ day, we would kick CDAP out of the Ouroboros prototype.
 
 Summer was approaching again. Most of the contributions to PRISTINE
 were in, so the ARCFIRE partners could start to focus on that
-project. And there was a risk: ARCFIRE depended on the Fed4FIRE
-testbeds, which was ending and its future was not certain. The
-projected target API for _rumba_ was
-[jFed](https://jfed.ilabt.imec.be/). To mitigate the risk, we made an
-inventory of other potential testbeds, and to accomodate for the wait
-for the results of the funding calls, we proposed (and got) an
-extention to ARCFIRE with 6 months to a 30-month project duration. In
-the end, Fed4FIRE was funded, ARCFIRE had some breathing space --
-after all, we had to fire on all cylinders to get the best possible
-results and make a case for RINA -- and Sander and myself had some
-extra time to get Ouroboros up and running.
+project. There was a risk: ARCFIRE depended on the Fed4FIRE testbeds,
+and Fed4FIRE was ending and its future was not certain. The projected
+target API for _rumba_ was
+[jFed](https://jfed.ilabt.imec.be/).
+To mitigate the risk, we made an inventory of other potential
+testbeds, and to accomodate for the wait for the results of the
+funding calls, we proposed (and got) an extention to ARCFIRE with 6
+months to a 30-month project duration. In the end, Fed4FIRE+ was
+funded, ARCFIRE had some breathing space -- after all, we had to fire
+on all cylinders to get the best possible results and make a case for
+RINA -- and Sander and myself had some extra time to get Ouroboros up
+and running.
 
 Sander quickly developed an Ethernet LLC _shim DIF_ based on the UDP
 one, and after that, we both moved our focus on the key components in
@@ -663,7 +665,7 @@ trying to do too much, too soon. Everyone tried their best, and I
 think we achieved what was achieveable given the time and resources we
 had. The project definitely had some nice outcomes. Standardization at
 least got somewhere, with a project in ISO and also some traction
-within the Next Generation Protocols (NGP group at
+within the Next Generation Protocols (NGP) group at
 [ETSI](www.etsi.org). RINAsim was a nice educational tool, especially
 for visualizing the operation of RINA.
 
@@ -704,7 +706,7 @@ far more flexible.
 ### Ouroboros diverges from RINA
 
 In the meantime, I was implementing and revising _CACEP_, the Common
-Application Connnection Establishment Protocol that was accompanying
+Application Connection Establishment Phase that was accompanying
 CDAP in RINA. Discussions on CACEP between Sander and myself were
 interesting and sometimes heated -- whiteboard markers have
 experienced flight and sudden deceleration. CDAP was supposed to
@@ -903,9 +905,9 @@ The [paper](https://arxiv.org/abs/2001.09707) was submitted in January
 
 With the GPL license on Ouroboros, Sander and myself decided to
 continue to update the prototype and build a bit of a website for
-it. So, if you made it all the end to this blog post: thank you for
-your interest in the project, that's why we did what we did, and
-continue to do what we do.
+it. So, if you made it all the way to the end of this blog post: thank
+you for your interest in the project, that's why we did what we did,
+and continue to do what we do.
 
 Stay curious,
 
