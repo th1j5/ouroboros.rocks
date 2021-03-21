@@ -137,13 +137,13 @@ specs_.
 
 i2cat had a vested interest in RINA and was putting in a lot of
 development effort with 3 people working on the project: Eduard,
-Leonardo Bergesio and Miquel Tarzan. Nextworks assigned Francesco
-Salvestrini, an experienced kernel developer to the project. From
-iMinds, the development effort would come from Sander. My personal
-involvement in the project software development was limited, as I
-still had other ongoing projects (at least until the end of 2014) and
-my main role would be in the experimentation work, which was only
-planned start after the initial development phase.
+Leonardo Bergesio and Miquel Tarz&aacute;n. Nextworks assigned
+Francesco Salvestrini, an experienced kernel developer to the
+project. From iMinds, the development effort would come from
+Sander. My personal involvement in the project software development
+was limited, as I still had other ongoing projects (at least until the
+end of 2014) and my main role would be in the experimentation work,
+which was only planned start after the initial development phase.
 
 The project established efficient lines of communications, mostly
 using Skype and the mailing lists and the implementation work got
@@ -159,18 +159,18 @@ This is a Linux loadable kernel module (LKM) that wraps the Ethernet
 RINA API. The VLAN ID would be used as the layer name. No
 functionality would be added to the existing Ethernet protocol so with
 only the src and dst address fields left, this _shim DIF_ was
-restricted to having only a single application registerd at a time,
+restricted to having only a single application registered at a time,
 and to a single RINA "flow" between the endpoints. We could deploy
 about 4000 of these _shim DIFs_ in parallel to support larger RINA
 networks. The name resolution for endpoint applications was planned to
 be using the Address Resolution Protocol (ARP), which was readily
-available in the Linux kernel. Or so we thought.
+available in the Linux kernel.
 
-The ARP implementation in the kernel assumed IPv4 as the only L3
-protocol (IPv6 doesn't use ARP), so it could not handle the resolution
-of RINA _application names_ to MAC addresses, which we needed for the
-shim DIF. So after some deliberation, we decided to implement an RFC
-826 compliant version of ARP to support the shim DIF.
+Or so we thought. The ARP implementation in the kernel assumed IPv4 as
+the only L3 protocol (IPv6 doesn't use ARP), so it could not handle
+the resolution of RINA _application names_ to MAC addresses, which we
+needed for the shim DIF. So after some deliberation, we decided to
+implement an RFC 826 compliant version of ARP to support the shim DIF.
 
 In the meantime, we also submitted a small 3-partner project proposal
 the GEANT framework, tailored to researching RINA in an NREN (National
@@ -211,18 +211,19 @@ started, and the prototype was getting its first deployment trials on
 the FIRE testbeds. This move to real hardware brought more problems to
 light. The network switches in the OFELIA testbed wasn't agreeing very
 well with our RFC-compliant ARP implementation, dropping everything
-that wasn't IPv4. One of the testbeds also relied on VLANs to seperate
-experiments, which didn't fare well with our idea to (ab)use them
-within an experiment for the _shim DIF_. While Sander did the
-development of the _shim DIFs_ using the actual testbed hardware,
-other components had been developed predominantly in a virtual machine
-environment and had not been subjected to the massive parallellism
-that was available on dual-Xeon hardware. The stability of the
-implementation had to be substantially improved to get stable and
-reliable measurements. These initial trials in deploying IRATI also
-showed that configuring the prototype was very time consuming. The
-components used json configuration files which were to be created for
-each experiment deployment, causing substantial overhead.
+that hadn't IPv4 as the network addresses. One of the testbeds also
+relied on VLANs to seperate experiments, which didn't fare well with
+our idea to (ab)use them within an experiment for the _shim
+DIF_. While Sander did the development of the _shim DIFs_ using the
+actual testbed hardware, other components had been developed
+predominantly in a virtual machine environment and had not been
+subjected to the massive parallellism that was available on dual-Xeon
+hardware. The stability of the implementation had to be substantially
+improved to get stable and reliable measurements. These initial trials
+in deploying IRATI also showed that configuring the prototype was very
+time consuming. The components used json configuration files which
+were to be created for each experiment deployment, causing substantial
+overhead.
 
 The clock was ticking and while the IRATI development team was working
 tirelessly to stabilize the stack, I worked on some (kernel) patches
@@ -293,9 +294,9 @@ gathering feedback on the _specs_ and getting them on the track
 towards ISO RINA standards. I still have many fond memories of my
 experiences discussing RINA within WG7.
 
-The IRATI pro was officially ending soon, and the development was now
-focusing on the last functions of the Data Transfer Control Protocol
-(DTCP) component of EFCP, such as retransmission logic
+The IRATI project was officially ending soon, and the development was
+now focusing on the last functions of the Data Transfer Control
+Protocol (DTCP) component of EFCP, such as retransmission logic
 (delta-t). Other development was now shifted completely out of IRATI
 towards the PRISTINE SDK.
 
@@ -473,7 +474,7 @@ and also to bring tooling to the RINA community. The project was
 coordinated by Sven van der Meer (Ericsson), who had done significant
 work on the PRISTINE use cases, and would focus on the impact of RINA
 on network management. The industry-inspired use cases were brought by
-Diego Lopez (Telef&oacute;nica), _acteur incontournable_ in the
+Diego L&oacute;pez (Telef&oacute;nica), _acteur incontournable_ in the
 Network Functions Virtualization (NFV) world. The project was of
 course topped off with i2cat, Nextworks, and ourselves, as we were
 somewhere in the process of integration into IMEC. The order at hand
@@ -579,8 +580,8 @@ program to that name _from the command line_, you register the name in
 the layer (equivalent of creating the socket) _from the command line_
 , and all the (server) program has to do is call _flow\_accept()_ and
 it will receive incoming flows.  It is this change in the RINA API
-that inspired us to name our first very first public presentation
-about Ourobors, at FOSDEM 2018,
+that inspired us to name our very first public presentation about
+Ouroboros, at FOSDEM 2018,
 [IPC in 1-2-3](https://archive.fosdem.org/2018/schedule/event/ipc/).
 
 When we tried to propose them to the RINA community, these changes
@@ -706,8 +707,8 @@ far more flexible.
 ### Ouroboros diverges from RINA
 
 In the meantime, I was implementing and revising _CACEP_, the Common
-Application Connection Establishment Phase that was accompanying
-CDAP in RINA. Discussions on CACEP between Sander and myself were
+Application Connection Establishment Phase that was accompanying CDAP
+in RINA. Discussions on CACEP between Sander and myself were
 interesting and sometimes heated -- whiteboard markers have
 experienced flight and sudden deceleration. CDAP was supposed to
 support different encoding schemes -- the OSI _presentation layer_. We
@@ -723,11 +724,11 @@ Application Entity Instace -- that was actually only needed after the
 flow allocation procedure was basically established.  But after a
 while, it was clear to me that this information should be _there_ in
 that CACEP part, and was rather universal for all application
-connections, not just CDAP. After I presented this to Sander
-_<despair>_ over IRC, he actually recognized how this -- to me
-seemingly small -- change impacted the prototype. Now, I will never
-forget the exchange, and I actually saved that conversation as a text
-file. The date was February 24th, 2017.
+connections, not just CDAP. After I presented this to Sander _despair_
+over IRC, he actually recognized how this -- to me seemingly small --
+change impacted the entire architecture. Now, I will never forget the
+exchange, and I actually saved that conversation as a text file. The
+date was February 24th, 2017.
 
 ```
 ...
@@ -754,14 +755,14 @@ groups, and because Application Entities were usually drawn as a set
 of circles, and the boundary between the network application as a
 line, that battle was internally nicknamed -- boys will be boys -- the
 _balls-in, balls-out_ question. If you ever attended one of John's
-presentation, he will take a short pause and then continue that this
-was the only time that a major insight came from a turf war: _the
+presentations, he would take a short pause and then continue: "this
+was the only time that a major insight came from a turf war": _the
 balls were on the line_. The Application Entity needed to be known in
 both the application and the network. Alas! Our implementation was
 clearly showing that this was not the case. The balls were _above_ the
 line, the _network_ (or more precise: the flow allocator) doesn't need
 to know _anything_ about application entities! Then and there, Sander
-had hammered a first nail in RINA's coffin.
+had found a mistake in RINA.
 
 Ouroboros now had a crisp and clear boundary between the flow in a
 _DIF_, and any connections using that flow in the layer above. Flow
@@ -772,11 +773,11 @@ OSI terminology -- first the network connects the running programs,
 and after that, the programs decide which protocol to use (which can
 be implicit). What was in the _specs_ , what the RINA API was actually
 doing, was piggybacking these exchanges! Now, we have no issues with
-that from an operational perspective, in effect the Ouroboros flow
+that from an operational perspective: _en effet_, the Ouroboros flow
 allocator has a _piggyback API_. But the contents of the piggybacked
 information in Ouroboros is _opaque_. And all this has another, even
-bigger, implication. One that I would come to via another line of
-reasoning some time later.
+bigger, implication. One that I would only figure out via another line
+of reasoning some time later.
 
 With ARCFIRE rolling along and the implementation of the _rumba_
 framework in full swing, Sander was working on the link-state routing
@@ -808,20 +809,20 @@ us: TCP was independent of IP. But fragmentation should be in TCP, and
 IP should specify its maximum packet size. Anything else would result
 in an intolerable mess.  So that's how we split the _Flow and
 Retransmission Control Protocol_ (FRCP) and the _Data Transfer
-Protocol_ (DTP) in Ouroboros. The second nail in RINA's coffin.
+Protocol_ (DTP) in Ouroboros. Another mistake in RINA.
 
-With FRCP split from DTP in roughly the same way as TCP was split from
-IP, we had a new question: where to put FRCP? RINA has DTCP/DTP in the
-layer as EFCP. And this resulted in something that I found rather
-ugly: a normal layer would "bootstrap" its traffic (e.g. flow
-allocator) over its own EFCP implementation to deal with underlying
-layers that do not have EFCP (such as the _shim DIFs_). Well, fair
-enough I guess. But there is another thing. One that bugged me even
-more. RINA has an assumption on the _system_, one that has to be
-true. The EFCP implementation -- which is the guarantee that packets
-are delivered, and that they are delivered in-order -- is in the
-IPCP. But the application process that makes use of the IPCP is a
-_different process_. So, in effect, the transfer of data, the IPC,
+With FRCP split from DTP in roughly along the same line as TCP was
+originally split from IP, we had a new question: where to put FRCP?
+RINA has DTCP/DTP in the layer as EFCP. And this resulted in something
+that I found rather ugly: a normal layer would "bootstrap" its traffic
+(e.g. flow allocator) over its own EFCP implementation to deal with
+underlying layers that do not have EFCP (such as the _shim
+DIFs_). Well, fair enough I guess. But there is another thing. One
+that bugged me even more. RINA has an assumption on the _system_, one
+that has to be true. The EFCP implementation -- which is the guarantee
+that packets are delivered, and that they are delivered in-order -- is
+in the IPCP. But the application process that makes use of the IPCP is
+a _different process_. So, in effect, the transfer of data, the IPC,
 between the Application Process and the IPCP has to be reliable and
 preserver data order _by itself_. RINA has no control over this
 part. RINA is not controlling _ALL_ IPC; there is IPC _outside of
@@ -837,18 +838,19 @@ components, and not make _any_ assumptions! Then, and only then, it
 would be universal. Only then, the _unification of networking and IPC_
 would be complete.
 
-The third nail in RINA's coffin was _the big one_. And in hindsight,
-we should already have seen that coming with our realization that the
-application entity was _above the line_. We moved FRCP into the
-application. It would be implemented in the library, not in the IPCP,
-as a set of function calls, just like HTTP libraries. Sander was
-initially skeptic, because to his taste, if a single-threaded
-application uses the library, it should remain single-threaded. How
-could it send acknowledgements, restransmit packets etc? I agreed, but
-said I was confident that it would work by running the functionality
-as part of the IPC calls, read/write/fevent. And that's how it's
-implemented now.  All this meant that Ouroboros layers were not DIFs,
-and we stopped using that terminology.
+The third change in the architecture was the big one. And in
+hindsight, we should already have seen that coming with our
+realization that the application entity was _above the line_: we moved
+FRCP into the application. It would be implemented in the library, not
+in the IPCP, as a set of function calls, just like HTTP
+libraries. Sander was initially skeptic, because to his taste, if a
+single-threaded application uses the library, it should remain
+single-threaded. How could it send acknowledgements, restransmit
+packets etc? I agreed, but said I was confident that it would work by
+running the functionality as part of the IPC calls,
+read/write/fevent. And that's how it's implemented now.  All this
+meant that Ouroboros layers were not DIFs, and we stopped using that
+terminology.
 
 By now, the prototype was running stable enough for us to go _open
 source_. We got approval from IMEC to release it to the public under
