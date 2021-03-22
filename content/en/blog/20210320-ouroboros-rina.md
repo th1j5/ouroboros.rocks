@@ -2,7 +2,7 @@
 date: 2021-03-20
 title: "How does Ouroboros relate to RINA, the Recursive InterNetwork Architecture?"
 linkTitle: "Is Ouroboros RINA?"
-description: "TL;DR: Ouroboros isn't RINA."
+description: "A brief history of Ouroboros"
 author: Dimitri Staessens
 ---
 
@@ -824,7 +824,7 @@ that packets are delivered, and that they are delivered in-order -- is
 in the IPCP. But the application process that makes use of the IPCP is
 a _different process_. So, in effect, the transfer of data, the IPC,
 between the Application Process and the IPCP has to be reliable and
-preserver data order _by itself_. RINA has no control over this
+preserve data order _by itself_. RINA has no control over this
 part. RINA is not controlling _ALL_ IPC; there is IPC _outside of
 RINA_. Another way of seeing it, is like this: If a set of processes
 (IPCPs) are needed to provide reliable state synchronization between
@@ -833,10 +833,10 @@ synchronization between A and the first IPCP? If it's again an IPCP,
 that's _infinite_ recursion! Now -- granted -- this is a rather
 _academic_ issue, because most (all?) computer hardware does provide
 this kind of preserving IPC. However, to me, even theoretical issues
-were issues. I wanted Ouroboros to do _ALL_ IPC, even between its own
-components, and not make _any_ assumptions! Then, and only then, it
-would be universal. Only then, the _unification of networking and IPC_
-would be complete.
+were issues. I wanted Ouroboros to be able to guarantee _ALL_ IPC,
+even between its own components, and not make _any_ assumptions! Then,
+and only then, it would be universal. Then, and only then, the
+_unification of networking and IPC_ would be complete.
 
 The third change in the architecture was the big one. And in
 hindsight, we should already have seen that coming with our
@@ -897,7 +897,7 @@ routing code in the _normal IPCP_, I implemented the broadcast IPCP in
 a single night. The _normal IPCP_ was renamed _unicast IPCP_. It had
 all fallen into place, the Ouroboros architecture was shaped.
 
-But we had no value proposition to give, no value-added feature, no
+But we had no value proposition to pitch, no value-added feature, no
 killer app, no unique selling point. Elegance? I received my notice on
 Christmas Eve 2018. Life as a researcher would be over. But what a
 ride those last 3 years had been. I'd do the same all over again.
