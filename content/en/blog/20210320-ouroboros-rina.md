@@ -70,11 +70,10 @@ very heavily on software development. Project work was performed as
 part of PhD tracks, so who would do the work? There was a PhD student
 under my guidance working mostly on OpenFlow, Sachin -- one of the
 kindest people I have ever met, and now a professor at TU Dublin --
-and there was also a master thesis student, Sander Vrijders, that was
-interested in pursuing a PhD in our research group. After a couple of
-internal sessions where we explained possible research tracks aligned
-to ongoing and upcoming projects in our group, Sander decided to take
-on the challenge of IRATI and start a PhD track on RINA.
+and we had a student with us, Sander Vrijders, who just finished his
+master's thesis. We invited him to talk about a possible PhD track,
+aligned to ongoing and upcoming projects in our group. Sander decided
+to take on the challenge of IRATI and start a PhD track on RINA.
 
 ### IRATI
 
@@ -112,16 +111,15 @@ had an advisory role in the project.
 The first work was determining the software design of the
 implementation. IRATI was going to build an in-kernel implementation
 of RINA. A lot of the heavy lifting on the design was already done
-during the project proposal preparation phase, and the components to
-be implemented were
+during the project proposal preparation phase, and about 3 months into
+the projects, the components to be implemented were
 [well-defined](https://core.ac.uk/download/pdf/190646748.pdf).
 Broadly speaking, there were 3 things to implement: the IPCPs that
 make up the RINA layers (Distributed IPC Facilities, DIFs), the
 component that is responsible for creating and starting these IPCPs
-(the IPC manager, which had a user space and a kernel space part), and
-the core library to communicate between these components, called
-_librina_. The prototype would be built in 3 phases over the course of
-2 years.
+(the IPC manager), and the core library to communicate between these
+components, called _librina_. The prototype would be built in 3 phases
+over the course of 2 years.
 
 i2cat was going to get started on most of the management parts (IPC
 Manager, based on their existing Java implementation; librina,
@@ -361,7 +359,7 @@ improving gradually over time. Our real problem was _scale_, to which
 the biggest hurdle was the configuration of the IRATI stack. It was a
 complete nightmare. Almost anything and everything had to be
 preconfigured in _json_. I remember that by that time, Vincenzo had
-developed a tool called the _demonstator_ based on tiny buildroot VMs
+developed a tool called the _demonstrator_ based on tiny buildroot VMs
 to create setups for local testing, but this wasn't going to help us
 deploy it on the Fed4FIRE testbeds. So Sander developed one of the
 first orchestrators for RINA, called the _configurator_ for deploying
@@ -544,7 +542,7 @@ passing that around with NULL values all the time was really ugly. The
 naming API in Ouroboros changed quickly over time, initially saving
 some state in an _init_ call (the naming information of the current
 application, for instance) and later on removing the source naming
-information from the flow allocation protocol alltogether, because it
+information from the flow allocation protocol altogether, because it
 could so easily be filled with fake garbage that one shouldn't rely on
 it for anything. The four-tuple was then broken up to pass two 2-tuple
 name and instance-id, using one for the Process, the other for the
@@ -586,7 +584,7 @@ Ouroboros, at FOSDEM 2018,
 
 When we tried to propose them to the RINA community, these changes
 were not exactly met with cheers. The interactions with that community
-was alse beginning to change. RINA was the _specs_. Why are we now
+was also beginning to change. RINA was the _specs_. Why are we now
 again asking questions about basic things that we implemented in IRATI
 years ago? IRATI shows its works. Want to change the _specs_: talk to
 John.
@@ -846,11 +844,14 @@ in the IPCP, as a set of function calls, just like HTTP
 libraries. Sander was initially skeptic, because to his taste, if a
 single-threaded application uses the library, it should remain
 single-threaded. How could it send acknowledgements, restransmit
-packets etc? I agreed, but said I was confident that it would work by
-running the functionality as part of the IPC calls,
-read/write/fevent. And that's how it's implemented now.  All this
-meant that Ouroboros layers were not DIFs, and we stopped using that
-terminology.
+packets etc? And the RINA specs had congestion avoidance as part of
+EFCP/DTCP. At least that shouldn't be in the application!? I agreed,
+but said I was confident that it would make the single-threaded thing
+work by running the functionality as part of the IPC calls,
+read/write/fevent. And congestion avoidance logic should be in the
+IPCP in the flow allocator. And that's how it's implemented now. All
+this meant that Ouroboros layers were not DIFs, and we stopped using
+that terminology.
 
 By now, the prototype was running stable enough for us to go _open
 source_. We got approval from IMEC to release it to the public under
