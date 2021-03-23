@@ -574,12 +574,11 @@ that the Apache or Nginx developers would need to do is call accept()
 and read/write/select/epoll etc calls, instead of having to handle
 sockets and all their options. That's what the bind() and register()
 calls in Ouroboros do for Ouroboros applications: you bind some
-program to that name _from the command line_, you register the name in
-the layer (equivalent of creating the socket) _from the command line_
-, and all the (server) program has to do is call _flow\_accept()_ and
-it will receive incoming flows.  It is this change in the RINA API
-that inspired us to name our very first public presentation about
-Ouroboros, at FOSDEM 2018,
+program to a name _from the command line_, you register that name in
+the layer _from the command line_ , and all the (server) program has
+to do is call _flow\_accept()_ and it will receive incoming flows.  It
+is this change in the RINA API that inspired us to name our very first
+public presentation about Ouroboros, at FOSDEM 2018,
 [IPC in 1-2-3](https://archive.fosdem.org/2018/schedule/event/ipc/).
 
 When we tried to propose them to the RINA community, these changes
@@ -623,7 +622,7 @@ like the HTTP methods PUT/GET/DELETE/POST/... there is nothing
 _fundamental_ about it. It might as well have just one method,
 _[execute](http://steve-yegge.blogspot.com/2006/03/execution-in-kingdom-of-nouns.html)_.
 It's taste, and it definitely wasn't _my_ taste. I found that it only
-proved my long-holding observation that for every engineer there were
+proved my long-holding observation that for every engineer there are
 at least three overengineers. I made a bold prediction to Sander: one
 day, we would kick CDAP out of the Ouroboros prototype.
 
@@ -750,17 +749,17 @@ located_? If it was in the _application_, it would be outside of SC6,
 which was dealing with networks, if it was in the network, it would be
 dealt with _only_ in SC6. It was a turf battle battle between two ISO
 groups, and because Application Entities were usually drawn as a set
-of circles, and the boundary between the network application as a
-line, that battle was internally nicknamed -- boys will be boys -- the
-_balls-in, balls-out_ question. If you ever attended one of John's
-presentations, he would take a short pause and then continue: "this
-was the only time that a major insight came from a turf war": _the
-balls were on the line_. The Application Entity needed to be known in
-both the application and the network. Alas! Our implementation was
-clearly showing that this was not the case. The balls were _above_ the
-line, the _network_ (or more precise: the flow allocator) doesn't need
-to know _anything_ about application entities! Then and there, Sander
-had found a mistake in RINA.
+of circles, and the boundary between the network and the application
+as a line, that battle was internally nicknamed -- boys will be boys
+-- the _balls-in, balls-out_ question. If you ever attended one of
+John's presentations, he would take a short pause and then continue:
+"this was the only time that a major insight came from a turf war":
+_the balls were on the line_. The Application Entity needed to be
+known in both the application and the network. Alas! Our
+implementation was clearly showing that this was not the case. The
+balls were _above_ the line, the _network_ (or more precise: the flow
+allocator) doesn't need to know _anything_ about application entities!
+Then and there, we had found a mistake in RINA.
 
 Ouroboros now had a crisp and clear boundary between the flow in a
 _DIF_, and any connections using that flow in the layer above. Flow
@@ -805,7 +804,7 @@ fragmentation in IP and only retransmit the bytes in that fragment.
 But the code was again speaking otherwise. It was basically telling
 us: TCP was independent of IP. But fragmentation should be in TCP, and
 IP should specify its maximum packet size. Anything else would result
-in an intolerable mess.  So that's how we split the _Flow and
+in an intolerable mess. So that's how we split the _Flow and
 Retransmission Control Protocol_ (FRCP) and the _Data Transfer
 Protocol_ (DTP) in Ouroboros. Another mistake in RINA.
 
@@ -827,7 +826,7 @@ part. RINA is not controlling _ALL_ IPC; there is IPC _outside of
 RINA_. Another way of seeing it, is like this: If a set of processes
 (IPCPs) are needed to provide reliable state synchronization between
 two applictions A and B, who is providing reliable state
-synchronization between A and the first IPCP? If it's again an IPCP,
+synchronization between A and the IPCP? If it's again an IPCP,
 that's _infinite_ recursion! Now -- granted -- this is a rather
 _academic_ issue, because most (all?) computer hardware does provide
 this kind of preserving IPC. However, to me, even theoretical issues
