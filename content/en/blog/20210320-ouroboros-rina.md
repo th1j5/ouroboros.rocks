@@ -52,7 +52,7 @@ of FIRE are "hands-on", aimed at building and deploying Internet
 technologies. Given that I had some experience deploying experiments
 (at that time OpenFlow prototypes) on our lab testbeds, I listened to
 the project pitch, an online presentation with Q&A given by the
-project lead, Eduard Grasa from [i2cat]((https://i2cat.net/)), who
+project lead, Eduard Grasa from [i2cat](https://i2cat.net/), who
 explained the concepts behind RINA, and got quite excited about how
 elegant this all looked. So I took on the project and read John Day's
 [Patterns in Network Architecture](https://www.oreilly.com/library/view/patterns-in-network/9780132252423/),
@@ -489,23 +489,23 @@ was also becoming available at the time and would be used in
 ARCFIRE. And soon, the development of a third prototype -- _ouroboros_
 -- would start. External perception of RINA in the scientific
 community had also been shifting, and not in a positive direction. At
-the start of the project, we had the position paper with project plans
-and outlines, and the papers on the _shims_ showed some ways on how
-RINA could be deployed. But other articles trying to demonstrate the
-benefits of RINA were -- despite all the efforts and good will of all
-people involved -- lacking in quality, mostly due to the limitations
-of the software. All these subpar publications did more harm than
-good, as the quality of the publications rubbed off on the perceived
-merits of the RINA architecture as a whole. We were always feeling
-this pressure to publish _something_, _anything_ -- and reviewers were
-always looking for a value proposition -- _Why is this better than my
-preferred solution?_, _Compare this in depth to my preferred solution_
--- that we simply couldn't support with data at this point in
-time. And not for lack of want or a lack of trying. But at least,
-ARCFIRE had at 2 years to look forward to, a focused scope and by now,
-the team had a lot of experience in the bag. But for the future of
-RINA, we knew the pressure was on -- this was a _now or never_ type of
-situation.
+the start of the IRATI project, we had the position paper with project
+plans and outlines, and the papers on the _shims_ showed some ways on
+how RINA could be deployed. But other articles trying to demonstrate
+the benefits of RINA were -- despite all the efforts and good will of
+all people involved -- lacking in quality, mostly due to the
+limitations of the software. All these subpar publications did more
+harm than good, as the quality of the publications rubbed off on the
+perceived merits of the RINA architecture as a whole. We were always
+feeling this pressure to publish _something_, _anything_ -- and
+reviewers were always looking for a value proposition -- _Why is this
+better than my preferred solution?_, _Compare this in depth to my
+preferred solution_ -- that we simply couldn't support with data at
+this point in time. And not for lack of want or a lack of trying. But
+at least, ARCFIRE had at 2 years to look forward to, a focused scope
+and by now, the team had a lot of experience in the bag. But for the
+future of RINA, we knew the pressure was on -- this was a _now or
+never_ type of situation.
 
 ### Ouroboros
 
