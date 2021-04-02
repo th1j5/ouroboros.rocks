@@ -395,8 +395,8 @@ are acquired such as read/write access. Both types of layers go
 through this phase. A unicast layer, may, in addition, periodically
 disseminate information that enables _FORWARDING_. We call this
 dissemination function _ROUTING_, but if you know a better word that
-avoids confusion, we'll take it. _ROUTING_ is distinct from adjancy
-management, in the sense that adjancy management is administrative,
+avoids confusion, we'll take it. _ROUTING_ is distinct from adjacency
+management, in the sense that adjacency management is administrative,
 and tells the networks which links it is allowed to use, which links
 _exist_. _ROUTING- will make use of these links and make decisions
 when they are unavailable, for instance due to failures.
@@ -457,7 +457,7 @@ Here's the solution to MPLS: it is a set of broadcast layers! The
 labels are a distributed way of identifying the layer _by its links_,
 instead of a single identifier for the whole layer, like a VLAN or a
 multicast IP address. RSVP / LDP (and their traffic engineering -TE
-cousins) are protocols that do enrolment and adjancy management.
+cousins) are protocols that do enrolment and adjacency management.
 
 I hope this gave you a bit of an insight into the Ouroboros view of
 the world. Course materials on computer networks consist of a
