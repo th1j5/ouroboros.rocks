@@ -177,7 +177,7 @@ VLAN. Quite nice, no objections _your honor_!
 
 The semantics of IP broadcast are related to the scope of the
 underlying _layer 2_ network. An IP broadcast address is the last "IP
-address" in a _subnet_. So, for instance, in the 192.168.0.0/255
+address" in a _subnet_. So, for instance, in the 192.168.0.0/24
 subnet, the IP broadcast address is 192.168.0.255. When sending a
 datagram to that IP broadcast destination, the Ethernet layer will be
 sending it to FF:FF:FF:FF:FF:FF, and every node _on that Ethernet_
