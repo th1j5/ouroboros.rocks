@@ -5,19 +5,35 @@ author: "Dimitri Staessens"
 date:  2019-07-06
 weight: 1
 description: >
-   The current networking paradigm
+   The Internet, our big bungle of joy.
 ---
+
+Every computer science class that deals with networks explains the
+[7-layer OSI model](https://www.bmc.com/blogs/osi-model-7-layers/) and
+the
+[5-layer TCP model](https://subscription.packtpub.com/book/cloud_and_networking/9781789349863/1/ch01lvl1sec13/tcp-ip-layer-model).
+
+Both models have common origins in the International Networking
+Working Group (INWG) in the seventies, and therefore have many
+similarities. The TCP/IP model evolved from the implementation of the
+early ARPANET in the '70's and '80's. The OSI model was the result of
+a standardization effort in the International Standards Organization
+(ISO), which ran well into the nineties. The OSI model had a number of
+useful abstractions: services, interfaces and protocols, where the
+TCP/IP model was more tightly coupled to the Internet Protocol.
+
+### A birds-eye view of the OSI model
 
 {{<figure width="40%" src="/docs/concepts/aschenbrenner.png">}}
 
-Every computer science class that deals with networks explains the
-[7-layer OSI model](https://www.bmc.com/blogs/osi-model-7-layers/).
 Open Systems Interconnect (OSI) defines 7 layers, each providing an
-abstraction for a certain *function* that a network application may
-need.
+abstraction for a certain *function*, or _service_ that a networked
+application may need. The figure above shows probably
+[the first draft](https://tnc15.wordpress.com/2015/06/17/locked-in-tour-europe/)
+of the OSI model.
 
 From top to bottom, the layers provide (roughly) the following
-functions:
+services.
 
 The __application layer__ implements the details of the application
 protocol (such as HTTP), which specifies the operations and data that
@@ -46,35 +62,64 @@ Finally, the __physical layer__ is responsible for translating the
 bits into a signal (e.g. laser pulses in a fibre) that is carried
 between endpoints.
 
+The benefit of the OSI model is that each of these layers has a
+_service description_, and an _interface_ to access this service. The
+details of the protocols inside the layer were of less importance, as
+long as they got the job -- defined by the service description --
+done.
+
 This functional layering provides a logical order for the steps that
 data passes through between applications. Indeed, existing (packet)
-networks go through these steps in roughly this order (however, some
-may be skipped).
+networks go through these steps in roughly this order.
+
+### A birds-eye view of the TCP/IP model
+
+{{<figure width="25%" src="https://static.packt-cdn.com/products/9781789349863/graphics/6c40b664-c424-40e1-9c65-e43ebf17fbb4.png">}}
+
+The TCP/IP model came directly from the implementation of TCP/IP, so
+instead of each layer corresponding to a service, each layer directly
+corresponded to a (set of) protocol(s). IP was the unifying protocol,
+not caring what was below at layer 1. The HOST-HOST protocols offered
+a connection-oriented service (TCP) or a connectionless service (UDP)
+to the application. The _TCP/IP model_ was retroactively made more
+"OSI-like", turning into the 5-layer model, which views the top 3
+layers of OSI as an "application layer".
+
+### Some issues with these models
 
 However, when looking at current networking solutions in more depth,
-things are not as simple as these 7 layers seem to indicate. Consider
-a realistic scenario for a software developer working
-remotely. Usually it goes something like this: he connects over the
-Internet to the company __Virtual Private Network__ (VPN) and then
-establishes an SSH __tunnel__ over the development server to a virtual
-machine and then establishes another SSH connection into that virtual
-machine.
+things are not as simple as these 5/7 layers seem to
+indicate. Consider, for instance, __Virtual Private Network__ (VPN)
+technologies and SSH __tunnels__. We are all familiar enough with this
+kind of technologies to take them for granted. But a VPN, such as
+openVPN, creates a new network on top of IP, for instance a layer 2
+network over TAP interfaces supported by a Layer 4 (using, for
+instance Transport Layer Security) connection to the VPN server.
 
-We are all familiar enough with this kind of technologies to take them
-for granted. But what is really happnening here? Let's assume that the
-Internet layers between the home of the developer and his office
-aren't too complicated. The home network is IP over Wi-Fi, the office
-network IP over Ethernet, and the telecom operater has a simple IP
-over xDSL copper network (because in reality operator networks are
-nothing like L3 over L2 over L1).  Now, the VPN, such as openVPN,
-creates a new network on top of IP, for instance a layer 2 network
-over TAP interfaces supported by a TLS connection to the VPN server.
+Technologies such as VPNs and various so-called _tunnels_ seriously
+jumble around the layers in this layered model. For instance,
+Multi-Protocol Label switching MPLS, typically sits in between Layer 2
+and IP, is categorized as Layer 2.5.
 
-Technologies such as VPNs, tunnels and some others (VLANs,
-Multi-Protocol Label switching) seriously jumble around the layers in
-this layered model. Now, by my book these counter-examples prove that
-the 7-layered model is, to put it bluntly, wrong. That doesn't mean
-it's useless, but from a purely scientific view, there has to be a
-better model, one that actually fits implementations.
+Which protocol fits in which layer is also not clear-cut. The Border
+Gateway Protocol (BGP) performs (inter-domain) routing. Routing is a
+function that is usually associated with Layer 3. But BGP runs on top
+of TCP, which is Layer 4. There is no real concensus of what layer BGP
+is in, some say Layer 3, some (probably most) say Layer 4, because it
+is using TCP, and some say it's application layer. But the concensus
+does seem to be that the BGP conundrum doesn't matter. BGP works, and
+the OSI and TCP/IP models are _just theoretical models_, not _rules_
+that are set in stone.
 
-Ouroboros is our answer towards a more complete model for computer networks.
+### Are these issues _really_ a problem?
+
+Well, in my opinion: yes! And _big_ ones too! If there is no
+universally valid theoretical model, if we have no clear definitions
+of the fundamental concepts and no clearly defined set of rules that
+unequivocally lay out what the _necessary and sufficient conditions
+for networking_ are, then everybody is _engineering in the dark_, and
+progress in developing computer networks is condemned to a sisyphean
+effort of perpetual incremental fixes, its fate to remain a craft that
+builds on tradition to keep the cobbling together of an ever-growing
+bungle of technologies and protocols within the limits of
+manageability.
