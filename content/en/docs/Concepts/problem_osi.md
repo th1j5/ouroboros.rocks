@@ -2,7 +2,7 @@
 title: "The problem with the current layered model of the Internet"
 author: "Dimitri Staessens"
 
-date:  2019-07-06
+date:  2020-04-06
 weight: 1
 description: >
    The Internet, our big bungle of joy.
