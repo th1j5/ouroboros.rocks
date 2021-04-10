@@ -246,7 +246,7 @@ Our oping server is not registered yet in the normal layer. Let's
 register it in the normal layer as well, and connect the client:
 
 ```bash
-$ irm r n oping_server layer normal_layer
+$ irm n r oping_server layer normal_layer
 $ oping -n oping_server -c 5
 ```
 
