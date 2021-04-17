@@ -5,22 +5,29 @@ author: "Dimitri Staessens"
 date:  2020-04-06
 weight: 1
 description: >
-   The Internet, our big bungle of joy.
+
 ---
 
-Every computer science class that deals with networks explains the
-[7-layer OSI model](https://www.bmc.com/blogs/osi-model-7-layers/) and
-the
+```
+The conventional view serves to protect us from the painful job of
+thinking.
+  -- John Kenneth Galbraith
+```
+
+Every engineering class that deals with networks explains the
+[7-layer OSI model](https://www.bmc.com/blogs/osi-model-7-layers/)
+and the
 [5-layer TCP model](https://subscription.packtpub.com/book/cloud_and_networking/9781789349863/1/ch01lvl1sec13/tcp-ip-layer-model).
 
 Both models have common origins in the International Networking
-Working Group (INWG) in the seventies, and therefore have many
-similarities. The TCP/IP model evolved from the implementation of the
-early ARPANET in the '70's and '80's. The OSI model was the result of
-a standardization effort in the International Standards Organization
-(ISO), which ran well into the nineties. The OSI model had a number of
-useful abstractions: services, interfaces and protocols, where the
-TCP/IP model was more tightly coupled to the Internet Protocol.
+Working Group (INWG), and therefore share many similarities.  The
+TCP/IP model evolved from the implementation of the early ARPANET in
+the '70's and '80's. The Open Systems Interconnect (OSI) model was the
+result of a standardization effort in the International Standards
+Organization (ISO), which ran well into the nineties. The OSI model
+had a number of useful abstractions: services, interfaces and
+protocols, where the TCP/IP model was more tightly coupled to the
+Internet Protocol (IP).
 
 ### A birds-eye view of the OSI model
 
@@ -95,21 +102,32 @@ kind of technologies to take them for granted. But a VPN, such as
 openVPN, creates a new network on top of IP, for instance a layer 2
 network over TAP interfaces supported by a Layer 4 (using, for
 instance Transport Layer Security) connection to the VPN server.
-
 Technologies such as VPNs and various so-called _tunnels_ seriously
-jumble around the layers in this layered model. For instance,
-Multi-Protocol Label switching MPLS, typically sits in between Layer 2
-and IP, is categorized as Layer 2.5.
+jumble around the layers in this layered model.
 
-Which protocol fits in which layer is also not clear-cut. The Border
-Gateway Protocol (BGP) performs (inter-domain) routing. Routing is a
-function that is usually associated with Layer 3. But BGP runs on top
-of TCP, which is Layer 4. There is no real concensus of what layer BGP
-is in, some say Layer 3, some (probably most) say Layer 4, because it
-is using TCP, and some say it's application layer. But the concensus
-does seem to be that the BGP conundrum doesn't matter. BGP works, and
-the OSI and TCP/IP models are _just theoretical models_, not _rules_
-that are set in stone.
+Which protocol fits in which layer is also not clear-cut.
+
+Multi-Protocol Label switching MPLS, a technology that makes IP
+networks more ATM-like, and allows establishing and managing fixed
+paths (circuits), typically sits in between Layer 2 and IP and is
+categorized as a Layer 2.5 technology.
+
+QUIC is a protocol that performs transport-layer functions such as
+retransmission, flow control and congestion control, but works around
+the initial performance bottleneck after starting a TCP connection
+(3-way handsake, slow start) and some other optimizations dealing with
+re-establishing connections for which security keys are known. But
+QUIC runs on top of UDP. If UDP is layer 4, then what layer is QUIC?
+
+The Border Gateway Protocol (BGP) performs (inter-domain)
+routing. Routing is a function that is usually associated with Layer
+3. But BGP runs on top of TCP, which is Layer 4. There is no real
+concensus of what layer BGP is in, some say Layer 3, some (probably
+most) say Layer 4, because it is using TCP, and some say it's
+application layer. But the concensus does seem to be that the BGP
+conundrum doesn't matter. BGP works, and the OSI and TCP/IP models are
+_just theoretical models_, not _rules_ that are set in stone.
+
 
 ### Are these issues _really_ a problem?
 
@@ -117,9 +135,8 @@ Well, in my opinion: yes! And _big_ ones too! If there is no
 universally valid theoretical model, if we have no clear definitions
 of the fundamental concepts and no clearly defined set of rules that
 unequivocally lay out what the _necessary and sufficient conditions
-for networking_ are, then everybody is _engineering in the dark_, and
-progress in developing computer networks is condemned to a sisyphean
+for networking_ are, then we are all just _engineering in the dark_.
+Progress in developing computer networks is condemned to a sisyphean
 effort of perpetual incremental fixes, its fate to remain a craft that
-builds on tradition to keep the cobbling together of an ever-growing
-bungle of technologies and protocols within the limits of
-manageability.
+builds on tradition, cobbling together an ever-growing bungle of
+technologies and protocols that stretches the limits of manageability.
