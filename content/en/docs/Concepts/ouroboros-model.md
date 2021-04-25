@@ -59,6 +59,8 @@ has a input the incoming arc, and as output all non-incoming
 arcs. This is all local information, so packets on a broadcast layer
 do not need a header at all.
 
+{{<figure width="40%" src="/docs/concepts/model_elements.png">}}
+
 Peering relationships are only allowed between forwarding elements, or
 between flooding elements, but never between a forwarding element and
 a flooding element. We call a connected graph consisting of nodes that
