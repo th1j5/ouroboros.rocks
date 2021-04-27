@@ -107,6 +107,8 @@ and destination
 * can involve packet duplication
 * will not have loops[^6] [^7]
 
+{{<figure src="https://latex.codecogs.com/svg.latex?\Large&space;x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}">}}
+
 ### The broadcast layer
 
 A broadcast layer is a collection of interconnected flooding
@@ -212,26 +214,25 @@ protocols and functionality in computer networks.
 
       When taking the transformation into account the resulting
       layer(s) will follow the fundamental model as it is presented
-      above. Also observe that adding such tokens exponentially
-      increases the address space in the fundemental representation,
-      ensuring that such approaches inherently can't scale.
+      above. Also observe that adding such tokens may drastically
+      increase the address space in the fundemental representation.
 
-[^8]: Some may think that it's possible to broadcast on a non-tree
-      graph by pruning in some way, shape or form. There are two
-      things to consider. First, if the pruning is done to eliminate
-      links in the graph, let's say in a way that STP prunes links on
-      an Ethernet or VLAN, then this is operation is equivalent
-      creating a new broadcast layer. We call this enrollment and
-      adjacency management. This will be explained in the next
-      sections. Second is adding the name of the (source) node plus a
-      token/identifier/cookie as a packet header in order to detect
-      packets that have traveled in a loop, and dropping them when
-      they do. This is pulling the wool over ones eyes in a similar
-      way as in [^6]. This solution can be transformed into a
-      fundamental broadcast layer by again considering the (token,
-      node name) space as the new name space and redrawing the graph,
-      in which the "cut off loops" will be arms in the tree. In the
-      same way as for unicast layers with loops, this will be an
-      exponential increase in the number of nodes in the representing
-      broadcast tree when compared to the starting graph, indicating
-      again that this kind of solution can not scale.
+[^8]: Is it possible to broadcast on a non-tree graph by pruning in
+      some way, shape or form? There are some things to
+      consider. First, if the pruning is done to eliminate links in
+      the graph, let's say in a way that STP prunes links on an
+      Ethernet or VLAN, then this is operation is equivalent creating
+      a new broadcast layer. We call this enrollment and adjacency
+      management. This will be explained in the next sections. Second
+      is trying to get around loops by adding the name of the (source)
+      node plus a token/identifier/cookie as a packet header in order
+      to detect packets that have traveled in a loop, and dropping
+      them when they do. This kind of network doesn't fit neither the
+      broadcast layer nor the unicast layer. But the thing is: it also
+      _doesn't work_ at any reasonable scale, as all packets need to
+      be tracked, at least in theory, forever. Assuming packet
+      ordering is preserved inside a layer a big no-no. Another line
+      of thinking may be to add a decreasing counter to avoid loops,
+      but it goes down a similar rabbit hole. How large to set the
+      counter? This also doesn't scale. These solution may work for
+      some use cases, but they don't work _in general_.
