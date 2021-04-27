@@ -107,8 +107,6 @@ and destination
 * can involve packet duplication
 * will not have loops[^6] [^7]
 
-{{<figure src="https://latex.codecogs.com/svg.latex?\Large&space;x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}">}}
-
 ### The broadcast layer
 
 A broadcast layer is a collection of interconnected flooding
