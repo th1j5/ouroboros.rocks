@@ -26,6 +26,35 @@ Ouroboros Prototype. The way it is presented here is not a reflection
 of this long process, but a crystalization of my current understanding
 of the Ouroboros model.
 
+I'll start with the very basics, assuming no delay on links and
+infinite capacity, and then gradually add delay, link capacity,
+failures, etc to assess their impact and derive _what_ needs to be
+added _where_ in order to come to the complete Ouroboros model.
+
+The main objective of the definitions -- and the Ouroboros model as a
+whole -- is to __separate mechanism__ (the _what_) __from policy__
+(the _how_) so that we have objective definitions and a _consistent_
+framework for _reasoning_ about functions and protocols in computer
+networks.
+
+### The importance of first principles
+
+One word of caution, because this model might read like I'm
+"reinventing the wheel" and we already know how to do everything that
+is written here. Of course we do! The point is that the model reduces
+networking to its _essence_, to its fundamental parts.
+
+After studying most courses on Computer Networks, I could name the 7
+layers of the OSI model, I know how to draw TCP 3-way handshakes,
+could detail 5 different TCP congestion control mechanisms, calculate
+optimal IP subnets given a set of underlying Local Area Networks, draw
+UDP headers, chain firewall rules in iptables, calculate CRC
+checksums, and derive spanning trees given MAC addresses of Ethernet
+bridges. But after all that, I still feel such courses teach about as
+much about computer networks as cookbooks teach about chemistry. I
+wanted to go beyond technology and the rote knowledge of _how things
+work_ to establish a thorough understanding of _why they work_.
+
 During most of my PhD work at the engineering department, I spent my
 research time on modeling telecommunications networks and computer
 networks as _graphs_. The nodes represented some switch or router --
@@ -36,28 +65,39 @@ algorithms that analyze some behaviour or optimize some or other _key
 performance indicator_ (KPI). This line of reasoning, starting from
 _networked devices_ is how a lot of research on computer networks is
 conducted. But what happens if we turn this upside down, and develop a
-_universal_ model for computer networks starting from some very basic
-elements?
+_universal_ model for computer networks starting from _first
+principles_?
 
-### Two defining elements
+This sums up my problem with computer networks today: not everything
+in their workings can be fully derived from first principles. It also
+sums up why I was attracted to RINA: it was the first time I saw a
+network architecture as the result of a solid attempt to derive
+everything from first principles. And it’s also why Ouroboros is not
+RINA: RINA still contains things that can’t be derived from first
+principles.
 
-The Ouroboros model postulates that there are only 2 possible methods
+### Two types of layers
+
+The Ouroboros model postulates that there are only 2 scalable methods
 of distributing packets in a network layer: _FORWARDING_ packets based
-on some label identifying a node[^1], or _FLOODING_ packets on all
-links but the incoming link.
+on some label [^1], or _FLOODING_ packets on all links but the
+incoming link.
 
 We call an element that forwards a __forwarding element__,
 implementing a _packet forwarding function_ (PFF). The PFF has as
-input a destination label (in graph theory, a _vertex_), and as output
-a set of output links (in graph theory, _arcs_) on which the incoming
-packet with that label is to be forwarded on. The destination label
-needs to be in a packet header.
+input a destination name for another forwarding element (represented
+as a _vertex_), and as output a set of output links (represented
+as _arcs_) on which the incoming packet with that label is to be
+forwarded on. The destination name needs to be in a packet header.
 
 We call an element that floods a __flooding element__, and it
-implements a packet flooding fuction. It is completely stateless, and
-has a input the incoming arc, and as output all non-incoming
-arcs. This is all local information, so packets on a broadcast layer
-do not need a header at all.
+implements a packet flooding function. The flooding element is
+completely stateless, and has a input the incoming arc, and as output
+all non-incoming arcs. Packets on a broadcast layer do not need a
+header at all.
+
+Forwarding elements are _equal_, and need to be named, flooding
+elements are _identical_ and do not need to be named.
 
 {{<figure width="40%" src="/docs/concepts/model_elements.png">}}
 
@@ -69,22 +109,23 @@ connected _tree_[^2] consisting of nodes that house a flooding element
 a __broadcast layer__.
 
 The objective for the Ouroboros model is to hold for _all_ packet
-networks; our __conjecture__ is that __all functioning packet-switched
+networks; our __conjecture__ is that __all scalable packet-switched
 network technologies can be decomposed into finite sets of unicast and
-broadcast layers__. Unicast and broadcast layers can be easily found
-in TCP/IP, Recursive InterNetworking Architecture (RINA), Delay
-Tolerant Networks (DTN), Ethernet, VLANs, Loc/Id split (LISP),...
-[^3]. The Ouroboros _model_ by itself is not recursive. What is known
-as _recursive networking_ is a choice to use a single standard API to
-interact with all unicast layers and a single standard API to interact
-with all broadcast layers[^4].
+broadcast layers__. Implementations of unicast and broadcast layers
+can be easily found in TCP/IP, Recursive InterNetworking Architecture
+(RINA), Delay Tolerant Networks (DTN), Ethernet, VLANs, Loc/Id split
+(LISP),...  [^3]. The Ouroboros _model_ by itself is not
+recursive. What is known as _recursive networking_ is a choice to use
+a single standard API for interacting with all the implementatations
+of unicast layers and a single standard API for interacting with all
+implementations of broadcast layers[^4].
 
 ### The unicast layer
 
-A unicast is a collection of interconnected forwarding elements. A
-unicast layer provides a best-effort unicast packet service between
-two endpoints in the layer. We call the abstraction of this
-point-to-point unicast service a flow. A flow in itself has no
+A unicast layer is a collection of interconnected forwarding
+elements. A unicast layer provides a best-effort unicast packet
+service between two endpoints in the layer. We call the abstraction of
+this point-to-point unicast service a flow. A flow in itself has no
 guarantees in terms of reliability [^5].
 
 {{<figure width="70%" src="/docs/concepts/unicast_layer.png">}}
@@ -103,9 +144,64 @@ and destination
 
 * doesn't need to use the 'shortest' path
 * can use multiple paths
-* can use different paths for different packets
+* can use different paths for different packets between the same
+  source-destination pair
 * can involve packet duplication
-* will not have loops[^6] [^7]
+* will not have non-transient loops[^6] [^7]
+
+The first question is: _what information does that forwarding function
+need in order to work?_ Mathematically, the answer is that all
+forwarding elements needs to know the values of a valid __distance
+function__[^8] between themselves and the destination forwarding
+element, and between all of their neighbors and the destination
+forwarding element. The PFF can then select a (set of) link(s) to any
+of its neighbors that is closer to the destination node according to
+the chosen distance function and send the packet on these link(s).
+Thus, while the __forwarding elements need to be _named___, the
+__links between them need to be _measured___. This can be either
+explicit by assigning a certain weight to a link, or implicit and
+inferred from the distance function itself.
+
+The second question is: _how will that forwarding function know this
+distance information_? There are a couple of different possible
+answers, which are all well understood. I'll briefly summarize them
+here.
+
+A first approach is to use a coordinate space for the names of the
+forwarding elements. For instance, if we use the GPS coordinates of
+the machine in which they reside as a name, then we can apply some
+basic geometry to _calculate_ the distances based on this name
+only. This simple GPS example has pitfalls, but it has been proven
+that any connected finite graph has a greedy embedding in the
+hyperbolic plane. The obvious benefit of such so-called _geometric
+routing_ approaches is that they don't require any dissemination of
+information beyond the mathematical function to calculate distances,
+the coordinate (name) and the set of neighboring nodes. In such
+networks, this information is disseminated during initial exchanges
+when a new forwarding element joins a unicast layer (see below).
+
+A second approach is to disseminate the values of the distance
+function to all destinations directly, and constantly updating your
+own (shortest) distances from these values received from other
+forwarding elements. This is a very well-known mechanism and is
+implemented by what is known as _distance vector_ protocols. It is
+also well-known that the naive approach of only disseminating the
+distances to neighbors can run into a _count to infinity_ issue when
+links go down. To alleviate this, _path vector_ protocols include a
+full path to every destination (making them a bit less scaleable), or
+distance vector protocols are augmented with mechanisms to avoid
+transient loops and the resulting count-to-infinity (e.g. Babel).
+
+The third approach is to disseminate the link weights of neighboring
+links. From this information, each node can build a view of the
+network graph and again calculate the necessary distances that the
+forwarding function needs. This mechanism is implemented in so-called
+_link-state_ protocols.
+
+I will also mention MAC learning here. MAC learning is a bit
+different, in that it is using piggybacked information from the actual
+traffic (the source MAC address) and the knowledge that the adjacency
+graph is a _tree_ as input for the forwarding function.
 
 ### The broadcast layer
 
@@ -120,40 +216,47 @@ Our simple definition of _FLOODING_ -- given a set of adjacent links,
 send packets received on a link in the set on all other links in the
 set -- has a huge implication the properties of a fundamental
 broadcast layer: the graph always is a _tree_, or packets could travel
-along infinite trajectories with loops [^8].
+along infinite trajectories with loops [^9].
 
 ### Building layers
 
-We now define the fundamental operations on packet network
-layers. These operations can be implemented through manual
-configuration or automated protocol interactions. They can be skipped
-(no-operation, (nop)) or involve complex operations such as
-authentication.
+We now define 2 fundamental operations for constructing packet network
+layers: __enrollment__ and __adjacency management__. These operations
+are very broadly defined, and can be implemented in a myriad of
+ways. These operations can be implemented through manual configuration
+or automated protocol interactions. They can be skipped (no-operation,
+(nop)) or involve complex operations such as authentication. The main
+objective here is just to establish some common terminology for these
+operations.
 
-The construction of (unicast and broadcast) layers involves 2
-fundamental operations: adding a node to a layer is called
-_enrollment_. Enrollment prepares a node to act as a functioning
-element of the layer, exchanging the key parameters for a layer. It
-can involve authentication, and setting roles and permissions. After
-enrollment, we may add peering relationships by creating adjacencies
-between forwarding elements in a unicast layer or between flooding
-elements in a broadcast layer. We termed this _adjacency
-management_. The inverse operations are called _unenrollment_ and
-_tearing down_ adjacencies between elements.
+The first mechanism, enrollment, adds a node to a layer; it prepares a
+node to act as a functioning element of the layer, establishes its
+name (in case of a unicast layer). In addition, it may exchange some
+key parameters (for instance a distance function for a unicast layer)
+it can involve authentication, and setting roles and
+permissions. __Bootstrapping__ is a special case of enrollment for the
+_first_ node in a layer. The inverse operation is called
+_unenrollment_.
+
+After enrollment, we may add peering relationships by _creating
+adjacencies_ between forwarding elements in a unicast layer or between
+flooding elements in a broadcast layer. This will establish neighbors
+and in case of a unicast layer, may addinitionally define link
+weights. The inverse operations is called _tearing down adjacencies_
+between elements. Together, these operations will be referred to as
+_adjacency management_.
 
 Operations such as merging and splitting layers can be decomposed into
 these two operations. This doesn't mean that merge operations
-shouldn't be researched. To the contrary, optimizing this is
-instrumental for creating networks practical on a global scale.
+shouldn't be researched. To the contrary, optimizing this will be
+instrumental for creating networks on a global scale.
 
-It is immediately clear that these operations are very broadly
-defined, and can be implemented in a myriad of ways. The main
-objective of these definitions - and the Ouroboros model as a whole --
-is to separate __mechanism__ (the _what_) from __policy__ (the _how_)
-so that we have a _consistent_ framework for _reasoning_ about
-protocols and functionality in computer networks.
+For the broadcast layer, we already have most ingredients in
+place. Now we will focus on the unicast layer.
 
-### Under construction ...
+### Scaling the unicast layer
+
+[UNDER CONSTRUCTION...]
 
 
 [^1]: This identifier can be thought of as an address, the identified
@@ -195,12 +298,12 @@ protocols and functionality in computer networks.
       packet is traversing a loop_ in the network, but it doesn't
       violate the definition. The question is: what is that
       token/identifier/cookie naming? It can be only one of a couple
-      of things: a node, a link or a layer. Adding a token and the
-      associated logic to process it, will be equivalent to adding
-      nodes to the layer (modifying the node name space to include
-      that token) or adding another layer. In essence, the
-      implementation of the nodes on the loop will be doing something
-      like this:
+      of things: a forwarding element, a link or the complete
+      layer. Adding a token and the associated logic to process it,
+      will be equivalent to adding nodes to the layer (modifying the
+      node name space to include that token) or adding another
+      layer. In essence, the implementation of the nodes on the loop
+      will be doing something like this:
 
       ```
       if logic_based_on_token:
@@ -215,7 +318,10 @@ protocols and functionality in computer networks.
       above. Also observe that adding such tokens may drastically
       increase the address space in the fundemental representation.
 
-[^8]: Is it possible to broadcast on a non-tree graph by pruning in
+[^8]: For the mathematically inclined, the exact formulation is in the
+      [paper](https://arxiv.org/pdf/2001.09707.pdf) section 2.4
+
+[^9]: Is it possible to broadcast on a non-tree graph by pruning in
       some way, shape or form? There are some things to
       consider. First, if the pruning is done to eliminate links in
       the graph, let's say in a way that STP prunes links on an
@@ -227,10 +333,10 @@ protocols and functionality in computer networks.
       to detect packets that have traveled in a loop, and dropping
       them when they do. This kind of network doesn't fit neither the
       broadcast layer nor the unicast layer. But the thing is: it also
-      _doesn't work_ at any reasonable scale, as all packets need to
-      be tracked, at least in theory, forever. Assuming packet
-      ordering is preserved inside a layer a big no-no. Another line
-      of thinking may be to add a decreasing counter to avoid loops,
-      but it goes down a similar rabbit hole. How large to set the
-      counter? This also doesn't scale. These solution may work for
-      some use cases, but they don't work _in general_.
+      _doesn't scale_, as all packets need to be tracked, at least in
+      theory, forever. Assuming packet ordering is preserved inside a
+      layer a big no-no. Another line of thinking may be to add a
+      decreasing counter to avoid loops, but it goes down a similar
+      rabbit hole. How large to set the counter? This also doesn't
+      scale. Such things may work for some use cases, but they
+      don't work _in general_.
