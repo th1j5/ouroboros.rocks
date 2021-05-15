@@ -5,7 +5,7 @@ author: "Dimitri Staessens"
 date:  2020-04-07
 weight: 2
 description: >
-   Computer Network fundamentals
+   A conceptual approach to packet networking fundamentals
 ---
 
 ```
@@ -135,12 +135,12 @@ between the _green_ (bottom left) and _red_ (top right) forwarding
 elements.
 
 The forwarding function operates in such a way that, given the label
-of the destination node (in the case of the figure, a _red_ label),
-the packet will move to the destination node (_red_) in a _deliberate_
-manner. The paper has a precise mathematical definition, but
-qualitatively, our definition of _FORWARDING_ ensures that the
-trajectory that packets follow through a network layer between source
-and destination
+of the destination forwarding element (in the case of the figure, a
+_red_ label), the packet will move to the destination forwarding
+element (_red_) in a _deliberate_ manner. The paper has a precise
+mathematical definition, but qualitatively, our definition of
+_FORWARDING_ ensures that the trajectory that packets follow through a
+network layer between source and destination
 
 * doesn't need to use the 'shortest' path
 * can use multiple paths
@@ -155,10 +155,10 @@ forwarding elements needs to know the values of a valid __distance
 function__[^8] between themselves and the destination forwarding
 element, and between all of their neighbors and the destination
 forwarding element. The PFF can then select a (set of) link(s) to any
-of its neighbors that is closer to the destination node according to
-the chosen distance function and send the packet on these link(s).
-Thus, while the __forwarding elements need to be _named___, the
-__links between them need to be _measured___. This can be either
+of its neighbors that is closer to the destination forwarding element
+according to the chosen distance function and send the packet on these
+link(s).  Thus, while the __forwarding elements need to be _named___,
+the __links between them need to be _measured___. This can be either
 explicit by assigning a certain weight to a link, or implicit and
 inferred from the distance function itself.
 
@@ -176,9 +176,10 @@ that any connected finite graph has a greedy embedding in the
 hyperbolic plane. The obvious benefit of such so-called _geometric
 routing_ approaches is that they don't require any dissemination of
 information beyond the mathematical function to calculate distances,
-the coordinate (name) and the set of neighboring nodes. In such
-networks, this information is disseminated during initial exchanges
-when a new forwarding element joins a unicast layer (see below).
+the coordinate (name) and the set of neighboring forwarding
+elements. In such networks, this information is disseminated during
+initial exchanges when a new forwarding element joins a unicast layer
+(see below).
 
 A second approach is to disseminate the values of the distance
 function to all destinations directly, and constantly updating your
@@ -193,10 +194,10 @@ distance vector protocols are augmented with mechanisms to avoid
 transient loops and the resulting count-to-infinity (e.g. Babel).
 
 The third approach is to disseminate the link weights of neighboring
-links. From this information, each node can build a view of the
-network graph and again calculate the necessary distances that the
-forwarding function needs. This mechanism is implemented in so-called
-_link-state_ protocols.
+links. From this information, each forwarding element can build a view
+of the network graph and again calculate the necessary distances that
+the forwarding function needs. This mechanism is implemented in
+so-called _link-state_ protocols.
 
 I will also mention MAC learning here. MAC learning is a bit
 different, in that it is using piggybacked information from the actual
@@ -205,10 +206,11 @@ graph is a _tree_ as input for the forwarding function.
 
 ### The broadcast layer
 
-A broadcast layer is a collection of interconnected flooding
-elements. The nodes can have either, both or neither of the sender and
-receiver role. A broadcast layer provides a best-effort broadcast
-packet service from sender nodes to all (receiver) nodes in the layer.
+A broadcast layer is a collection of interconnected nodes that house
+flooding elements. The node can have either, both or neither of the
+sender and receiver role. A broadcast layer provides a best-effort
+broadcast packet service from sender nodes to all (receiver) nodes in
+the layer.
 
 {{<figure width="70%" src="/docs/concepts/broadcast_layer.png">}}
 
@@ -229,14 +231,14 @@ or automated protocol interactions. They can be skipped (no-operation,
 objective here is just to establish some common terminology for these
 operations.
 
-The first mechanism, enrollment, adds a node to a layer; it prepares a
-node to act as a functioning element of the layer, establishes its
-name (in case of a unicast layer). In addition, it may exchange some
-key parameters (for instance a distance function for a unicast layer)
-it can involve authentication, and setting roles and
-permissions. __Bootstrapping__ is a special case of enrollment for the
-_first_ node in a layer. The inverse operation is called
-_unenrollment_.
+The first mechanism, enrollment, adds a (forwarding or flooding)
+element to a layer; it prepares a node to act as a functioning element
+of the layer, establishes its name (in case of a unicast layer). In
+addition, it may exchange some key parameters (for instance a distance
+function for a unicast layer) it can involve authentication, and
+setting roles and permissions. __Bootstrapping__ is a special case of
+enrollment for the _first_ node in a layer. The inverse operation is
+called _unenrollment_.
 
 After enrollment, we may add peering relationships by _creating
 adjacencies_ between forwarding elements in a unicast layer or between
@@ -255,6 +257,38 @@ For the broadcast layer, we already have most ingredients in
 place. Now we will focus on the unicast layer.
 
 ### Scaling the unicast layer
+
+Let's look at how to scale implementations of the packet forwarding
+function (PFF). On the one hand, in distance vector, path vector and
+link state, the PFF is implemented as a _table_. We call it the packet
+forwarding table (PFT). On the other hand, geometric routing doesn't
+need a table and can implement the PFF as a mathematical equation
+operating on the _forwarding element names_. In this respect,
+geometric routing looks like a magic bullet to network scalability --
+the space complexity is O(1) -- but there are many challenges relating
+to the complexity of calculating greedy embeddings of graphs that are
+not static (a changing network where nodes enter and leave and links
+can fail) that currently make these solutions impractical at scale. We
+will focus on the solutions that use a PFT.
+
+They way the unicast layer is now defined, the PFT scales _linearly_
+with the number of forwarding elements (n) in the layer, its space
+complexity is O(n)[^10]. The obvious solution to any student of
+computer networks is to use a scheme like IP and Classless InterDomain
+Routing (CIDR) where the hosts _addresses_ are subnetted, allowing for
+entries in the PFT to be aggregated, drastically reducing its space
+complexity, in theory at least, to O(log(n)).
+
+Sure, that _is_ the solution, but not so fast! When building a model,
+each element in the model should be well-defined and named at most
+once. Synonyms for human use are allowed and useful, but they are
+conveniences, not part of the functioning of the model. If we
+subdivide the name of the forwarding element in different subnames, we
+have to ask ourselves what element in the model each subname of that
+name is naming! In the geographic routing example above, we dragged
+the Earth into the model, and used GPS coordinates (latitude and
+longitude) in the name. But where do subnets come from? What do we
+drag into our model, if anything, to create them?
 
 [UNDER CONSTRUCTION...]
 
@@ -340,3 +374,9 @@ place. Now we will focus on the unicast layer.
       rabbit hole. How large to set the counter? This also doesn't
       scale. Such things may work for some use cases, but they
       don't work _in general_.
+
+[^10]:In addition to the size of the packet forwarding tables, link
+      state, path vector and distance vector protocols are also
+      limited in size because of time delays in disseminating link
+      state information between the nodes, and the amount to be
+      disseminated. We will address this a bit later in the discourse.
