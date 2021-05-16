@@ -415,6 +415,6 @@ if you need a bit more elaboration on how this maps to the IP world.
 [^11]:Unfortunately, the functionality of the Routing Element and the
       broadcast layer are often implemented as an unfortunate human
       engineer that has to subject himself to one of the most inhuman
-      chores imaginable: manually typing IP destinations and netmasks
+      ordeals imaginable: manually typing IP destinations and netmasks
       into the routing tables of a wonky piece of hardware using the
       most ill-designed command line interface seen this side of 1974.
