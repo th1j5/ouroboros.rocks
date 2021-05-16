@@ -312,15 +312,14 @@ forwarding element in the figure above. Now, each routing element
 needs to disseminate information to _all_ other nodes in the layer, in
 other words, it needs to _broadcast_ link state information. The RE is
 inside of a unicast layer, and unicast layers don't do that, so the
-REs will need the help of a broadcast layer. That is what is drawn in
-the figure above. Now, at first this may look weird, but it is
-_exactly_ what an IP network does (within a subnet)! With the Open
+REs will need the help of a broadcast layer[^11]. That is what is
+drawn in the figure above. Now, at first this may look weird, but it
+is _exactly_ what an IP network does (within a subnet)! With the Open
 Shortest Path First (OSPF) protocol, it uses IP multicast between all
 OSPF routers in the domain, and with IS-IS, it leverages the layer 2
 network as the broadcast layer. I will refer to my blog post on
 [multicast](/blog/2021/04/02/how-does-ouroboros-do-anycast-and-multicast/)
-if you need a bit more elaboration on this.
-
+if you need a bit more elaboration on how this maps to the IP world.
 
 [UNDER CONSTRUCTION...]
 
@@ -412,3 +411,10 @@ if you need a bit more elaboration on this.
       limited in size because of time delays in disseminating link
       state information between the nodes, and the amount to be
       disseminated. We will address this a bit later in the discourse.
+
+[^11]:Unfortunately, the functionality of the Routing Element and the
+      broadcast layer are often implemented as an unfortunate human
+      engineer that has to subject himself to one of the most inhuman
+      chores imaginable: manually typing IP destinations and netmasks
+      into the routing tables of a wonky piece of hardware using the
+      most ill-designed command line interface seen this side of 1974.
