@@ -204,6 +204,10 @@ different, in that it is using piggybacked information from the actual
 traffic (the source MAC address) and the knowledge that the adjacency
 graph is a _tree_ as input for the forwarding function.
 
+There is plenty more to say about this, and I will, but first, I will
+need to introduce some other concepts, most notably the broadcast
+layer.
+
 ### The broadcast layer
 
 A broadcast layer is a collection of interconnected nodes that house
@@ -289,6 +293,34 @@ name is naming! In the geographic routing example above, we dragged
 the Earth into the model, and used GPS coordinates (latitude and
 longitude) in the name. But where do subnets come from? What do we
 drag into our model, if anything, to create them?
+
+{{<figure width="70%" src="/docs/concepts/unicast_layer_bc_pft.png">}}
+
+Let's recap what a simple unicast layer that uses forwarding elements
+with packet forwarding table looks like in the model.  First we have
+the unicast layer itself, consisting of a set of forwarding elements
+with defined adjacencies. Recall that the necessary and sufficient
+condition for the unicast layer to be able to forward packets between
+any (source, sink)-pair is that all forwarding engines can deduce the
+values of a distance function between themselves and the sink, and
+between each of their neighbors and the sink. This means that such a
+unicast layer requires an additional (optional) element that
+distributes this routing information. Let's call it the __Routing
+Element__, and assume that it implements a simple link-state routing
+protocol. The RE is drawn as a turquoise element accompanying each
+forwarding element in the figure above. Now, each routing element
+needs to disseminate information to _all_ other nodes in the layer, in
+other words, it needs to _broadcast_ link state information. The RE is
+inside of a unicast layer, and unicast layers don't do that, so the
+REs will need the help of a broadcast layer. That is what is drawn in
+the figure above. Now, at first this may look weird, but it is
+_exactly_ what an IP network does (within a subnet)! With the Open
+Shortest Path First (OSPF) protocol, it uses IP multicast between all
+OSPF routers in the domain, and with IS-IS, it leverages the layer 2
+network as the broadcast layer. I will refer to my blog post on
+[multicast](/blog/2021/04/02/how-does-ouroboros-do-anycast-and-multicast/)
+if you need a bit more elaboration on this.
+
 
 [UNDER CONSTRUCTION...]
 
