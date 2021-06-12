@@ -40,8 +40,9 @@ networks.
 ### The importance of first principles
 
 One word of caution, because this model might read like I'm
-"reinventing the wheel" and we already know how to do everything that
-is written here. Of course we do! The point is that the model reduces
+"reinventing the wheel" and we already know _how_ to do everything that
+is written here. Of course we do! The point is that the model
+[reduces](https://en.wikipedia.org/wiki/Reductionism)
 networking to its _essence_, to its fundamental parts.
 
 After studying most courses on Computer Networks, I could name the 7
@@ -80,8 +81,8 @@ principles.
 
 The Ouroboros model postulates that there are only 2 scalable methods
 of distributing packets in a network layer: _FORWARDING_ packets based
-on some label [^1], or _FLOODING_ packets on all links but the
-incoming link.
+on some label, or _FLOODING_ packets on all links but the incoming
+link.
 
 We call an element that forwards a __forwarding element__,
 implementing a _packet forwarding function_ (PFF). The PFF has as
@@ -97,7 +98,7 @@ all non-incoming arcs. Packets on a broadcast layer do not need a
 header at all.
 
 Forwarding elements are _equal_, and need to be named, flooding
-elements are _identical_ and do not need to be named.
+elements are _identical_ and do not need to be named[^1].
 
 {{<figure width="40%" src="/docs/concepts/model_elements.png">}}
 
@@ -122,17 +123,17 @@ implementations of broadcast layers[^4].
 
 ### The unicast layer
 
-A unicast layer is a collection of interconnected forwarding
-elements. A unicast layer provides a best-effort unicast packet
-service between two endpoints in the layer. We call the abstraction of
-this point-to-point unicast service a flow. A flow in itself has no
-guarantees in terms of reliability [^5].
+A unicast layer is a collection of interconnected nodes that implement
+forwarding elements. A unicast layer provides a best-effort unicast
+packet service between two endpoints in the layer. We call the
+abstraction of this point-to-point unicast service a flow. A flow in
+itself has no guarantees in terms of reliability [^5].
 
 {{<figure width="70%" src="/docs/concepts/unicast_layer.png">}}
 
-A representation of a unicast layer is drawn above, with a flow
-between the _green_ (bottom left) and _red_ (top right) forwarding
-elements.
+A representation of a very simple unicast layer is drawn above, with a
+flow between the _green_ (bottom left) and _red_ (top right)
+forwarding elements.
 
 The forwarding function operates in such a way that, given the label
 of the destination forwarding element (in the case of the figure, a
@@ -147,7 +148,7 @@ network layer between source and destination
 * can use different paths for different packets between the same
   source-destination pair
 * can involve packet duplication
-* will not have non-transient loops[^6] [^7]
+* will not have non-transient loops[^6][^7]
 
 The first question is: _what information does that forwarding function
 need in order to work?_ Mathematically, the answer is that all
@@ -171,7 +172,7 @@ A first approach is to use a coordinate space for the names of the
 forwarding elements. For instance, if we use the GPS coordinates of
 the machine in which they reside as a name, then we can apply some
 basic geometry to _calculate_ the distances based on this name
-only. This simple GPS example has pitfalls, but it has been proven
+oexanly. This simple GPS example has pitfalls, but it has been proven
 that any connected finite graph has a greedy embedding in the
 hyperbolic plane. The obvious benefit of such so-called _geometric
 routing_ approaches is that they don't require any dissemination of
@@ -268,12 +269,13 @@ link state, the PFF is implemented as a _table_. We call it the packet
 forwarding table (PFT). On the other hand, geometric routing doesn't
 need a table and can implement the PFF as a mathematical equation
 operating on the _forwarding element names_. In this respect,
-geometric routing looks like a magic bullet to network scalability --
-the space complexity is O(1) -- but there are many challenges relating
-to the complexity of calculating greedy embeddings of graphs that are
-not static (a changing network where nodes enter and leave and links
-can fail) that currently make these solutions impractical at scale. We
-will focus on the solutions that use a PFT.
+geometric routing looks like a magic bullet to routing table
+scalability -- it doesn't need one -- but there are many challenges
+relating to the complexity of calculating greedy embeddings of graphs
+that are not static (a changing network where routers and end-hosts
+enter and leave, and links can fail and return after repair) that
+currently make these solutions impractical at scale. We will focus on
+the solutions that use a PFT.
 
 They way the unicast layer is now defined, the PFT scales _linearly_
 with the number of forwarding elements (n) in the layer, its space
@@ -281,18 +283,23 @@ complexity is O(n)[^10]. The obvious solution to any student of
 computer networks is to use a scheme like IP and Classless InterDomain
 Routing (CIDR) where the hosts _addresses_ are subnetted, allowing for
 entries in the PFT to be aggregated, drastically reducing its space
-complexity, in theory at least, to O(log(n)).
+complexity, in theory at least, to O(log(n)). So we should not use
+arbitrary names for the forwarding elements, but give them an
+_address_!
 
 Sure, that _is_ the solution, but not so fast! When building a model,
 each element in the model should be well-defined and named at most
 once. Synonyms for human use are allowed and useful, but they are
 conveniences, not part of the functioning of the model. If we
-subdivide the name of the forwarding element in different subnames, we
-have to ask ourselves what element in the model each subname of that
-name is naming! In the geographic routing example above, we dragged
-the Earth into the model, and used GPS coordinates (latitude and
-longitude) in the name. But where do subnets come from? What do we
-drag into our model, if anything, to create them?
+subdivide the name of the forwarding element in different subnames, as
+is done in hierarchical addressing, we have to ask ourselves what
+element in the model each subname that name is naming! In the
+geographic routing example above, we dragged the Earth into the model,
+and used GPS coordinates (latitude and longitude) in the name. But
+where do subnets come from, and what _are_ addresses? What do we drag
+into our model, if anything, to create them?
+
+#### A quick recap
 
 {{<figure width="70%" src="/docs/concepts/unicast_layer_bc_pft.png">}}
 
@@ -306,26 +313,29 @@ values of a distance function between themselves and the sink, and
 between each of their neighbors and the sink. This means that such a
 unicast layer requires an additional (optional) element that
 distributes this routing information. Let's call it the __Routing
-Element__, and assume that it implements a simple link-state routing
-protocol. The RE is drawn as a turquoise element accompanying each
-forwarding element in the figure above. Now, each routing element
+Element__[^11], and assume that it implements a simple link-state
+routing protocol. The RE is drawn as a turquoise element accompanying
+each forwarding element in the figure above. Now, each routing element
 needs to disseminate information to _all_ other nodes in the layer, in
 other words, it needs to _broadcast_ link state information. The RE is
 inside of a unicast layer, and unicast layers don't do that, so the
-REs will need the help of a broadcast layer[^11]. That is what is
-drawn in the figure above. Now, at first this may look weird, but it
-is _exactly_ what an IP network does (within a subnet)! With the Open
-Shortest Path First (OSPF) protocol, it uses IP multicast between all
-OSPF routers in the domain, and with IS-IS, it leverages the layer 2
-network as the broadcast layer. I will refer to my blog post on
-[multicast](/blog/2021/04/02/how-does-ouroboros-do-anycast-and-multicast/)
-if you need a bit more elaboration on how this maps to the IP world.
+REs will need the help of a broadcast layer. That is what is drawn in
+the figure above. Now, at first this may look weird, but an IP network
+does this too! For instance, the Open Shortest Path First (OSPF)
+protocol uses IP multicast between OSPF routers. I will refer to my
+[blog post on multicast](/blog/2021/04/02/how-does-ouroboros-do-anycast-and-multicast/)
+if you like a bit more elaboration on how this maps to the IP world.
+
+
+#### Subdividing the unicast layer
+
+{{<figure width="70%" src="/docs/concepts/unicast_layer_bc_pft_split.png">}}
 
 [UNDER CONSTRUCTION...]
 
 
-[^1]: This identifier can be thought of as an address, the identified
-      node is a _forwarding element_.
+[^1]: In the paper we call these elements _data transfer protocol
+      machines_, but I think this terminology is clearer.
 
 [^2]: A tree is a connected graph with N vertices and N-1 edges.
 
@@ -381,7 +391,7 @@ if you need a bit more elaboration on how this maps to the IP world.
       When taking the transformation into account the resulting
       layer(s) will follow the fundamental model as it is presented
       above. Also observe that adding such tokens may drastically
-      increase the address space in the fundemental representation.
+      increase the address space in the ouroboros representation.
 
 [^8]: For the mathematically inclined, the exact formulation is in the
       [paper](https://arxiv.org/pdf/2001.09707.pdf) section 2.4
@@ -412,9 +422,9 @@ if you need a bit more elaboration on how this maps to the IP world.
       state information between the nodes, and the amount to be
       disseminated. We will address this a bit later in the discourse.
 
-[^11]:Unfortunately, the functionality of the Routing Element and the
-      broadcast layer are often implemented as an unfortunate human
-      engineer that has to subject himself to one of the most inhuman
-      ordeals imaginable: manually typing IP destinations and netmasks
-      into the routing tables of a wonky piece of hardware using the
-      most ill-designed command line interface seen this side of 1974.
+[^11]:The functionality of the Routing Element is often implemented as
+      an unfortunate human engineer that has to subject himself to one
+      of the most inhuman ordeals imaginable: manually calculating and
+      typing IP destinations and netmasks into the routing tables of a
+      wonky piece of hardware using the most ill-designed command line
+      interface seen this side of 1974.

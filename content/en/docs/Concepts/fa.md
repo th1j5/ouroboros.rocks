@@ -30,7 +30,7 @@ system has an Ouroboros IRMd and a unicast IPCP. These IPCPs work
 together to create a logical "layer".  System 1 runs a "client"
 program, System 2 runs a "server" program.
 
-We are going to explain in some detail the steps that Ourobros takes
+We are going to explain in some detail the steps that Ouroboros takes
 to establish a flow between the "client" and "server" program so they
 can communicate.
 
