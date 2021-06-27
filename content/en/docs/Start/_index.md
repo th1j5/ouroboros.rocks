@@ -1,6 +1,6 @@
 ---
 title: "Getting Started"
-linkTitle: "Getting Started"
+linkTitle: "Getting Started/Installation"
 weight: 20
 description: >
   How to get up and running with the Ouroboros prototype.
@@ -97,7 +97,9 @@ $ brew install libgcrypt openssl
 
 ### Install Ouroboros
 
-We recommend creating a build directory:
+When installing from source, go to the cloned git repository or
+extract the tarball and enter the main directory.  We recommend
+creating a build directory inside this directory:
 
 ```bash
 $ mkdir build && cd build
@@ -134,7 +136,7 @@ configure Ouroboros:
 $ ccmake .
 ```
 
-A list of all options can be found [here](/docs/reference/compopt).
+A list of all build options can be found [here](/docs/reference/compopt).
 
 ### Remove Ouroboros
 
