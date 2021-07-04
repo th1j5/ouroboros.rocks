@@ -447,7 +447,7 @@ the blue routing area).
 #### What are addresses?
 
 Let's end this discussion with how all this relates to IP addressing
-and CIDR. Each "IP" host has 32 forwarding elements with a straight
+and CIDR. Each "IPv4" host has 32 forwarding elements with a straight
 parent-child relationship between them [^12]. The rules above imply
 that there can be only one peering relationship between two nodes. The
 subnet mask actually acts as a sort of short-hand notation, showing
@@ -468,6 +468,17 @@ of holes in which to plug some wires (or some antennas to tune to a
 certain frequency), and then thinking that we either have to name the
 box or the holes/antennas: the answer is _neither_. I will come back
 to this when discussing multi-homing.
+
+One additional thing is that in the current IP Internet, the layout of
+the routing areas is predominantly administratively defined and
+structured into so-called Autonomous Systems (ASs) that each receive a
+chunk of the available IP address space, with BGP used to disseminate
+routes between them. The layout and peering relationship between these
+ASs is not the most optimal for the layout of the Internet. Decoupling
+the network addressing within an AS from the addressing and structure
+of an overlaying unicast layer, and how to disseminate routes in that
+overlay unicast layer is an interesting topic that mandates more
+study.
 
 [UNDER CONSTRUCTION]
 
