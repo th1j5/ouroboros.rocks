@@ -1,8 +1,7 @@
 ---
 title: "The Ouroboros model"
 author: "Dimitri Staessens"
-
-date:  2020-04-07
+date:  2020-06-12
 weight: 2
 description: >
    A conceptual approach to packet networking fundamentals
@@ -277,19 +276,19 @@ enter and leave, and links can fail and return after repair) that
 currently make these solutions impractical at scale. We will focus on
 the solutions that use a PFT.
 
-They way the unicast layer is now defined, the PFT scales _linearly_
-with the number of forwarding elements (n) in the layer, its space
-complexity is O(n)[^10]. The obvious solution to any student of
-computer networks is to use a scheme like IP and Classless InterDomain
-Routing (CIDR) where the hosts _addresses_ are subnetted, allowing for
-entries in the PFT to be aggregated, drastically reducing its space
-complexity, in theory at least, to O(log(n)). So we should not use
-arbitrary names for the forwarding elements, but give them an
+The way the unicast layer is defined at this point, the PFT scales
+_linearly_ with the number of forwarding elements (n) in the layer,
+its space complexity is O(n)[^10]. The obvious solution to any student
+of computer networks is to use a scheme like IP and Classless
+InterDomain Routing (CIDR) where the hosts _addresses_ are subnetted,
+allowing for entries in the PFT to be aggregated, drastically reducing
+its space complexity, in theory at least, to O(log(n)). So we should
+not use arbitrary names for the forwarding elements, but give them an
 _address_!
 
 Sure, that _is_ the solution, but not so fast! When building a model,
 each element in the model should be well-defined and named at most
-once. Synonyms for human use are allowed and useful, but they are
+once -- synonyms for human use are allowed and useful, but they are
 conveniences, not part of the functioning of the model. If we
 subdivide the name of the forwarding element in different subnames, as
 is done in hierarchical addressing, we have to ask ourselves what
@@ -313,26 +312,164 @@ values of a distance function between themselves and the sink, and
 between each of their neighbors and the sink. This means that such a
 unicast layer requires an additional (optional) element that
 distributes this routing information. Let's call it the __Routing
-Element__[^11], and assume that it implements a simple link-state
+Element__, and assume that it implements a simple link-state
 routing protocol. The RE is drawn as a turquoise element accompanying
 each forwarding element in the figure above. Now, each routing element
 needs to disseminate information to _all_ other nodes in the layer, in
 other words, it needs to _broadcast_ link state information. The RE is
-inside of a unicast layer, and unicast layers don't do that, so the
-REs will need the help of a broadcast layer. That is what is drawn in
-the figure above. Now, at first this may look weird, but an IP network
-does this too! For instance, the Open Shortest Path First (OSPF)
-protocol uses IP multicast between OSPF routers. I will refer to my
+inside of a unicast layer, and unicast layers don't do broadcast, so
+the REs will need the help of a broadcast layer. That is what is drawn
+in the figure above. Now, at first this may look weird, but an IP
+network does this too! For instance, the Open Shortest Path First
+(OSPF) protocol uses IP multicast between OSPF routers. The way that
+the IP layer is defined just obfuscates that this OSPF multicast
+network is in fact a disguised broadcast layer. I will refer to my
 [blog post on multicast](/blog/2021/04/02/how-does-ouroboros-do-anycast-and-multicast/)
 if you like a bit more elaboration on how this maps to the IP world.
 
-
 #### Subdividing the unicast layer
+
+```
+Vital realizations not only provide unforeseen clarity, they also
+energize us to dig deeper.
+  -- Brian Greene (in "Until the end of time")
+```
+
+Now, it's obvious that a single global layer like this with billions
+of nodes will buckle under its own size, we need to split things up
+into smaller, more manageable groups of nodes.
 
 {{<figure width="70%" src="/docs/concepts/unicast_layer_bc_pft_split.png">}}
 
-[UNDER CONSTRUCTION...]
+This is shown in the figure above, where the unicast layer is split
+into 3 groups of forwarding elements, let's call them __routing
+areas__, a yellow, a turquoise and a blue area, with each its own
+broadcast layer for disseminating the link state information that is
+needed to populate the forwarding tables. These areas can be chosen
+small enough so that the forwarding tables (which still scale linear
+with respect to the number of participating nodes in the routing area)
+are manageable in size. It can also keep latency in disseminating the
+link-state packets in check, but we will deal with latency later, for
+now, let's still assume latency on the links is zero and bandwidth on
+the links is infinite.
 
+Now, in this state, there can't be any communication between the
+routing areas, so we will need to add a fourth one.
+
+{{<figure width="70%" src="/docs/concepts/unicast_layer_bc_pft_split_broadcast.png">}}
+
+This is show in the figure above. We have our 3 original routing
+areas, and I numbered some of the nodes in these original routing
+areas.  These are the numbers after the dot in figure: 1, 2, 3, 4 in
+the turquoise routing area, 5,6,10 in the yellow routing area, and 1,
+5 in the blue area (I omitted some not to clutter the illustration).
+
+We have also added 4 new forwarding elements, each with their own
+(red) routing element, that have a client-server relationship (rather
+than a peering relationship) with other forwarding elements in the
+layer. These are the numbers before the dot: 1, 2, 2, and 3.  This may
+look intuitively obvious, and "1.4" and "3.5" may look like
+"addresses", but let's stress the things that I think are important,
+noting that this is a _model_ and most certainly _not an
+implementation design_.
+
+Every node in the unicast layer above consists of 2 forwarding
+elements in a client-server relationship, but all the ones that are
+not drawn all have the same name, and are not functionally active, but
+are there in a virtual way to keep the naming in the layer unique.
+
+We did not introduce new elements to the model, but we did add a new
+client-server relationship between forwarding elements.
+
+This client-server relationship gives rise to some new rules for
+naming the forwarding elements.
+
+First, the names of forwarding elements that are within a routing area
+have to be unique within that routing area if they have no client
+forwarding elements within the node.
+
+Forwarding elements with client forwarding elements have the same name
+if and only if their clients are within the same routing area.
+
+In the figure, there are peering relationships between unicast nodes
+"1.4" and "2.5" and unicast nodes "2.10" and "3.5", and these four
+nodes disseminate forwarding information using the red broadcast
+layer[^11].
+
+Note that not all forwarding elements need to actively disseminate
+routing information. If the forwarding elements in the turquoise
+routing area were all (logically) directly connected to 1.4, they
+would not need the broadcast layer, this is like IP, which also
+doesn't require end-hosts to run a routing protocol.
+
+#### Structure of a unicast node
+
+The rules for allowed peering relationships relate to the structure of
+the client-server relationship. In most generalized form, this
+relationship gives rise to a directed acyclic graph (DAG) between
+forwarding elements that are part of the same unicast node.
+
+{{<figure width="70%" src="/docs/concepts/unicast_layer_dag.png">}}
+
+We call the _rank_ of the forwarding element within the node the
+height at which it resides in this DAG. For instance, the figure above
+shows two unicast nodes with their forward elements arranged as DAGs.
+The forwarding elements with a turquoise and purple routing element
+are at rank 0, and the ones with a yellow routing element are at rank
+3.
+
+A forwarding elements in one node can have peering relationships only
+with forwarding elements of other nodes that
+
+1) Are at the same rank,
+
+2) Have a different name,
+
+3) Are in the same routing area at that rank,
+
+and only if
+
+1) there are no peering relationships between two forwarding elements
+that are in the same unicast nodes at any forwarding element that is
+on a path towards the root of the DAG
+
+2) there cannot be a lower ranked peering relationship.
+
+So, in the figure above, there cannot be a peering relationship at
+rank 0, because these elements are in different routing areas
+(turquoise and purple). The lowest peering relationship can be at rank
+1, in the routing area. If at rank one, the right node would be in a
+different routing area, there could be 2 peering relationships between
+these unicast nodes, for instance at rank 2 in the green routing area,
+and at rank 3 between in the yellow routing area (or also at rank 2 in
+the blue routing area).
+
+#### What are addresses?
+
+Let's end this discussion with how all this relates to IP addressing
+and CIDR. Each "IP" host has 32 forwarding elements with a straight
+parent-child relationship between them [^12]. The rules above imply
+that there can be only one peering relationship between two nodes. The
+subnet mask actually acts as a sort of short-hand notation, showing
+where the routing elements are in the same routing area: with mask
+255.255.255.0, the peering relationship is at rank 8, IP network
+engineers then state that the nodes are in a /24 network.
+
+Apart from building towards CIDR from the ground up, we have also
+derived _what network addresses really are_: they consist of names of
+forwarding elements in a unicast node and reflect the organisation of
+these forwarding elements in a directed acyclic graph (DAG). Now,
+there is still a (rather amusing) discussion on whether to assign IP
+adresses to nodes or interfaces. This discussion is moot: you can
+write your name on your mailbox, that doesn't make it the name of your
+mailbox, it is _your_ name. It is also a false dichotomy caused by
+device-oriented thinking, looking at a box of electronics with a bunch
+of holes in which to plug some wires (or some antennas to tune to a
+certain frequency), and then thinking that we either have to name the
+box or the holes/antennas: the answer is _neither_. I will come back
+to this when discussing multi-homing.
+
+[UNDER CONSTRUCTION]
 
 [^1]: In the paper we call these elements _data transfer protocol
       machines_, but I think this terminology is clearer.
@@ -422,9 +559,12 @@ if you like a bit more elaboration on how this maps to the IP world.
       state information between the nodes, and the amount to be
       disseminated. We will address this a bit later in the discourse.
 
-[^11]:The functionality of the Routing Element is often implemented as
-      an unfortunate human engineer that has to subject himself to one
-      of the most inhuman ordeals imaginable: manually calculating and
-      typing IP destinations and netmasks into the routing tables of a
-      wonky piece of hardware using the most ill-designed command line
-      interface seen this side of 1974.
+[^11]:The functionality of this red routing element is often
+      implemented as an unfortunate human engineer that has to subject
+      himself to one of the most inhuman ordeals imaginable: manually
+      calculating and typing IP destinations and netmasks into the
+      routing tables of a wonky piece of hardware using the most
+      ill-designed command line interface seen this side of 1974.
+
+[^12]:Drawing this in a full network example is way beyond my artistic
+      skill
