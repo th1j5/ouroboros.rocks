@@ -478,7 +478,7 @@ ASs is not the most optimal for the layout of the Internet. Decoupling
 the network addressing within an AS from the addressing and structure
 of an overlaying unicast layer, and how to disseminate routes in that
 overlay unicast layer is an interesting topic that mandates more
-study.
+study[^13].
 
 [UNDER CONSTRUCTION]
 
@@ -578,4 +578,10 @@ study.
       ill-designed command line interface seen this side of 1974.
 
 [^12]:Drawing this in a full network example is way beyond my artistic
-      skill
+      skill.
+
+[^13]:There is a serious error in the paper that states that this
+      routing information can be marked with a single bit. This is
+      only true in the limited case that there is only one "gateway"
+      node in the routing area. In the general case, path information
+      will be needed to determine which gateway to use.
