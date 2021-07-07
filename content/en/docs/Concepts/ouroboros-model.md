@@ -54,7 +54,6 @@ bridges. But after all that, I still feel such courses teach about as
 much about computer networks as cookbooks teach about chemistry. I
 wanted to go beyond technology and the rote knowledge of _how things
 work_ to establish a thorough understanding of _why they work_.
-
 During most of my PhD work at the engineering department, I spent my
 research time on modeling telecommunications networks and computer
 networks as _graphs_. The nodes represented some switch or router --
@@ -611,14 +610,16 @@ system will need a global address space[^14].
       only true in the limited case that there is only one "gateway"
       node in the routing area. In the general case, path information
       will be needed to determine which gateway to use.
-[^14]:A [paper on RINA](http://rina.tssg.org/docs/CAMAD-final.pdf) that
-      claims that a global address space is not needed, seems to prove the
-      exact opposite of that claim. The resolution system, called the
-      Inter-DIF Directory (IDD) -- it does more than just finding the
-      destination network -- -- is present on every system and has internal
-      forwarding rules to route requests between its node. If that is not a
-      global address space, then I am Mickey Mouse; the addresses inside the
-      IDD are just based on strings instead of numbers. The IDD houses a
-      unicast layer with a global address space. While the IDD is techically
-      not a DIF, the DIF-DAF distinction is
+
+[^14]:A [paper on RINA](http://rina.tssg.org/docs/CAMAD-final.pdf)
+      that claims that a global address space is not needed, seems to
+      prove the exact opposite of that claim. The resolution system,
+      called the Inter-DIF Directory (IDD) is present on every system
+      that can make use of it and uses internal forwarding rules based
+      on the lookup name to route requests between its peer nodes. If
+      that is not a global address space, then I am Mickey Mouse: the
+      addresses inside the IDD are just based on strings instead of
+      numbers. The IDD houses a unicast layer with a global address
+      space. While the IDD is techically not a DIF, the DIF-DAF
+      distinction is
       [severely flawed](https://ouroboros.rocks/blog/2021/03/20/how-does-ouroboros-relate-to-rina-the-recursive-internetwork-architecture/#ouroboros-diverges-from-rina).
