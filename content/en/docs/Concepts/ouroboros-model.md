@@ -171,7 +171,7 @@ A first approach is to use a coordinate space for the names of the
 forwarding elements. For instance, if we use the GPS coordinates of
 the machine in which they reside as a name, then we can apply some
 basic geometry to _calculate_ the distances based on this name
-oexanly. This simple GPS example has pitfalls, but it has been proven
+only. This simple GPS example has pitfalls, but it has been proven
 that any connected finite graph has a greedy embedding in the
 hyperbolic plane. The obvious benefit of such so-called _geometric
 routing_ approaches is that they don't require any dissemination of
@@ -480,7 +480,33 @@ of an overlaying unicast layer, and how to disseminate routes in that
 overlay unicast layer is an interesting topic that mandates more
 study[^13].
 
-[UNDER CONSTRUCTION]
+### Do we really need routing at a global scale?
+
+An interesting question to ask, is whether we need to be able to scale
+a layer to the scale of the planet, or -- some day -- the solar
+system, or even the universe? IPv6 was the winning technology to deal
+with the anticapted problem of IPv4 address exhaustion. But can we
+build an Internet that doesn't require all possible end users to share
+the same network (layer)?
+
+My answer is not proven and therefore not conclusive, but I think yes,
+any public Internet -- where it is possible for any end-user to reach
+any application at scale -- will always need at least one (unicast)
+layer that spans most of the systems on the network and thus a global
+address space. In the current Internet, applications are identified by
+an IP address and port, and the Domain Name System (DNS) maps the host
+name to an IP address (or a set of IP addresses). In any general
+Internetwork, if applications were in private networks, we would need
+a system to find the (private network, node name in private network)
+for some application, and every end-host would need to reach that
+system, which -- unless I am missing something big -- means that
+system will need a global address space[^14].
+
+### Dealing with limited link capacity
+
+
+
+[Under construction]
 
 [^1]: In the paper we call these elements _data transfer protocol
       machines_, but I think this terminology is clearer.
@@ -585,3 +611,14 @@ study[^13].
       only true in the limited case that there is only one "gateway"
       node in the routing area. In the general case, path information
       will be needed to determine which gateway to use.
+[^14]:A [paper on RINA](http://rina.tssg.org/docs/CAMAD-final.pdf) that
+      claims that a global address space is not needed, seems to prove the
+      exact opposite of that claim. The resolution system, called the
+      Inter-DIF Directory (IDD) -- it does more than just finding the
+      destination network -- -- is present on every system and has internal
+      forwarding rules to route requests between its node. If that is not a
+      global address space, then I am Mickey Mouse; the addresses inside the
+      IDD are just based on strings instead of numbers. The IDD houses a
+      unicast layer with a global address space. While the IDD is techically
+      not a DIF, the DIF-DAF distinction is
+      [severely flawed](https://ouroboros.rocks/blog/2021/03/20/how-does-ouroboros-relate-to-rina-the-recursive-internetwork-architecture/#ouroboros-diverges-from-rina).
