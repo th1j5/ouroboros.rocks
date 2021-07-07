@@ -616,10 +616,10 @@ system will need a global address space[^14].
       prove the exact opposite of that claim. The resolution system,
       called the Inter-DIF Directory (IDD) is present on every system
       that can make use of it and uses internal forwarding rules based
-      on the lookup name to route requests between its peer nodes. If
-      that is not a global address space, then I am Mickey Mouse: the
-      addresses inside the IDD are just based on strings instead of
-      numbers. The IDD houses a unicast layer with a global address
-      space. While the IDD is techically not a DIF, the DIF-DAF
-      distinction is
-      [severely flawed](https://ouroboros.rocks/blog/2021/03/20/how-does-ouroboros-relate-to-rina-the-recursive-internetwork-architecture/#ouroboros-diverges-from-rina).
+      on the lookup name (in a hierarchical namespace!) to route
+      requests between its peer nodes. If that is not a global address
+      space, then I am Mickey Mouse: the addresses inside the IDD are
+      just based on strings instead of numbers. The IDD houses a
+      unicast layer with a global address space. While the IDD is
+      techically not a DIF, the DIF-DAF distinction is [severely
+      flawed](https://ouroboros.rocks/blog/2021/03/20/how-does-ouroboros-relate-to-rina-the-recursive-internetwork-architecture/#ouroboros-diverges-from-rina).
