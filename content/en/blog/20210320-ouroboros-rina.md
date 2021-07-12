@@ -29,6 +29,17 @@ may change in the future. These are my -- inevitably subjective and
 undoubtedly somewhat inaccurate -- recollections of how it went down,
 why Ouroboros exists, and how it's different from RINA.
 
+If you're in a hurry, this is the TL;DR: We spent 4-5 years
+researching RINA in EU-funded projects and understand its concepts and
+ideas very well. However, we looked beyond the premises and the
+us-vs-them mentality of the RINA community and areas for improvement
+and further simplification. And more than a couple of things in RINA
+that are just plain-old wrong. While RINA insiders may suggest that
+Ouroboros is 'RINA-inspired' or use some other phrasing that
+insinuates our prototype is an inferior design or some watered down
+version of RINA: it is not, to the contrary, Ouroboros is the diamond
+to RINA's graphite.
+
 And a quick note here: Ouroboros _the network prototype_ has no
 relation to Ouroboros _the Proof-of-Stake protocol_ in the Cardano
 blockchain. That some of the Cardano guys are also interested in RINA
@@ -881,6 +892,10 @@ make a worthwile analysis. By then I long had a feeling that my days
 at the university were numbered, it was time to move on, and I was
 either leaving after submitting a publication on Ouroboros, or without
 a publication on Ouroboros.
+
+In May 2018 there was another RINA workshop, where I presented
+Ouroboros. The feedback I got from John was characteristically short:
+_It's stupid_.
 
 We finished the experiments for ARCFIRE, but as with PRISTINE, the
 results were not accepted for publication. During the writing of the
