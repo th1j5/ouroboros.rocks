@@ -34,11 +34,10 @@ researching RINA in EU-funded projects and understand its concepts and
 ideas very well. However, we looked beyond the premises and the
 us-vs-them mentality of the RINA community and found areas for
 improvement and further simplification. And more than a couple of
-things in RINA that are just plain-old wrong. While RINA insiders may
+things in RINA that are just plain old wrong. While RINA insiders may
 suggest that Ouroboros is 'RINA-inspired' or use some other phrasing
 that insinuates our prototype is an inferior design or some watered
-down version of RINA: it is not, to the contrary, Ouroboros is the
-diamond to RINA's graphite.
+down version of RINA: it is not.
 
 And a quick note here: Ouroboros _the network prototype_ has no
 relation to Ouroboros _the Proof-of-Stake protocol_ in the Cardano
