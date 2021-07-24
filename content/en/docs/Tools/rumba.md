@@ -24,14 +24,15 @@ layers. I try to keep it up-to-date for the Ouroboros prototype.
 The features of Rumba are:
   * easily define network topologies
   * use different prototypes]:
-     * Ouroboros[^1]
-     * rlite
-     * IRATI
+    * Ouroboros[^1]
+    * rlite
+    * IRATI
+
   * create these networks using different possible environments:
-     * local PC (Ouroboros only)
-     * docker container
-     * virtual machine (qemu)
-     * [jFed](https://jfed.ilabt.imec.be/) testbeds
+    * local PC (Ouroboros only)
+    * docker container
+    * virtual machine (qemu)
+    * [jFed](https://jfed.ilabt.imec.be/) testbeds
   * script experiments
   * rudimentary support for drawing these networks (using pydot)
 
