@@ -22,6 +22,7 @@ up test networks for Ouroboros that are made up of many IPCPs and
 layers. I try to keep it up-to-date for the Ouroboros prototype.
 
 The features of Rumba are:
+
   * easily define network topologies
   * use different prototypes]:
     * Ouroboros[^1]
