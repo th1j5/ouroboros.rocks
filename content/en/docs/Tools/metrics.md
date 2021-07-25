@@ -86,11 +86,11 @@ matures, more and more metrics will become available.
 At the top, you can set a number of variables to restrict what is seen
 on the dashboard:
 
-{{<figure width="30%" src="/docs/Tools/grafana-variables.png">}}
+{{<figure width="30%" src="/docs/tools/grafana-variables.png">}}
 
 * System allows you to specify a set of host/node/devices in the network:
 
-{{<figure width="30%" src="/docs/Tools/grafana-variables-system.png">}}
+{{<figure width="30%" src="/docs/tools/grafana-variables-system.png">}}
 
 The list will contain all hosts that put metrics in the InfluxDB
 database in the last 5 days (Unfortunaly there seems to be no current
@@ -98,7 +98,7 @@ option to restrict this to the current selected time range).
 
 * Type allows you to select metrics for a certain IPCP type
 
-{{<figure width="30%" src="/docs/Tools/grafana-variables-type.png">}}
+{{<figure width="30%" src="/docs/tools/grafana-variables-type.png">}}
 
 As you can see, all Ouroboros IPCP types are there, with unclusion of
 an UNKNOWN type. This may briefly pop up when the metric is misread by
@@ -110,7 +110,7 @@ the exporter.
 
 * Interval allows to select a window in which metrics are aggregated.
 
-{{<figure width="30%" src="/docs/Tools/grafana-variables-interval.png">}}
+{{<figure width="30%" src="/docs/tools/grafana-variables-interval.png">}}
 
 Metrics will be aggregated from the actual exporter values (e.g. mean
 or last value) that fall in this interval. This interval should thus
@@ -125,7 +125,7 @@ prototype.
 
 #### System
 
-{{<figure width="80%" src="/docs/Tools/grafana-system.png">}}
+{{<figure width="80%" src="/docs/tools/grafana-system.png">}}
 
 The system panel shows the number of IPCPs and known IPCP flows in all
 monitored systems as a stacked series. This system is running a small
@@ -137,7 +137,7 @@ grafana issue that I hope will get fixed soon.
 
 #### Link State Database
 
-{{<figure width="80%" src="/docs/Tools/grafana-lsdb.png">}}
+{{<figure width="80%" src="/docs/tools/grafana-lsdb.png">}}
 
 The Link State Database panel shows the knowledge each IPCP has about
 the network routing area(s) it is in. The example has 2 IPCPs that are
@@ -147,7 +147,7 @@ counted).
 
 #### Process N-1 flows
 
-{{<figure width="80%" src="/docs/Tools/grafana-frcp.png">}}
+{{<figure width="80%" src="/docs/tools/grafana-frcp.png">}}
 
 This is the first panel that deals with the [Flow-and-Retransmission
 Control
@@ -180,7 +180,7 @@ the protocol on which FRCP is based. Right now, they are only
 configurable at compile time, but in the future they will probably be
 configurable using fccntl().
 
-{{<figure width="80%" src="/docs/Tools/grafana-frcp-constants.png">}}
+{{<figure width="80%" src="/docs/tools/grafana-frcp-constants.png">}}
 
 A quick refresher on these Delta-t timers:
 
@@ -201,7 +201,7 @@ A quick refresher on these Delta-t timers:
 
 #### Delta-t window
 
-{{<figure width="80%" src="/docs/Tools/grafana-frcp-window.png">}}
+{{<figure width="80%" src="/docs/tools/grafana-frcp-window.png">}}
 
 The third and (at least at this point) last panel related to FRCP is
 the window panel that shows information regarding Flow Control. FRCP
@@ -213,7 +213,7 @@ size is currently 256 packets.
 
 #### IPCP N+1 flows
 
-{{<figure width="80%" src="/docs/Tools/grafana-ipcp-np1.png">}}
+{{<figure width="80%" src="/docs/tools/grafana-ipcp-np1.png">}}
 
 These graphs show basic statistics from the point of view of the IPCP
 that is serving the application flow. It shows upstream and downstream
@@ -221,7 +221,7 @@ bandwidth and packet rates, and total sent and received packets/bytes.
 
 #### N+1 Flow Management
 
-{{<figure width="60%" src="/docs/Tools/grafana-ipcp-np1-fu.png">}}
+{{<figure width="60%" src="/docs/tools/grafana-ipcp-np1-fu.png">}}
 
 These 4 panels show the management traffic sent by the flow
 allocators. Currently this traffic is only related to congestion
@@ -236,7 +236,7 @@ side for these (small) packets. I'm working on fixing this.
 
 #### Congestion Avoidance
 
-{{<figure width="80%" src="/docs/Tools/grafana-ipcp-np1-cc.png">}}
+{{<figure width="80%" src="/docs/tools/grafana-ipcp-np1-cc.png">}}
 
 This is a more detailed panel that shows the internals of the MB-ECN
 congestion avoidance algorithm.
@@ -271,7 +271,7 @@ the last time there was no congestion.
 The last panel shows the (management) traffic sent and received by the
 IPCP internal as measured by the forwarding engine (Data transfer).
 
-{{<figure width="80%" src="/docs/Tools/grafana-ipcp-dt-dht.png">}}
+{{<figure width="80%" src="/docs/tools/grafana-ipcp-dt-dht.png">}}
 
 The components that are current shown on this panel are the DHT and
 the Flow Allocator. As you can see, the DHT didn't do much during this
@@ -280,7 +280,7 @@ resolution and it will only send/receive packets when an address is
 resolved or when it needs to refresh its state, which happens only
 once every 15 minutes or so.
 
-{{<figure width="80%" src="/docs/Tools/grafana-ipcp-dt-fa.png">}}
+{{<figure width="80%" src="/docs/tools/grafana-ipcp-dt-fa.png">}}
 
 The bottom part of the local components is dedicated to the flow
 allocator. During the monitoring period, only flow updates were sent,
