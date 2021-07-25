@@ -63,15 +63,20 @@ textbox and click "Load".
 
 ### Run the exporter:
 
-Clone this repository and go to the pyExporter directory.
+Clone the repository:
+
+```
+git clone https://ouroboros.rocks/git/ouroboros-metrics
+cd ouroboros-metrics
+cd exporters-influxdb/pyExporter/
+```
 
 Edit the config.ini.example file and fill out the InfluxDB
 information (token, org). Save it as config.ini.
 
-and run oexport.py
+then run oexport.py
 
 ```
-cd exporters-influxdb/pyExporter/
 python oexport.py
 ```
 
