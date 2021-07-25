@@ -14,10 +14,10 @@ networks in a test environment that was originally developed during
 the ARCFIRE project. Its main objectives are to configure networks and
 to evaluate a bit the impact of the architecture on configuration
 management and devops in computer and telecommunications networks. The
-original rumba project page is
+original Rumba project page is
 [here](https://gitlab.com/arcfire/rumba).
 
-I still use rumba to quickly (and I mean in a matter of seconds!) set
+I still use Rumba to quickly (and I mean in a matter of seconds!) set
 up test networks for Ouroboros that are made up of many IPCPs and
 layers. I try to keep it up-to-date for the Ouroboros prototype.
 
@@ -37,9 +37,9 @@ The features of Rumba are:
   * script experiments
   * rudimentary support for drawing these networks (using pydot)
 
-## Getting rumba
+## Getting Rumba
 
-We forked rumba with to the Ouroboros website, and you should get this
+We forked Rumba with to the Ouroboros website, and you should get this
 forked version for use with Ouroboros. It should work with most python
 versions, but I recommend using the latest version (currently
 Python3.9).
@@ -54,13 +54,13 @@ sudo ./setup.py install
 
 or you can first create a Python virtual environment as you wish.
 
-## Using rumba
+## Using Rumba
 
-The rumba model is heavily based on RINA terminology (since it was
+The Rumba model is heavily based on RINA terminology (since it was
 originally developed within a RINA research project). We will probably
 align the terminology in Rumba with Ouroboros in the near future.  I
-will break down a typical rumba experiment definition and show how to
-use rumba in Python interactive mode. You can download the complete
+will break down a typical Rumba experiment definition and show how to
+use Rumba in Python interactive mode. You can download the complete
 example experiment definition [here](/docs/tools/rumba_example.py).
 The example uses the Ouroboros prototype, and we will run the setup on
 the _local_ testbed since that is available on any machine and doesn't
@@ -92,12 +92,12 @@ on the local host, a docker container on the local host, or a virtual
 or physical server on the jfed testbed, respectively.
 
 * **NormalDIF** is (roughly) the RINA counterpart for an Ouroboros
-  *unicast layer*. The rumba framework has no support for broadcast
+  *unicast layer*. The Rumba framework has no support for broadcast
   layers (yet).
 
 * **ShimEthDIF** is (roughly) the RINA counterpart for an Ouroboros
   Ethernet IPCP. These links make up the "physical network topology"
-  in the experiment definition. On the local testbed, rumba will use
+  in the experiment definition. On the local testbed, Rumba will use
   the ipcpd-local as a substitute for the Ethernet links, in the other
   testbeds (qemu, docker, jfed) these will be implemented on (virtual)
   Ethernet interfaces. Rumba uses the DIX ethernet IPCP
@@ -106,7 +106,7 @@ or physical server on the jfed testbed, respectively.
   implementations.
 
 You might have expected that IPCPs themselves would be elements of the
-rumba model, and they are. They are not directly defined but, as we
+Rumba model, and they are. They are not directly defined but, as we
 shall see in short, inferred from the layer definitions.
 
 We still need to import the testbeds we will use. As mentioned, we
@@ -146,7 +146,7 @@ a server node, and a router node, that looks like this:
 {{<figure width="30%" src="/docs/tools/rumba-topology.png">}}
 
 In the prototype, there is a unicast layer which we call _n1_ (in
-rumba, a "NormalDIF") and 3 point-to-point links ("ShimEthDIF"), _e1_,
+Rumba, a "NormalDIF") and 3 point-to-point links ("ShimEthDIF"), _e1_,
 _e2_ and _e3_. There are 4 nodes, which we label "client1", "client2",
 "router", and "server". These are connected in a so-called star
 topology, so there is a link between the "router" and each of the 3
@@ -184,8 +184,8 @@ serverNode = Node("server",
 nodes = ["client1", "client2", "router", "server"]
 ```
 
-Each node is modeled as a rumba Node object, and we specify which difs
-are present on that node (which will cause rumba to create an IPCP for
+Each node is modeled as a Rumba Node object, and we specify which difs
+are present on that node (which will cause Rumba to create an IPCP for
 you) and how these DIFs relate to eachother in that node. This is done
 by specifying the dependency graph between these DIFs as a dict object
 ("dif_registrations") where the client layer is the key and the list
@@ -204,7 +204,7 @@ present and layer _n1_ has to be known from all other nodes, so on the
 router, _n1_ is registered in [_e1_, _e2_, _e3_].
 
 All this may look a bit unfamiliar and may take some time to get used
-to (and maybe an option for rumba where the experiment is defined in
+to (and maybe an option for Rumba where the experiment is defined in
 terms of the IPCPs rather than the layers/DIFs might be more
 intuitive), but once one gets the hang of this, defining complex
 network topologies really becomes childs play.
@@ -232,12 +232,21 @@ installed and running.
 
 ### An example on the Fed4FIRE/GENI testbeds using the jFed plugin
 
+Before using Rumba with jFed, you need to enable ssh-agent in each
+terminal.
+
+```
+eval `ssh-agent`
+ssh-add /path/to/cert.pem
+```
+
 To give an idea of what Rumba can do on a testbed with actual hardware
 servers, I will also give an example for a testbed deployment using
 the jfed plugin. This may not be relevant to people who don't have
 access to these testbeds, but it can server as a taste for what a
 kubernetes[^2] plugin can achieve, which may come if there is enough
 interest for it.
+
 
 ```Python
 jfed_tb = jfed.Testbed(exp_name='cc2',
@@ -253,7 +262,7 @@ jfed_tb = jfed.Testbed(exp_name='cc2',
 The jfed testbed requires a bit more configuration than the local (or
 qemu/docker) plugins. First, the credentials for accessing jfed (your
 username, password, and certificate) need to be passed. Your password
-is optional, and if you don't like supplying it in plaintext, rumba
+is optional, and if you don't like supplying it in plaintext, Rumba
 will ask you to enter it at certain occasions. A jFed experiment
 requires an experiment name that can be chosen at will for the
 experiment, an experation time (in hours) and also a project name that
@@ -287,7 +296,7 @@ jfed_exp = our.Experiment(jfed_tb,
                           })
 ```
 
-For these more beefy setups, rumba will actually install the prototype
+For these more beefy setups, Rumba will actually install the prototype
 and you can specify a repository and branch (if not, it will use the
 master branch from the main ouroboros repository), build options for
 the prototype, additional packages to install for use during the
@@ -305,7 +314,7 @@ First, make sure that Ouroboros is running your host machine, save the
 [experiment definition script](/docs/tools/rumba_example.py) to your
 machine and run a python shell in the directory with the example file.
 
-Let's first add some additional logging to rumba so we have a bit more
+Let's first add some additional logging to Rumba so we have a bit more
 information about the process:
 
 ```sh
@@ -342,7 +351,7 @@ Flows:
     n1.server --> n1.router
 ```
 
-When an experiment object is created, rumba will pre-compute how to
+When an experiment object is created, Rumba will pre-compute how to
 bootstrap the requested network layout. First, it will select a
 topological ordering, the order in which it will create the layers
 (DIFs). We now only have 4, and the Ethernet layers need to be up and
@@ -462,10 +471,10 @@ First, the prototype is started if it is not already running:
 16:29:32 Started IRMd, sleeping 2 seconds...
 ```
 
-Since starting the IRMd requires root privileges, rumba will ask for
+Since starting the IRMd requires root privileges, Rumba will ask for
 your password.
 
-Next, rumba will create the IPCPs on each node, I will go more
+Next, Rumba will create the IPCPs on each node, I will go more
 in-depth for client1 and client2 as they bring some interesting
 insights:
 
@@ -501,14 +510,14 @@ make up the _n1_ layer, the situation is different. As mentioned
 above, the first IPCP in that layer is bootstrapped, "n1.client1" and
 then other members of the layer are enrolled to extend that layer. So
 if you turn your attention back to the full listing of the steps
-executed by the bootstrap() procedure in rumba, you will now see that
+executed by the bootstrap() procedure in Rumba, you will now see that
 there are only 3 IPCPs that are created using ```irm i c```: those 3
 that are selected for enrollment, which is the next step.
 
 Here Ouroboros deviates quite a bit from RINA, as what RINA calls
 enrollment is actually split into 3 different phases in Ouroboros. But
 as Rumba was intended to work with RINA (a requirement for the ARCFIRE
-project at hand) this is a single "step" in rumba. In RINA, the DIF
+project at hand) this is a single "step" in Rumba. In RINA, the DIF
 registrations are initiated by the IPCPs themselves, which means
 making APIs and what not to feed all this information to the IPCPs and
 let them execute this. Ouroboros, on the other hand, keeps things lean
