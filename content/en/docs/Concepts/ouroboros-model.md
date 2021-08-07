@@ -458,15 +458,18 @@ Apart from building towards CIDR from the ground up, we have also
 derived _what network addresses really are_: they consist of names of
 forwarding elements in a unicast node and reflect the organisation of
 these forwarding elements in a directed acyclic graph (DAG). Now,
-there is still a (rather amusing) discussion on whether to assign IP
-adresses to nodes or interfaces. This discussion is moot: you can
-write your name on your mailbox, that doesn't make it the name of your
-mailbox, it is _your_ name. It is also a false dichotomy caused by
-device-oriented thinking, looking at a box of electronics with a bunch
-of holes in which to plug some wires (or some antennas to tune to a
-certain frequency), and then thinking that we either have to name the
-box or the holes/antennas: the answer is _neither_. I will come back
-to this when discussing multi-homing.
+there is still a (rather amusing) and seemingly neverending discussion
+in the network community on whether IP adresses should be assigned to
+nodes or interfaces. This discussion is moot: you can write your name
+on your mailbox, that doesn't make it the name of your mailbox, it is
+_your_ name. It is also a false dichotomy caused by device-oriented
+thinking, looking at a box of electronics with a bunch of holes in
+which to plug some wires, and then thinking that we either have to
+name the box or the holes: the answer is _neither_. Just like a post
+office building doesn't do anything without post office workers (or
+their automated robotic counterparts), a router or switch doesn't do
+anything without forwarding elements. I will come back to this when
+discussing multi-homing.
 
 One additional thing is that in the current IP Internet, the layout of
 the routing areas is predominantly administratively defined and
@@ -489,17 +492,22 @@ build an Internet that doesn't require all possible end users to share
 the same network (layer)?
 
 My answer is not proven and therefore not conclusive, but I think yes,
-any public Internet -- where it is possible for any end-user to reach
-any application at scale -- will always need at least one (unicast)
-layer that spans most of the systems on the network and thus a global
-address space. In the current Internet, applications are identified by
-an IP address and port, and the Domain Name System (DNS) maps the host
-name to an IP address (or a set of IP addresses). In any general
-Internetwork, if applications were in private networks, we would need
-a system to find the (private network, node name in private network)
-for some application, and every end-host would need to reach that
-system, which -- unless I am missing something big -- means that
-system will need a global address space[^14].
+any public Internetwork at scale -- where it is possible for any
+end-user to reach any application -- will always need at least one
+(unicast) layer that spans most of the systems on the network and thus
+a global address space. In the current Internet, applications are
+identified by an IP address and (well-defined) port, and the Domain
+Name System (DNS) maps the host name to an IP address (or a set of IP
+addresses). In any general Internetwork, if applications were in
+private networks, we would need a system to find the (private network,
+node name in private network) for some application, and every end-host
+would need to reach that system, which -- unless I am missing
+something big -- means that system will need a global address
+space[^14].
+
+### Multi-homing
+
+
 
 ### Dealing with limited link capacity
 
