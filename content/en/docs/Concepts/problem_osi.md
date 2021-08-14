@@ -94,49 +94,79 @@ layers of OSI as an "application layer".
 
 ### Some issues with these models
 
-However, when looking at current networking solutions in more depth,
-things are not as simple as these 5/7 layers seem to
-indicate. Consider, for instance, __Virtual Private Network__ (VPN)
-technologies and SSH __tunnels__. We are all familiar enough with this
-kind of technologies to take them for granted. But a VPN, such as
-openVPN, creates a new network on top of IP, for instance a layer 2
-network over TAP interfaces supported by a Layer 4 (using, for
-instance Transport Layer Security) connection to the VPN server.
-Technologies such as VPNs and various so-called _tunnels_ seriously
-jumble around the layers in this layered model.
+When looking at current networking solutions in more depth,
+things are not as simple as these 5/7 layers seem to indicate.
 
-Which protocol fits in which layer is also not clear-cut.
+#### The order of the layers is not fixed.
 
-Multi-Protocol Label switching MPLS, a technology that makes IP
-networks more ATM-like, and allows establishing and managing fixed
-paths (circuits), typically sits in between Layer 2 and IP and is
-categorized as a Layer 2.5 technology.
+Consider, for instance, __Virtual Private Network__ (VPN) technologies
+and SSH __tunnels__. We are all familiar enough with this kind of
+technologies to take them for granted. But a VPN, such as openVPN,
+creates a new network on top of IP. In _bridging_ mode this is a Layer
+2 (Ethernet) network over TAP interfaces, in _routing_ mode this is a
+Layer 3 (IP) network over TUN interfaces. In both cases they are
+supported by a Layer 4 connection (using, for instance Transport Layer
+Security) to the VPN server that provides the network
+access. Technologies such as VPNs and various so-called _tunnels_
+seriously jumble around the layers in this layered model.
+
+#### How many layers are there exactly?
+
+Multi-Protocol Label switching (MPLS), a technology that allows
+operators to establish and manage circuit-like paths in IP networks,
+typically sits in between Layer 2 and IP and is categorized as a
+_Layer 2.5_ technology. So are there 8 layers? Why not revise the
+model and number them 1-8 then?
 
 QUIC is a protocol that performs transport-layer functions such as
 retransmission, flow control and congestion control, but works around
 the initial performance bottleneck after starting a TCP connection
 (3-way handsake, slow start) and some other optimizations dealing with
 re-establishing connections for which security keys are known. But
-QUIC runs on top of UDP. If UDP is layer 4, then what layer is QUIC?
+QUIC runs on top of UDP. If UDP is Layer 4, then what layer is QUIC?
+
+One could argue that UDP is an incomplete Layer 4 protocol and QUIC
+adds its missing Layer 4 functionalities. Fair enough, but then what
+is the minimum functionality for each of the protocols? Layer 2
+protocol? What is the minimum function of a Layer 3 protocol? And a
+Layer 4 protocol?
+
+#### Which protocol fits in which layer is not clear-cut.
+
+There are a whole slew of protocols that are situated in Layer 3:
+ICMP, SNMP... They don't really need the features that Layer 4
+provides (retransmission, ...). But again, they run on _top of Layer
+3_ (IP). They get assigned a protocol number in the IP field, instead
+of a port number in the UDP header. But doesn't a Layer 3 protocol
+number indicate a Layer 4 protocol? Apparently only in some cases, but
+not in others.
 
 The Border Gateway Protocol (BGP) performs (inter-domain)
 routing. Routing is a function that is usually associated with Layer
-3. But BGP runs on top of TCP, which is Layer 4. There is no real
-concensus of what layer BGP is in, some say Layer 3, some (probably
-most) say Layer 4, because it is using TCP, and some say it's
-application layer. But the concensus does seem to be that the BGP
-conundrum doesn't matter. BGP works, and the OSI and TCP/IP models are
-_just theoretical models_, not _rules_ that are set in stone.
-
+3. But BGP runs on top of TCP, which is Layer 4, so is it in the
+application layer? There is no real concensus of what layer BGP is in,
+some say Layer 3, some (probably most) say Layer 4, because it is
+using TCP, and some say it's application layer. But the concensus does
+seem to be that the BGP conundrum doesn't matter. BGP works, and the
+OSI and TCP/IP models are _just theoretical models_, not _rules_ that
+are set in stone.
 
 ### Are these issues _really_ a problem?
 
-Well, in my opinion: yes! And _big_ ones too! If there is no
-universally valid theoretical model, if we have no clear definitions
-of the fundamental concepts and no clearly defined set of rules that
-unequivocally lay out what the _necessary and sufficient conditions
-for networking_ are, then we are all just _engineering in the dark_.
-Progress in developing computer networks is condemned to a sisyphean
-effort of perpetual incremental fixes, its fate to remain a craft that
-builds on tradition, cobbling together an ever-growing bungle of
-technologies and protocols that stretches the limits of manageability.
+Well, in my opinion: yes! These models have no predictive value and
+don't even fit with observation of the real-world Internet most of us
+use every day. They are about as arbitrary as a seven-course tasting
+menu of home-grown vegetables. Their only uses are as technobabble for
+network engineers and as tools for university professors to gauge
+their students' ability to retain a moderate amount of
+pseudoscientific dribble.
+
+If there is no universally valid theoretical model, if we have no
+clear definitions of the fundamental concepts and no clearly defined
+set of rules that unequivocally lay out what the _necessary and
+sufficient conditions for networking_ are, then we are all just
+_engineering in the dark_, progress in developing computer networks
+condemned to a sisyphean effort of perpetual incremental fixes, its
+fate to remain a craft that builds on tradition, cobbling together an
+ever-growing bungle of technologies and protocols that stretch the
+limits of manageability.
