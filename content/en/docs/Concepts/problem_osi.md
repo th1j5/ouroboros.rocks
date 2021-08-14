@@ -162,7 +162,7 @@ Internet most of us use every day, and are about as arbitrary as a
 seven-course tasting menu of home-grown vegetables. Their only uses
 are as technobabble for network engineers and as tools for university
 professors to gauge their students' ability to retain a moderate
-amount of stratal dribble.
+amount of stratified dribble.
 
 If there is no universally valid theoretical model, if we have no
 clear definitions of the fundamental concepts and no clearly defined
