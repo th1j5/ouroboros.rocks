@@ -127,9 +127,11 @@ QUIC runs on top of UDP. If UDP is Layer 4, then what layer is QUIC?
 
 One could argue that UDP is an incomplete Layer 4 protocol and QUIC
 adds its missing Layer 4 functionalities. Fair enough, but then what
-is the minimum functionality for each of the protocols? Layer 2
-protocol? What is the minimum function of a Layer 3 protocol? And a
-Layer 4 protocol?
+is the minimum functionality for a complete Layer 4 protocol? And what
+is a minimum functionality for a Layer 3 protocol? What have IP, ICMP
+and IGMP in common that makes them Layer 3 beyond the arbitrary
+concensus that they should be available on a brick of future e-waste
+that is sold as a "router"?
 
 #### Which protocol fits in which layer is not clear-cut.
 
@@ -153,13 +155,14 @@ are set in stone.
 
 ### Are these issues _really_ a problem?
 
-Well, in my opinion: yes! These models have no predictive value and
-don't even fit with observation of the real-world Internet most of us
-use every day. They are about as arbitrary as a seven-course tasting
-menu of home-grown vegetables. Their only uses are as technobabble for
-network engineers and as tools for university professors to gauge
-their students' ability to retain a moderate amount of
-pseudoscientific dribble.
+Well, in my opinion: yes! These models are pure [rubber
+science](https://en.wikipedia.org/wiki/Rubber_science). They have no
+predictive value, don't fit with observations of the real-world
+Internet most of us use every day, and are about as arbitrary as a
+seven-course tasting menu of home-grown vegetables. Their only uses
+are as technobabble for network engineers and as tools for university
+professors to gauge their students' ability to retain a moderate
+amount of stratal dribble.
 
 If there is no universally valid theoretical model, if we have no
 clear definitions of the fundamental concepts and no clearly defined
