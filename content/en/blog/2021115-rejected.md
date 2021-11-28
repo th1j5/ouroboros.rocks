@@ -46,17 +46,16 @@ Cheers,
 
 Dimitri
 
-[^1]: The most ironic being that the reviewer (yes, we got only a
-      single reviewer) accuses me of redefining graph theory and using
-      pseudo-mathematics, without counter-examples or counter-proof or
-      even a polite request for clarification. Even worse, the
-      reviewer then claims that a _closed walk_ is the same as a
-      _Hamiltonian path_. What the actual fuck. In a walk, vertices
-      can be visited multiple times. All definitions in the paper are
-      taken straight out of Dieter Jungnickels' excellent
+[^1]: Especially comments regarding the math. The graph theory
+      definitions in the paper are based on Dieter Jungnickel's
+      sublime
       [Graphs, Networks and Algorithms](https://link.springer.com/book/10.1007/978-3-642-32278-5).
-      I didn't fully trust engineering reviews and had an actual
-      professor in discrete mathematics review the math before we
-      submitted the paper. I'll just take it that it was justified to
-      add the basic math definitions and build everything up from
-      scratch. I still stand by the math in the paper.
+      I cannot recommend this work enough to anyone interested in
+      graph theory. The math in the paper has been reviewed before
+      submission by a professor that lectures discrete mathematics to
+      engineering students and additionally, because I wanted a second
+      opinion, a professor in pure mathematics (who had excellent
+      comments, that definitely improved the definitions). I'll take
+      the reviewer's notes as evidence that it was more than justified
+      to add the basic math definitions and build everything up from
+      scratch. I stand by the math in the paper.
