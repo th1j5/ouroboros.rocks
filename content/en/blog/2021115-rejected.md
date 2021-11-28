@@ -10,7 +10,7 @@ This weekend we got word from the paper we submitted to JACM early
 2019. Not too surprised that it was rejected. Actually, rather
 surprised that we still hear of it after 3 years. So thanks to the
 reviewer for his/her time.  The rejection was justified, and I got
-something useful out of it, despite a lot of the reviewer's comments
+something useful out of it, despite some of the reviewer's comments
 being disgracefully wrong[^1].
 
 I've written over 30 research papers in my first years at university,
@@ -48,12 +48,15 @@ Dimitri
 
 [^1]: The most ironic being that the reviewer (yes, we got only a
       single reviewer) accuses me of redefining graph theory and using
-      pseudo-mathematics. The reviewer, obviously an engineer, then
-      claims that a _closed walk_ is the same as a _Hamiltonian path_.
-      What the actual fuck. In a walk, vertices can be visited multiple times.
-      All definitions in the paper are taken straight out of Dieter Jungnickels' excellent
+      pseudo-mathematics, without counter-examples or counter-proof or
+      even a polite request for clarification. Even worse, the
+      reviewer then claims that a _closed walk_ is the same as a
+      _Hamiltonian path_. What the actual fuck. In a walk, vertices
+      can be visited multiple times. All definitions in the paper are
+      taken straight out of Dieter Jungnickels' excellent
       [Graphs, Networks and Algorithms](https://link.springer.com/book/10.1007/978-3-642-32278-5).
-      I didn't fully trust engineering reviews and had an actual professor
-      in discrete mathematics review the math before we submitted the
-      paper. I'll just take it that it was justified to add the basic math
-      definitions and build everything up from scratch.
+      I didn't fully trust engineering reviews and had an actual
+      professor in discrete mathematics review the math before we
+      submitted the paper. I'll just take it that it was justified to
+      add the basic math definitions and build everything up from
+      scratch. I still stand by the math in the paper.
