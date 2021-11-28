@@ -10,7 +10,8 @@ This weekend we got word from the paper we submitted to JACM early
 2019. Not too surprised that it was rejected. Actually, rather
 surprised that we still hear of it after 3 years. So thanks to the
 reviewer for his/her time.  The rejection was justified, and I got
-something useful out of it.
+something useful out of it, despite a lot of the reviewer's comments
+being disgracefully wrong.
 
 I've written over 30 research papers in my first years at university,
 most went from first conception to a paper in less than a month. I had
