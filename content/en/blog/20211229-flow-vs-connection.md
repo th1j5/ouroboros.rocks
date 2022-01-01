@@ -67,13 +67,13 @@ immediately.
 ## Flows vs connections
 
 The most important thing to notice from the diagram for _oecho_, is
-that flow deallocation _does not send any messages_! Suppose that the
-server would send a message to destroy the flow immediately after it
-sends the response. What if that message to destroy the flow arrives
-_before_ the response?  When do we destroy the state associated with
-the flow? Flows are not connections. Raw flows like the one used in
-oecho behave like UDP. No guarantees. Now, let's have a look at
-_reliable_ flows, which behave more like TCP.
+that flow deallocation _does not send any messages_! It only cleans up
+_local_ state. Suppose that the server would send a message to destroy
+the flow immediately after it sends the response. What if that message
+to destroy the flow arrives _before_ the response?  When do we destroy
+the state associated with the flow? Flows are not connections. Raw
+flows like the one used in oecho behave like UDP. No guarantees. Now,
+let's have a look at _reliable_ flows, which behave more like TCP.
 
 ## A modification to oecho with reliable flows
 
@@ -147,7 +147,7 @@ half-closed connection?
 ## A _"half-closed connection"_
 
 So, first things first: the observation is correct, and that second
-call should (and soon will) exit on an error, as the flow is now valid
+call should (and soon will) exit on an error, as the flow is not valid
 anymore. Now it will only exit if there was an error in the FRCP
 connection (packet retransmission fails to receive an acknowledgment
 within a certain timeout). It should also exit on a remotely
@@ -178,9 +178,9 @@ TCP A                                                TCP B
 
 While FRCP performs functions that are present in TCP, not everything
 is so readily transferable. Purely from a design perspective, it's
-just not FRCPs job to keep a flow alive or detect if the flow is
-alive. It's job is to deliver packets reliably, or and all it needs to
-do that job is present. But would adding FINs work?
+just not FRCP's job to keep a flow alive or detect if the flow is
+alive. It's job is to deliver packets reliably, and all it needs to do
+that job is present. But would adding FINs work?
 
 Well, the server can crash just before the dealloc() call, leaving it
 in the current situation (the client won't receive FINs). To resolve
@@ -246,8 +246,9 @@ FIN. Or HTTP keepalive. All unneeded functional duplication, symptoms
 of a messy architecture, at least in my book. In Ouroboros, this flow
 liveness check is implemented once, in the flow allocator. It is the
 only place in the Ouroboros system where liveness checks are
-needed. Clean. Shipshape. Nice and tidy. Spick and span. We call it
-Flow Liveness Monitoring (FLM).
+needed. It handles failed allocation, broken connections, terminated
+or crashed applications. Clean. Shipshape. Nice and tidy. Spick and
+span. We call it Flow Liveness Monitoring (FLM).
 
 If I recall correctly, we implemented an FLM in the RINA/IRATI flow
 allocator years ago when we were working on PRISTINE and were trying
@@ -255,6 +256,49 @@ to get loop-free alternate (LFA) routes working. This needed to detect
 flows going down. In Ouroboros it is not implemented yet. Maybe I'll
 add it in the near future. Time is in short supply, the items on my
 todo list are not.
+
+## Flows vs connections, a "layered" view
+
+To wrap it up, I tried to represent how O7s functionality is organized
+in a way similar to the OSI/TCP models. I omitted the "physical
+layer", which is handled by dedicated IPCP implementations, such as
+the ipcpd-local, ipcpd-eth, etc. It's not that important here. What is
+important is that O7s splits functionality that is in TCP/IP in two
+layers (L3/L4), into **3 independent layers**[^7] (and protocols). Let's
+go through O7s from bottom to top.
+
+{{<figure width="80%" src="/blog/20211229-oecho-5.png">}}
+
+Network forwarding layer, which moves packets between (unicast) IPCP
+data transfer components (the forwarding elements in the model).
+
+The network end-to-end layer does flow monitoring (the FLM explained
+in this post) and also congestion control/avoidance (preventing that
+applications can send more traffic than the network can handle). The
+lifetime of a flow starts at flow allocation, and ends when one of the
+peers deallocates the flow, or crashes, (or an IPCP at the client or
+server crashes).
+
+The application end-to-end layer does flow control (avoiding that
+client applications send more than the server application can handle)
+and reliability (taken care of by FRCP). But also integrity (e.g. a
+Cyclic Redundancy Check) to detect packet corruption and
+authentication and encryption are handled here. Each of these
+functions can be enabled/disabled indepenendently (and is derived from
+the QoS specification from the _flow\_alloc()_ call). In essence the
+lifetime of an FRCP connection is _infinite_ (see Watson's Delta-t
+paper if this sounds weird), but FRCP is subdivided in "data runs". A
+failure of a data run (i.e. an FRCP connection record times out with
+unacknowledged packets) is the only thing that causes an FRCP
+connection to terminate. It is up to the application how to deal with
+this. An FRCP connection can last at most as long as an application
+flow. It can potentially recover from IPCP crashes, but not from
+application crashes.
+
+Finally, the application session layer takes care of establishing,
+maintaining, synchronizing and terminating application
+sessions. Application sessions can be shorter, as long as, or longer
+than the duration of an application flow.
 
 Probably long enough for a blog post. Have yourselves a wonderful new
 year, and above all, stay curious!
@@ -287,3 +331,8 @@ Dimitri
 
 [^6]: This has not been implemented yet, and should make for a nice
       demo.
+
+[^7]: The "recursive layer boundary" in the figure uses the word layer
+      in the sense of a RINA DIF. We didn't adopt the terminology DIF,
+      since it has special meaning in RINA, and O7s' recursive layers
+      are not interchangeable or compatible with RINA DIFs.
