@@ -12,10 +12,10 @@ description: >
 There are 2 ways that will be used to communicate: The mailing list
 (ouroboros@freelists.org) will be used for almost everything except
 for day-to-day chat. For that we use a public slack channel
-[slack](https://odecentralize.slack.com) (invite link in footer) and a
-[matrix space](https://matrix.to/#/#ODecentralize:matrix.org). The
-slack channel is a bit more active, and preferred.  Use whatever login
-name you desire.
+[slack](https://odecentralize.slack.com) (invite link in footer)
+bridged to a
+[matrix space](https://matrix.to/#/#ODecentralize:matrix.org).
+Use whatever login name you desire.
 
 Introduce yourself, use common sense and be polite!
 
@@ -23,7 +23,7 @@ Introduce yourself, use common sense and be polite!
 
 The coding guidelines of the main Ouroboros stack are similar as those
 of the Linux kernel
-(https://www.kernel.org/doc/Documentation/CodingStyle) with the
+(https://www.kernel.org/doc/html/latest/process/coding-style.html) with the
 following exceptions:
 
 - Soft tabs are to be used instead of hard tabs
@@ -97,8 +97,8 @@ real e-mail address.
 
 #### Commit messages
 
-A commit message should follow these 10 simple rules (adjusted from
-http://chris.beams.io/posts/git-commit/):
+A commit message should follow these 10 simple rules, based on
+(http://chris.beams.io/posts/git-commit/)
 
 1. Separate subject from body with a blank line
 2. Limit the subject line to 50 characters
