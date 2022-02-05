@@ -11,10 +11,11 @@ description: >
 
 There are 2 ways that will be used to communicate: The mailing list
 (ouroboros@freelists.org) will be used for almost everything except
-for day-to-day chat. For that we use the
-[slack](https://odecentralize.slack.com) (invite link in footer) and
-the #ouroboros channel on Freenode (IRC chat). The slack channel is a
-bit more active, and preferred.  Use whatever login name you desire.
+for day-to-day chat. For that we use a public slack channel
+[slack](https://odecentralize.slack.com) (invite link in footer) and a
+[matrix space](https://matrix.to/#/#ODecentralize:matrix.org). The
+slack channel is a bit more active, and preferred.  Use whatever login
+name you desire.
 
 Introduce yourself, use common sense and be polite!
 
