@@ -16,8 +16,7 @@ symmetric) NAT firewall, they can't _directly_ communicate unless the
 firewall opens some ports from the external source to the internal LAN
 destination. Let's assume A's NAT has public address 1.1.1.1 and B's
 NAT has public address 2.2.2.2. If A runs a service, lets say a web
-server on its local LAN address 192.168.0.1 on port 443 -- it works
-for both TCP and UDP, so I will not specify this further, B cannot
+server on its local LAN address 192.168.0.1 on port 443[^1] -- B cannot
 connect to this server directly. The firewall for A will need to
 forward some port on the public address 1.1.1.1:X to the internal
 address 192.168.0.1:443. If B is also behind a NAT firewall, that
@@ -35,14 +34,13 @@ when the talk becomes available. The specification can be found
 [here](https://github.com/libp2p/specs/blob/master/relay/DCUtR.md)
 Instead of using a central server, consider the following.
 
-If A sends a packet to 2.2.2.2:Y, it will upen up a temporary hole it
-its firewall (1.1.1.1:X <-> 2.2.2.2:Y) for the response to arrive
-(providing the firewall doesn't block all outbound traffic on port Y
-or some other rule that prevents it). If B sends a packet to
-1.1.1.1:X, it will also create a temporary hole in its firewall
-(2.2.2.2:Y <-> 1.1.1.1:X). So, if both do this roughly _at the same
-time_, the packets can slip through, the firewall rules become
-established and B can communicate with A! Pretty nifty!
+If A sends a packet to 2.2.2.2:Y, it will open up a temporary hole it
+its firewall (1.1.1.1:X <-> 2.2.2.2:Y) for the response to
+arrive[^2]. If B sends a packet to 1.1.1.1:X, it will also create a
+temporary hole in its firewall (2.2.2.2:Y <-> 1.1.1.1:X). So, if both
+do this roughly _at the same time_, the packets can slip through, the
+firewall rules become established and B can communicate with A! Pretty
+nifty!
 
 Whether this is "decentralized" is a bit debatable, because there
 needs to be some coordination between A and B to get the timing
@@ -66,21 +64,22 @@ for incoming requests, and then use randomly chosen ports on either
 side for the actual Ouroboros data 'flow'. But that was quickly thrown
 out because of -- you guessed it -- firewalls, in favor of using the
 listening port also for the incoming 07s data flows. That way, all
-that was needed was to open up a single port on a firewall. Opening up
-the firewall port was also needed for creating connections. The
-reasoning being that we wanted anyone that would connect TO the
-network, also accept incoming connections FROM the network. This would
-ensure that we could create any mesh between the Ouroboros nodes. But
-after some further deliberation, we caved in and made the ipcpd-udp
-behave like a normal UDP service, allowing incoming connection even if
-the remote "client" ipcpd-udp was not publicly available.
+that was needed was to open up a single port on a firewall. This
+opening up the firewall port was also needed for creating
+connections. The reasoning being that we wanted anyone that would
+connect TO the network, also accept incoming connections FROM the
+network. This would ensure that we could create any mesh between the
+Ouroboros nodes. But after some further deliberation, we caved in and
+made the ipcpd-udp behave like a normal UDP service, allowing incoming
+connection even if the remote "client" ipcpd-udp was not publicly
+available.
 
 {{<figure width="40%" src="/blog/20220206-hole-punching.png">}}
 
 So this is the current situation shown above left. The red squares
 represent nodes that are not publicly reachable, the green ones nodes
 that are. By allowing the red nodes, the network will look less like a
-mess, and more like a centralized 'star' network, putting extra load
+mesh, and more like a centralized 'star' network, putting extra load
 on the "central" green server.  What this hole punching technique
 would allow us to do, is to add a (distributed) auxiliary program on
 top the Ouroboros layer that coordinates the hole punching for the UDP
@@ -93,3 +92,8 @@ So, if you haven't already, have a look at Max's
 Cheers,
 
 Dimitri
+
+[^1]: It works for both TCP and UDP, so I will not specify this further.
+
+[^2]: Providing the firewall doesn't block all outbound traffic on port Y
+      or some other rule that prevents it.
