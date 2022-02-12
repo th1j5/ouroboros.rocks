@@ -78,14 +78,13 @@ application less nimble because some choices get anchored in the
 solution, for instance the choice for a certain encryption library or
 a certain database solution and directly calling these proprietary
 APIs from all parts of the application. This tightly locked in
-dependency can cause serious problems if these dependencies seize to
+dependency can cause serious problems if these dependencies cease to
 be available (deprecation) or show serious defects.
 
 Good design lets development velocities add up. Bad design choices
-slow development because development progress that should be
-independent starts to interlock. Ever tried running with your
-shoelaces knotted to someone else? Whenever one makes a step forward,
-the other has to catch up.
+slow development because progress that should be independent starts to
+interlock. Ever tried running with your shoelaces knotted to someone
+else's? Whenever one makes a step forward, the other has to catch up.
 
 Often, violations against these 2 principles are made in the name of
 optimization. Let's have a quick look at the trade-offs.
@@ -162,14 +161,15 @@ efficiently!) taken care of at Layer 1 by a feature called Carrier
 Extension.
 
 Layer 2: The Ethernet II frame has an
-[Ethertype](https://en.wikipedia.org/wiki/EtherType#Values)
-itself is also a layer violation, specifying the encapsulated
-protocol. 0x800 for IPv4, 0x86DD for IPv6, 0x8100 for tagged VLANs, etc.
+[Ethertype](https://en.wikipedia.org/wiki/EtherType#Values),
+which is also a layer violation, specifying the encapsulated
+higher-layer protocol. 0x800 for IPv4, 0x86DD for IPv6, 0x8100 for
+tagged VLANs, etc.
 
 Layer 3: Similarly as the Ethertype, IP has a
 [protocol](https://en.wikipedia.org/wiki/List_of_IP_protocol_numbers)
 field, specifying the carried protocol. UDP = 17, TCP = 6. Other tight
-couplings between layer 2 and layer 3 are, IGMP snooping and even
+couplings between Layer 2 and Layer 3 are, IGMP snooping and even
 basic routing[^2].  One thing worth noting, and often disregarded in
 course materials on computer networks, is that OSI's 7 layers each had
 a _service definition_ that abstracts the function of each layer away
@@ -282,16 +282,16 @@ If a protocol is designed with a flexible structure, but that
 flexibility is never used in practice, some implementation is going to
 assume it is constant.
 
-Instead of the IP "Protocol" field in routers that I used abovee, the
-usual example are _middleboxes_ -- hardware that perform all kinds of
-shenanigans on unsuspecting TCP/IP packets. The reason why these boxes
-_can_ work is because of the violations of the two important design
-principles. The example from the wikipedia page, on how version
-negotiation in TLS1.3 was
+Instead of the IP "Protocol" field in routers that I used in the
+example above, the usual examples are _middleboxes_ -- hardware that
+perform all kinds of shenanigans on unsuspecting TCP/IP packets. The
+reason why these boxes _can_ work is because of the violations of the
+two important design principles. The example from the wikipedia page,
+on how version negotiation in TLS1.3 was
 [preventing it from getting deployed](https://blog.cloudflare.com/why-tls-1-3-isnt-in-browsers-yet/),
 is telling.
 
-But it happens deeper in the network stack as well. When we were
+But it happens deeper down the network stack as well. When we were
 working on
 [the IRATI prototype](https://irati.eu/),
 we wanted to run RINA over Ethernet. The obvious thing to do is to use
@@ -368,26 +368,26 @@ overwhelming consensus is that _"It's good enough"_ that is exactly
 what it will not be. A house built on an unstable foundation can't be
 fixed by replacing the furniture. Plastering the walls might make it
 look more appealing, and fancy furniture might even make it feel
-temporarily like a "home" again. But however shiny the new furniture,
-however comfortable the new queen-sized bed, at some time the once
-barely noticeable rot seeping through the walls will become ever more
-apparent, ever more annoying, and ever more impossible to ignore, so
-that the only option left is to move out.
+temporarily like "home" again. But however shiny the new furniture,
+however comfortable the new queen-sized bed, at some point in time the
+once barely-noticeable rot seeping through the walls becomes ever
+more apparent, ever more annoying, ever harder to ignore,
+until the only remaining option is to move out.
 
 When that realization comes, know that some of us have already started
 building on a different foundation.
 
-As always, stay curious,
+As always, stay curious.
 
 Dimitri
 
-[^1]: I use Internet in a restrictive sense to mean the
+[^1]: I use Internet in a restrictive sense,  meaning the
       packet-switched TCP/IP network on top of the (optical) support
       backbones, not for the wider ecosystem on top of (and including)
       the _world-wide-web_.
 
 [^2]: How do IPv4 packets reach the default IP gateway? A direct
-      lookup by L3 into the L2 arp table! And why would IPv6 even
+      lookup by L3 into the L2 ARP table! And why would IPv6 even
       consider including the MAC address in the IP address if these
       layers were independent?
 
