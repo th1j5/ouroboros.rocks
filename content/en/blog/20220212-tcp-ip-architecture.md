@@ -323,7 +323,7 @@ from papers stuck with me. I won't go into the details of who, what,
 where and when. All these reviewers were, and still are, top experts
 in their respective fields. But they do present a bit of a picture of
 what I think is the problem when communicating about core
-architectural concepts within the network community.
+architectural concepts within the network community[^7].
 
 One comment that popped up, many times actually, is _"I'm no software
 engineer"_. The research projects were very heavy on actual software
@@ -438,3 +438,12 @@ Dimitri
       digress, and I was already digressing.
 
 [^6]: This is the [story all about how](/blog/2021/03/20/how-does-ouroboros-relate-to-rina-the-recursive-internetwork-architecture/).
+
+[^7]: These are a few examples are to highlight what I think is a core
+      difference in priorities between what we tried to achieve with
+      the projects -- a flexible architecture in the long term --
+      versus what most current research and development is targeted at
+      -- fixes for urgent problems and improvements in the short
+      term. I want to stress that we were never treated unfairly by
+      any reviewer, and this section should not be read as a complaint
+      of any sort.
