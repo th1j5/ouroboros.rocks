@@ -158,7 +158,8 @@ Ethernet that is an Ethertype, so a _length_ field in the IP header is
 used (both IPv4 as IPv6). A Layer 1 problem is actually propagated
 into Layer 2 and even Layer 3. Gigabit Ethernet has an even larger
 minimum frame sizes (512 bytes), however, the padding is properly (and
-efficiently!) at Layer 1 by a feature called Carrier Extension.
+efficiently!) taken care of at Layer 1 by a feature called Carrier
+Extension.
 
 Layer 2: The Ethernet II frame has an
 [Ethertype](https://en.wikipedia.org/wiki/EtherType#Values)
@@ -276,7 +277,7 @@ non-standard protocol number in an IP packet will cause any router
 along the way to just drop it. If even _Google_ thinks it's futile...
 
 This is an example of what is referred to as
-[https://en.wikipedia.org/wiki/Protocol_ossification].
+[protocol ossification](https://en.wikipedia.org/wiki/Protocol_ossification).
 If a protocol is designed with a flexible structure, but that
 flexibility is never used in practice, some implementation is going to
 assume it is constant.
@@ -307,8 +308,8 @@ come. Sander actually implemented
 [an RFC826-compliant ARP Linux Kernel Module](https://github.com/IRATI/stack/blob/master/kernel/rinarp/arp826.h)
 when working on IRATI. And we had to move it to a
 [different Ethertype](https://github.com/IRATI/stack/blob/master/kernel/rinarp/arp826.h#L29),
-because the Ethernet switches along the way were also dropping the packets
-as suspicious!
+because the Ethernet switches along the way were dropping the RFC-compliant
+packets as suspicious!
 
 ## A message falling into deaf ears
 
@@ -353,11 +354,10 @@ bits", and it's derivatives "What can I take away from this
 project?". A new architecture was not interesting unless we could
 demonstrate new capabilities. We were building a new house on a
 different set of foundations. The reviewers would happily take a look,
-but all they were _really_ interested in, was knocking off the
-furniture. If there was no furniture for them, there was no
-publication or funding for us. Our plan was really the same, but the
-other way around. Ouroboros (and RINA) aren't about optimizations and
-new capabilities. At least not yet. The point of doing the new
+but what they were _really_ interested in, was knocking off the
+furniture. Our plan was really the same, but the other way
+around. Ouroboros (and RINA) aren't about optimizations and new
+capabilities. At least not yet. The point of doing the new
 architecture is to get rid of the ossification, so that when future
 innovations arrive, they can easily be adopted.
 
