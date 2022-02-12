@@ -2,7 +2,7 @@
 date: 2022-02-12
 title: "What is wrong with the architecture of the Internet?"
 linkTitle: "What is wrong with the architecture of the Internet?"
-description: "Looking at the core of most problems"
+description: "A hard look at the root cause of most problems"
 author: Dimitri Staessens
 ---
 
