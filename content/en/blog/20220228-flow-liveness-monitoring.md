@@ -82,7 +82,7 @@ Failed to read packet: -1006.
 How does it work?
 
 In the
-[first post on this topic]([post](/blog/2021/12/29/behaviour-of-ouroboros-flows-vs-udp-sockets-and-tcp-connections/sockets/),
+[first post on this topic](/blog/2021/12/29/behaviour-of-ouroboros-flows-vs-udp-sockets-and-tcp-connections/sockets/),
 I explained my reasoning how Ouroboros should deal with half-closed
 flows (flow deallocation from one side should eventually result in a
 terminated flow at the other side). The implementation should work
