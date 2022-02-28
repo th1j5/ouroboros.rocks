@@ -230,6 +230,10 @@ applications' half of the flow deallocation, but not the complete
 deallocation. If an IPCP crashes, applications still hold the FRCP
 state and can recover the connection over a different flow[^6].
 
+**Edit: the below section is not correct, but it's interesting to read
+anyway**[^7]. There is a new post, documenting the
+[actual implementation](/blog/2022/02/28/application-level-flow-liveness-monitoring/).
+
 So, now it should be clear that the liveness of a flow has to be
 detected in the flow allocator of the IPCPs, not in the application
 (again, reminder: FRCP state is maintained inside the application).
@@ -264,7 +268,7 @@ in a way similar to the OSI/TCP models. I omitted the "physical
 layer", which is handled by dedicated IPCP implementations, such as
 the ipcpd-local, ipcpd-eth, etc. It's not that important here. What is
 important is that O7s splits functionality that is in TCP/IP in two
-layers (L3/L4), into **3 independent layers**[^7] (and protocols). Let's
+layers (L3/L4), into **3 independent layers**[^8] (and protocols). Let's
 go through O7s from bottom to top.
 
 {{<figure width="80%" src="/blog/20211229-oecho-5.png">}}
@@ -332,7 +336,16 @@ Dimitri
 [^6]: This has not been implemented yet, and should make for a nice
       demo.
 
-[^7]: The "recursive layer boundary" in the figure uses the word layer
+[^7]: After implementing the solution below, it became apparent to me
+      that something was off. I needed to leak the FRCP timeout into
+      the IPCP, which is a layer violation. I noted this fact in my
+      commit message, but after more thought, I decided to retract my
+      patch... it just couldn't be right. This layer violation didn't
+      come up when we implemented FLM in the Flow allocator RINA,
+      because RINA puts the whole retransmission logic (called DTCP)
+      in the IPCP.
+
+[^8]: The "recursive layer boundary" in the figure uses the word layer
       in the sense of a RINA DIF. We didn't adopt the terminology DIF,
       since it has special meaning in RINA, and O7s' recursive layers
       are not interchangeable or compatible with RINA DIFs.
