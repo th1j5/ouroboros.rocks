@@ -398,7 +398,7 @@ dissemination function _ROUTING_, but if you know a better word that
 avoids confusion, we'll take it. _ROUTING_ is distinct from adjacency
 management, in the sense that adjacency management is administrative,
 and tells the networks which links it is allowed to use, which links
-_exist_. _ROUTING- will make use of these links and make decisions
+_exist_. _ROUTING_ will make use of these links and make decisions
 when they are unavailable, for instance due to failures.
 
 Let's apply the Ouroboros model to Ethernet. Ethernet implements both
